@@ -1,5 +1,5 @@
 module.exports = {
-  terms: [{ code: '202020', value: 'Spring 2020' }],
+  terms: [{ value: 'Spring 2020' }, { value: 'Summer 2020' }, { value: 'Fall 2019' }],
   gurs: [
     { code: 'All', value: 'All GUR/Non-GUR Courses' },
     { code: 'ACOM', value: 'ACOM - A-Communication GUR' },

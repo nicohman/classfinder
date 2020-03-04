@@ -1,7 +1,9 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
-      <v-col class="text-center">
+      <v-col class="text-center" md="6">
+        <v-card>
+        <v-card-title>Classfinder</v-card-title>
         <v-form ref="form">
           <v-row align="center" justify="center">
             <v-col cols="12" md="3">
@@ -10,7 +12,7 @@
                 :items="options.terms"
                 label="Term"
                 item-text="value"
-                item-value="code"
+                item-value="value"
               ></v-select>
             </v-col>
             <v-col cols="12" md="3">
@@ -103,6 +105,7 @@
             </v-col>
           </v-row>
         </v-form>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>

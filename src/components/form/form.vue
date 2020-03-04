@@ -97,7 +97,9 @@
           </v-row>
           <v-row justify="center">
             <v-col cols="12" md="3">
-              <v-btn v-on:click="searchClasses">Search</v-btn>
+              <a href="/results" v-on:click="searchClasses">
+                <v-btn>Search</v-btn>
+              </a>
             </v-col>
           </v-row>
         </v-form>
@@ -107,6 +109,8 @@
 </template>
 
 <script>
+const axios = require('axios');
+
 const selectOptions = require('../../selectOptions');
 const { instructors } = require('../../fetched.json');
 
@@ -135,7 +139,21 @@ export default {
     },
   }),
   methods: {
-    searchClasses: () => {},
+    async searchClasses(e) {
+      e.preventDefault();
+      const toParse = {};
+      Object.keys(this.selected).forEach((i) => {
+        if (this.selected[i] !== undefined && this.selected[i] !== []) {
+          toParse[i] = this.selected[i];
+        }
+      });
+      const queryString = new URLSearchParams(toParse).toString();
+      const res = await axios.get(
+        `https://classfinder.demenses.net/searchClasses?${queryString}`,
+      );
+      this.$emit('results', res.data);
+      window.history.pushState(null, 'Classfinder Results', '/results');
+    },
     courseNumberRules: (input) => {
       const regex = /[0-9]{3}/;
       try {

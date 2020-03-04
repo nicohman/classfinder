@@ -104,37 +104,30 @@
 </template>
 
 <script>
-// const axios = require('axios');
 const selectOptions = require('./selectOptions');
+const { instructors } = require('./fetched.json');
+
+selectOptions.instructors = instructors.sort().map((i) => ({ value: i, code: i }));
 
 export default {
   name: 'App',
 
   components: {},
-
-  data: () => {
-    /* let instructors = await axios.get(
-      'classfinder.demenses.net/getInstructors',
-    );
-    instructors = JSON.parse(instructors).map((i) => ({ value: i, code: i })); */
-    const instructors = [{ code: 'h', value: 'h' }];
-    selectOptions.instructors = instructors;
-    return {
-      options: selectOptions,
-      selected: {
-        instructor: '',
-        term: '',
-        gurs: '',
-        other: '',
-        days: [],
-        subject: '',
-        site: '',
-        courseNumber: '',
-        onlyOpen: false,
-        credits: undefined,
-      },
-    };
-  },
+  data: () => ({
+    options: selectOptions,
+    selected: {
+      instructor: '',
+      term: '',
+      gurs: '',
+      other: '',
+      days: [],
+      subject: '',
+      site: '',
+      courseNumber: '',
+      onlyOpen: false,
+      credits: undefined,
+    },
+  }),
   methods: {
     courseNumberRules: (input) => {
       const regex = /[0-9]{3}/;

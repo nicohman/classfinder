@@ -13,9 +13,12 @@
         ></v-text-field>
       </v-card-title>
       <v-data-table :headers="headers" :items="results" :search="search" show-expand item-key="CRN">
-              <template v-slot:expanded-item="{ headers, item }">
-        <td :colspan="headers.length">{{item.Time}}</td>
-      </template>
+        <template v-slot:expanded-item="{ headers, item }">
+          <td :colspan="headers.length">{{displayTimeLocation(item.TimeLocations)}}</td>
+        </template>
+        <template v-slot:item.TimeLocations="{header, value}" >
+          <span v-html="displayTimeLocation(value)"></span>
+          </template>
       </v-data-table>
     </v-card>
   </v-container>
@@ -33,9 +36,19 @@ export default {
       { text: 'Enrolled', value: 'Enrolled' },
       { text: 'Available', value: 'Available' },
       { text: 'Instructor', value: 'Instructor' },
+      { text: 'GUR Attributes', value: 'Attribute' },
+      { text: 'Classes', value: 'TimeLocations' },
     ],
     search: '',
   }),
+  methods: {
+    displayTimeLocation(timeLocs) {
+      const strings = timeLocs.map(
+        (i) => `${i.location}: ${i.days.join('')} ${i.startTime}-${i.endTime}`,
+      );
+      return strings.join('<br></br>');
+    },
+  },
   computed: {
     processed() {
       return this.results.map((r) => ({

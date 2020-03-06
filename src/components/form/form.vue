@@ -7,7 +7,7 @@
         <v-form ref="form">
           <v-row align="center" justify="center">
             <v-col cols="12" md="3">
-              <v-select
+              <v-select required
                 v-model="selected.term"
                 :items="options.terms"
                 label="Term"
@@ -16,7 +16,7 @@
               ></v-select>
             </v-col>
             <v-col cols="12" md="3">
-              <v-autocomplete
+              <v-autocomplete clearable
                 v-model="selected.gur"
                 :items="options.gurs"
                 label="GUR"
@@ -30,7 +30,7 @@
           </v-row>
           <v-row justify="center">
             <v-col cols="12" md="3">
-              <v-autocomplete
+              <v-autocomplete clearable
                 v-model="selected.other"
                 :items="options.others"
                 label="Other Attributes"
@@ -39,7 +39,7 @@
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" md="3">
-              <v-autocomplete
+              <v-autocomplete clearable
                 v-model="selected.subject"
                 :items="options.subjects"
                 label="Subject"
@@ -50,7 +50,7 @@
           </v-row>
           <v-row justify="center">
             <v-col cols="12" md="3">
-              <v-autocomplete
+              <v-autocomplete clearable
                 v-model="selected.instructor"
                 :items="options.instructors"
                 label="Instructors"
@@ -59,7 +59,7 @@
               ></v-autocomplete>
             </v-col>
             <v-col cols="12" md="3">
-              <v-autocomplete
+              <v-autocomplete clearable
                 v-model="selected.site"
                 :items="options.sites"
                 label="Site"
@@ -70,7 +70,7 @@
           </v-row>
           <v-row justify="center">
             <v-col cols="12" md="3">
-              <v-select
+              <v-select clearable
                 v-model="selected.days"
                 :items="options.days"
                 label="Days"
@@ -120,7 +120,6 @@ const { instructors } = require('../../fetched.json');
 selectOptions.instructors = instructors
   .sort()
   .map((i) => ({ value: i, code: i }));
-
 export default {
   name: 'Form',
 

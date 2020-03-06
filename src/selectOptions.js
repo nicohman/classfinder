@@ -1,7 +1,6 @@
 module.exports = {
   terms: [{ value: 'Spring 2020' }, { value: 'Summer 2020' }, { value: 'Fall 2019' }],
   gurs: [
-    { code: '', value: 'All GUR/Non-GUR Courses' },
     { code: 'ACOM', value: 'ACOM - A-Communication GUR' },
     { code: 'ACGM', value: 'ACGM - A-Comparative Gender GUR' },
     { code: 'BCOM', value: 'BCOM - B-Communication GUR' },
@@ -14,7 +13,6 @@ module.exports = {
     { code: 'SSC', value: 'SSC - Social Sciences GUR' },
   ],
   others: [
-    { code: '', value: 'All Courses With/Without Other Attributes' },
     { code: 'AFME', value: 'AFME - HistFieldReq-Africa & Mid East' },
     { code: 'ANCT', value: 'ANCT - HistFieldReq-Ancient' },
     { code: 'ASIA', value: 'ASIA - HistFieldReq-East & South Asia' },
@@ -49,7 +47,6 @@ module.exports = {
     { code: 'S', value: 'Saturday' },
   ],
   subjects: [
-    { code: '', value: 'All Subjects' },
     { code: 'A/HI', value: 'A/HI - Art History' },
     { code: 'ACCT', value: 'ACCT - Accounting' },
     { code: 'AECI', value: 'AECI - Arts Enterprise/Cult Innovation' },
@@ -160,5 +157,5 @@ module.exports = {
     { code: 'VHCL', value: 'VHCL - Industrial Tech-Vehicle Design' },
     { code: 'WGSS', value: 'WGSS - Women, Gender & Sexuality Study' },
   ],
-  sites: [{ code: '', value: 'All sites' }, { code: 'BREX', value: 'WWU Site: Bremerton' }, { code: 'BNEX', value: 'WWU Site: Burien' }, { code: 'DLEX', value: 'WWU Site: Distance Learning' }, { code: 'EVEX', value: 'WWU Site: Everett' }, { code: 'MVEX', value: 'WWU Site: Mt Vernon' }, { code: 'NCEX', value: 'WWU Site: North Cascade Inst' }, { code: 'PAEX', value: 'WWU Site: Port Angeles' }, { code: 'PBEX', value: 'WWU Site: Poulsbo' }, { code: 'NSEX', value: 'WWU Site: Seattle' }, { code: 'TAEX', value: 'WWU Site: Tacoma' }],
+  sites: [{ code: 'BREX', value: 'WWU Site: Bremerton' }, { code: 'BNEX', value: 'WWU Site: Burien' }, { code: 'DLEX', value: 'WWU Site: Distance Learning' }, { code: 'EVEX', value: 'WWU Site: Everett' }, { code: 'MVEX', value: 'WWU Site: Mt Vernon' }, { code: 'NCEX', value: 'WWU Site: North Cascade Inst' }, { code: 'PAEX', value: 'WWU Site: Port Angeles' }, { code: 'PBEX', value: 'WWU Site: Poulsbo' }, { code: 'NSEX', value: 'WWU Site: Seattle' }, { code: 'TAEX', value: 'WWU Site: Tacoma' }],
 };

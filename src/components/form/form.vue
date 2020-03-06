@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height" fluid>
     <v-row align="center" justify="center">
-      <v-col class="text-center" md="6">
+      <v-col class="text-center" md="9">
         <v-card>
         <v-card-title>Classfinder</v-card-title>
         <v-form ref="form">
@@ -82,7 +82,7 @@
             <v-col cols="12" md="3">
               <v-text-field
                 label="Course Number"
-                v-model="selected.courseNumber"
+                v-model="selected.coursenumber"
                 :rules="[courseNumberRules]"
               ></v-text-field>
             </v-col>
@@ -135,7 +135,7 @@ export default {
       days: [],
       subject: undefined,
       site: undefined,
-      courseNumber: undefined,
+      coursenumber: undefined,
       onlyOpen: false,
       credits: undefined,
       courseTitle: undefined,

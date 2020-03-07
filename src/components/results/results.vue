@@ -12,12 +12,17 @@
           hide-details
         ></v-text-field>
       </v-card-title>
-      <v-data-table :headers="headers" :items="results" :search="search" show-expand item-key="CRN">
+      <v-data-table v-on:click:row="popupClass(e)" :headers="headers"
+      :items="results" :search="search" show-expand
+       item-key="CRN">
         <template v-slot:expanded-item="{ headers, item }">
           <td :colspan="headers.length">{{displayTimeLocation(item.TimeLocations)}}</td>
         </template>
         <template v-slot:item.TimeLocations="{header, value}" >
           <span v-html="displayTimeLocation(value)"></span>
+          </template>
+          <template v-slot:item.Available="{header, value}" >
+              <span v-html="displayAvailable(value)"></span>
           </template>
       </v-data-table>
     </v-card>
@@ -47,6 +52,16 @@ export default {
         (i) => `${i.location}: ${i.days.join('')} ${i.startTime}-${i.endTime}`,
       );
       return strings.join('<br></br>');
+    },
+    displayAvailable(available) {
+      let string = `${available}`;
+      if (available <= 0) {
+        string = `<span style="color:red">${available}</span>`;
+      }
+      return string;
+    },
+    popupClass(e) {
+      console.log(e);
     },
   },
   computed: {

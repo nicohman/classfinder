@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark></v-app-bar>
     <v-content>
       <keep-alive>
         <component v-bind:results="results" v-on:results="onResults" v-bind:is="this.routes[route]">

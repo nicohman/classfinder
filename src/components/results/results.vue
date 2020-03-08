@@ -1,9 +1,17 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title>
-        Search Results
-        <v-spacer></v-spacer>
+      <v-toolbar color="primary" dark flat>
+        <v-tooltip left>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on:click="goBack" icon large v-on="on">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+          </template>
+          <span>Go Back</span>
+        </v-tooltip>
+        <v-toolbar-title>Classfinder</v-toolbar-title>
+        <v-spacer />
         <v-text-field
           v-model="search"
           append-icon="mdi-magnify"
@@ -11,19 +19,27 @@
           single-line
           hide-details
         ></v-text-field>
-      </v-card-title>
-      <v-data-table v-on:click:row="popupClass(e)" :headers="headers"
-      :items="results" :search="search" show-expand
-       item-key="CRN">
+      </v-toolbar>
+      <v-card-title></v-card-title>
+      <v-data-table
+        v-on:click:row="popupClass(e)"
+        :headers="headers"
+        :items="results"
+        :search="search"
+        show-expand
+        item-key="CRN"
+      >
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length">{{displayTimeLocation(item.TimeLocations)}}</td>
+          <td :colspan="headers.length">
+            <span v-html="displayExpanded(item)"></span>
+          </td>
         </template>
-        <template v-slot:item.TimeLocations="{header, value}" >
+        <template v-slot:item.TimeLocations="{header, value}">
           <span v-html="displayTimeLocation(value)"></span>
-          </template>
-          <template v-slot:item.Available="{header, value}" >
-              <span v-html="displayAvailable(value)"></span>
-          </template>
+        </template>
+        <template v-slot:item.Available="{header, value}">
+          <span v-html="displayAvailable(value)"></span>
+        </template>
       </v-data-table>
     </v-card>
   </v-container>
@@ -41,7 +57,7 @@ export default {
       { text: 'Enrolled', value: 'Enrolled' },
       { text: 'Available', value: 'Available' },
       { text: 'Instructor', value: 'Instructor' },
-      { text: 'GUR Attributes', value: 'Attribute' },
+      { text: 'GUR Attributes', value: 'GUR' },
       { text: 'Classes', value: 'TimeLocations' },
     ],
     search: '',
@@ -62,6 +78,12 @@ export default {
     },
     popupClass(e) {
       console.log(e);
+    },
+    displayExpanded(item) {
+      return `<strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}`;
+    },
+    goBack() {
+      window.history.back();
     },
   },
   computed: {

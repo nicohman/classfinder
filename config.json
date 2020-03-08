@@ -1,0 +1,17 @@
+{
+    "classfinderURL": "https://admin.wwu.edu/pls/wwis/wwsktime.SelClass",
+    "classfinderQueryURL" : "https://admin.wwu.edu/pls/wwis/wwsktime.ListClass",
+    "mongodbURL": "mongodb://127.0.0.1:27017/classfinder",
+    "server": {
+      "port": 8050
+    },
+    "mongooseConfig": {
+      "autoIndex": false,
+      "useNewUrlParser": true,
+      "auto_reconnect" :true,
+      "reconnectTries": 10,
+      "ssl": false
+    },
+    "numberOfTermsCached" : 1
+  }
+  

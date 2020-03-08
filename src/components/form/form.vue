@@ -16,7 +16,8 @@
                 <span>Advanced Search Filters</span>
               </v-tooltip>
             </v-toolbar>
-            <v-form ref="form" v-on:keydown.enter="searchClasses" @submit="searchClasses" >
+            <v-form ref="form" v-on:keydown.enter="searchClasses" @submit="searchClasses"
+             v-model="valid">
               <v-row align="center" justify="center">
                 <v-col cols="12" md="3">
                   <v-select
@@ -146,7 +147,7 @@ export default {
     options: selectOptions,
     selected: {
       instructor: undefined,
-      term: undefined,
+      term: 'Spring 2020',
       gurs: undefined,
       other: undefined,
       days: [],
@@ -158,22 +159,25 @@ export default {
       courseTitle: undefined,
     },
     showAdvanced: false,
+    valid: false,
   }),
   methods: {
     async searchClasses(e) {
       e.preventDefault();
-      const toParse = {};
-      Object.keys(this.selected).forEach((i) => {
-        if (this.selected[i] !== undefined && this.selected[i] !== []) {
-          toParse[i] = this.selected[i];
-        }
-      });
-      const queryString = new URLSearchParams(toParse).toString();
-      const res = await axios.get(
-        `https://classfinder.demenses.net/searchClasses?${queryString}`,
-      );
-      this.$emit('results', res.data);
-      window.history.pushState(null, 'Classfinder Results', '/results');
+      if (this.valid) {
+        const toParse = {};
+        Object.keys(this.selected).forEach((i) => {
+          if (this.selected[i] !== undefined && this.selected[i] !== []) {
+            toParse[i] = this.selected[i];
+          }
+        });
+        const queryString = new URLSearchParams(toParse).toString();
+        const res = await axios.get(
+          `https://classfinder.demenses.net/searchClasses?${queryString}`,
+        );
+        this.$emit('results', res.data);
+        window.history.pushState(null, 'Classfinder Results', '/results');
+      }
     },
     courseNumberRules: (input) => {
       const regex = /[0-9]{3}/;

@@ -22,7 +22,6 @@
       </v-toolbar>
       <v-card-title></v-card-title>
       <v-data-table
-        v-on:click:row="popupClass(e)"
         :headers="headers"
         :items="results"
         :search="search"
@@ -76,11 +75,8 @@ export default {
       }
       return string;
     },
-    popupClass(e) {
-      console.log(e);
-    },
     displayExpanded(item) {
-      return `<strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}`;
+      return `<br></br><strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}<br></br>`;
     },
     goBack() {
       window.history.back();

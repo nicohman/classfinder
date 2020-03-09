@@ -12,6 +12,7 @@ const Class = {
   Available: Number,
   Description: String,
   Attributes: Array,
+  Prerequisites: String,
 };
 module.exports = {
   Class,

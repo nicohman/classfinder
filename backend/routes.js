@@ -24,7 +24,7 @@ const getClass = (req, res) => {
         if (!queryObject.Attributes) {
           queryObject.Attributes = { $all: [] };
         }
-        queryObject.Attributes.$all = queryObject.Attributes.$all.concat(req.query.other);
+        queryObject.Attributes.$all.push(req.query.other);
         return;
       case 'start_date':
         parsed = 'StartDate';
@@ -72,13 +72,6 @@ const getClass = (req, res) => {
     query = query.sort({ score: { $meta: 'textScore' } });
   }
   query.exec((err, classes) => {
-    if (err) {
-      throw err;
-    } else {
-      res.send(classes);
-    }
-  });
-  Class.find(queryObject, (err, classes) => {
     if (err) {
       throw err;
     } else {

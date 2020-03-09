@@ -15,8 +15,17 @@ const getClass = (req, res) => {
         parsed = 'CRN';
         break;
       case 'gur':
-        parsed = 'GUR';
-        break;
+        if (!queryObject.Attributes) {
+          queryObject.Attributes = { $all: [] };
+        }
+        queryObject.Attributes.$all.push(req.query.gur);
+        return;
+      case 'other':
+        if (!queryObject.Attributes) {
+          queryObject.Attributes = { $all: [] };
+        }
+        queryObject.Attributes.$all = queryObject.Attributes.$all.concat(req.query.other);
+        return;
       case 'start_date':
         parsed = 'StartDate';
         break;

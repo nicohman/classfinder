@@ -3,7 +3,6 @@ const Class = {
   Instructor: String,
   Title: String,
   Name: String,
-  GUR: String,
   Credits: String,
   Cost: String,
   StartDate: String,
@@ -12,6 +11,7 @@ const Class = {
   Enrolled: Number,
   Available: Number,
   Description: String,
+  Attributes: Array,
 };
 module.exports = {
   Class,

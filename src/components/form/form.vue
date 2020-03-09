@@ -19,7 +19,7 @@
             <v-form ref="form" v-on:keydown.enter="searchClasses" @submit="searchClasses"
              v-model="valid">
               <v-row align="center" justify="center">
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-select
                     required
                     v-model="selected.term"
@@ -29,7 +29,7 @@
                     item-value="value"
                   ></v-select>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-autocomplete
                     clearable
                     v-model="selected.gur"
@@ -39,12 +39,12 @@
                     item-value="code"
                   ></v-autocomplete>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-text-field label="Course Title" v-model="selected.courseTitle"></v-text-field>
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-autocomplete
                     clearable
                     v-model="selected.other"
@@ -54,7 +54,7 @@
                     item-value="code"
                   ></v-autocomplete>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-autocomplete
                     clearable
                     v-model="selected.subject"
@@ -64,7 +64,7 @@
                     item-value="code"
                   ></v-autocomplete>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-autocomplete
                     clearable
                     v-model="selected.instructor"
@@ -76,7 +76,7 @@
                 </v-col>
               </v-row>
               <v-row justify="center">
-                <v-col cols="12" md="3">
+                <v-col cols="12" md="3" sm="3">
                   <v-text-field
                     label="Course Number"
                     v-model="selected.coursenumber"
@@ -86,14 +86,14 @@
               </v-row>
               <div v-if="showAdvanced">
                 <v-row justify="center">
-                  <v-col cols="12" md="2">
+                  <v-col cols="12" md="2" sm="2">
                     <v-text-field label="Credits" v-model="selected.credits" :rules="[numberRules]">
                     </v-text-field>
                   </v-col>
-                  <v-col cols="12" md="2">
+                  <v-col cols="12" md="2" sm="2">
                     <v-checkbox v-model="selected.onlyOpen" label="Only Open Sections"></v-checkbox>
                   </v-col>
-                  <v-col cols="12" md="2">
+                  <v-col cols="12" md="2" sm="2">
                     <v-select
                       clearable
                       v-model="selected.days"
@@ -104,7 +104,7 @@
                       multiple
                     ></v-select>
                   </v-col>
-                  <v-col cols="12" md="2">
+                  <v-col cols="12" md="2" sm="2">
                     <v-autocomplete
                       clearable
                       v-model="selected.site"
@@ -117,7 +117,7 @@
                 </v-row>
               </div>
               <v-row justify="center">
-                <v-col cols="12" md="2">
+                <v-col cols="12" md="2" sm="3">
                   <a href="/results" v-on:click="searchClasses">
                     <v-btn type="submit">Search</v-btn>
                   </a>

@@ -175,10 +175,10 @@ export default {
         const res = await axios.get(
           `https://classfinder.demenses.net/searchClasses?${queryString}`,
         );
-        const gurList = this.selectOptions.gurs.map((i) => i.code);
+        const gurList = this.options.gurs.map((i) => i.code);
         const data = res.data.map((i) => {
           // eslint-disable-next-line no-param-reassign
-          i.GUR = i.Attributes.filter((a) => gurList.contains(a));
+          i.GUR = i.Attributes.filter((a) => gurList.indexOf(a) !== -1);
           return i;
         });
         this.$emit('results', data);

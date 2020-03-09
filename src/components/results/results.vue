@@ -29,9 +29,7 @@
         item-key="CRN"
       >
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length">
-            <span v-html="displayExpanded(item)"></span>
-          </td>
+          <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
         </template>
         <template v-slot:item.TimeLocations="{header, value}">
           <span v-html="displayTimeLocation(value)"></span>
@@ -44,9 +42,12 @@
   </v-container>
 </template>
 <script>
+const Expanded = require('./expanded.vue').default;
+
 export default {
   name: 'Results',
   props: { results: Array },
+  components: { Expanded },
   data: () => ({
     headers: [
       { text: 'Class Code', value: 'Name' },

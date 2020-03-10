@@ -34,8 +34,8 @@
         <template v-slot:item.TimeLocations="{header, value}">
           <span v-html="displayTimeLocation(value)"></span>
         </template>
-        <template v-slot:item.Available="{header, value}">
-          <span v-html="displayAvailable(value)"></span>
+        <template v-slot:item.CourseCount="{header, value}">
+          <span v-html="value"></span>
         </template>
       </v-data-table>
     </v-card>
@@ -53,12 +53,11 @@ export default {
       { text: 'Class Code', value: 'Name' },
       { text: 'CRN', value: 'CRN' },
       { text: 'Name', value: 'Title' },
-      { text: 'Cap', value: 'Capacity' },
-      { text: 'Enrolled', value: 'Enrolled' },
-      { text: 'Available', value: 'Available' },
+      { text: 'Cap/Enrolled/Available', value: 'CourseCount' },
       { text: 'Instructor', value: 'Instructor' },
       { text: 'GUR Attributes', value: 'GUR' },
       { text: 'Classes', value: 'TimeLocations' },
+      { text: '', value: 'data-table-expand' },
     ],
     search: '',
   }),
@@ -69,26 +68,11 @@ export default {
       );
       return strings.join('<br></br>');
     },
-    displayAvailable(available) {
-      let string = `${available}`;
-      if (available <= 0) {
-        string = `<span style="color:red">${available}</span>`;
-      }
-      return string;
-    },
     displayExpanded(item) {
       return `<br></br><strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}<br></br>`;
     },
     goBack() {
       window.history.back();
-    },
-  },
-  computed: {
-    processed() {
-      return this.results.map((r) => ({
-        NameGUR: `${r.Name}<br>${r.GUR || ''}`,
-        TitleCRN: `${r.Title}${r.CRN || ''}`,
-      }));
     },
   },
 };

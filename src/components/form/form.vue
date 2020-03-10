@@ -7,6 +7,31 @@
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>Search for Classes</v-toolbar-title>
               <v-spacer />
+              <v-dialog v-model="showDialog" width="500">
+                <template v-slot:activator="{ on }">
+                  <v-btn dark v-on="on" icon large>
+                    <v-icon>mdi-information</v-icon>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title class="headline grey lighten-2" primary-title>Information
+                  </v-card-title>
+                  <v-card-text>
+                    <br />
+                    This is an alternative to WWU's <a href="https://admin.wwu.edu/pls/wwis/wwsktime.SelClass" target="_blank">Classfinder</a> website.
+                    For an outline of how it works, you can look at the <a href="https://man.sr.ht/~nicohman/classfinder" target="_blank">WIP Docs</a>.
+                    This is still in an alpha stage, and many planned features are not present yet or are limited in their scope.
+                    The source code is available in a <a href="https://git.sr.ht/~nicohman/classfinder" target="_blank">public repo</a> if you want to check it out.
+                    If you have bug reports or feature sugestions, you can file an issue on <a href="https://github.com/nicohman/classfinder" target="_blank">GitHub</a>.
+                    Thanks to Loc Truong and Arick Grootveld, who did the majority of the work on the code that actually parses Classfinder.
+                    </v-card-text>
+                  <v-divider></v-divider>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary" text @click="showDialog = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <v-tooltip right>
                 <template v-slot:activator="{ on }">
                   <v-btn v-on:click="showAdvanced = !showAdvanced" icon large v-on="on">
@@ -16,8 +41,12 @@
                 <span>Advanced Search Filters</span>
               </v-tooltip>
             </v-toolbar>
-            <v-form ref="form" v-on:keydown.enter="searchClasses" @submit="searchClasses"
-             v-model="valid">
+            <v-form
+              ref="form"
+              v-on:keydown.enter="searchClasses"
+              @submit="searchClasses"
+              v-model="valid"
+            >
               <v-row align="center" justify="center">
                 <v-col cols="12" md="3" sm="3">
                   <v-select
@@ -160,6 +189,7 @@ export default {
     },
     showAdvanced: false,
     valid: false,
+    showDialog: false,
   }),
   methods: {
     async searchClasses(e) {
@@ -179,10 +209,20 @@ export default {
         const data = res.data.map((i) => {
           // eslint-disable-next-line no-param-reassign
           i.GUR = i.Attributes.filter((a) => gurList.indexOf(a) !== -1);
+          if (i.GUR.length > 0) {
+            // eslint-disable-next-line no-param-reassign,prefer-destructuring
+            i.Attributes = i.Attributes.filter((a) => a !== i.GUR[0]);
+          }
+          let color = 'green';
+          if (i.Available <= 0) {
+            color = 'red';
+          }
+          // eslint-disable-next-line no-param-reassign
+          i.CourseCount = `${i.Capacity}/${i.Enrolled}/<span style="color:${color}">${i.Available}</span>`;
           return i;
         });
         this.$emit('results', data);
-        window.history.pushState(null, 'Classfinder Results', '/results');
+        window.history.pushState(null, 'Classfinder Results', `/results?${queryString}`);
       }
     },
     courseNumberRules: (input) => {

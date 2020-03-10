@@ -13,6 +13,10 @@ const Class = {
   Description: String,
   Attributes: Array,
   Prerequisites: String,
+  TimeLocations: Array,
+  Term: String,
+  CourseNumber: String,
+  Subject: String,
 };
 module.exports = {
   Class,

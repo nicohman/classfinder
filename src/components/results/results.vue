@@ -43,6 +43,7 @@
 </template>
 <script>
 const Expanded = require('./expanded.vue').default;
+const util = require('../../util.js');
 
 export default {
   name: 'Results',
@@ -74,6 +75,14 @@ export default {
     goBack() {
       window.history.back();
     },
+  },
+  async created() {
+    const split = window.location.href.split('?');
+    if (split.length > 1) {
+      if (!this.results.length > 0) {
+        this.results = await util.fetchClasses(split[1]);
+      }
+    }
   },
 };
 </script>

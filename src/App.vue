@@ -12,6 +12,7 @@
 <script>
 const Form = require('./components/form/form.vue').default;
 const Results = require('./components/results/results.vue').default;
+const Scratchsheet = require('./components/scratchsheet/scratchsheet.vue').default;
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
 
@@ -32,6 +33,7 @@ export default {
     routes: {
       '/': Form,
       '/results': Results,
+      '/scratchsheet': Scratchsheet,
     },
     route: window.location.pathname,
   }),

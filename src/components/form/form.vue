@@ -7,6 +7,14 @@
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>Search for Classes</v-toolbar-title>
               <v-spacer />
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <v-btn v-on:click="goScratchSheet" icon large v-on="on">
+                    <v-icon>mdi-settings</v-icon>
+                  </v-btn>
+                </template>
+                <span>Scratchsheet</span>
+              </v-tooltip>
               <v-dialog v-model="showDialog" width="500">
                 <template v-slot:activator="{ on }">
                   <v-btn dark v-on="on" icon large>
@@ -14,17 +22,22 @@
                   </v-btn>
                 </template>
                 <v-card>
-                  <v-card-title class="headline grey lighten-2" primary-title>Information
-                  </v-card-title>
+                  <v-card-title class="headline grey lighten-2" primary-title>Information</v-card-title>
                   <v-card-text>
-                    <br />
-                    This is an alternative to WWU's <a href="https://admin.wwu.edu/pls/wwis/wwsktime.SelClass" target="_blank">Classfinder</a> website.
-                    For an outline of how it works, you can look at the <a href="https://man.sr.ht/~nicohman/classfinder" target="_blank">WIP Docs</a>.
+                    <br />This is an alternative to WWU's
+                    <a
+                      href="https://admin.wwu.edu/pls/wwis/wwsktime.SelClass"
+                      target="_blank"
+                    >Classfinder</a> website.
+                    For an outline of how it works, you can look at the
+                    <a href="https://man.sr.ht/~nicohman/classfinder" target="_blank">WIP Docs</a>.
                     This is still in an alpha stage, and many planned features are not present yet or are limited in their scope.
-                    The source code is available in a <a href="https://git.sr.ht/~nicohman/classfinder" target="_blank">public repo</a> if you want to check it out.
-                    If you have bug reports or feature sugestions, you can file an issue on <a href="https://github.com/nicohman/classfinder" target="_blank">GitHub</a>.
+                    The source code is available in a
+                    <a href="https://git.sr.ht/~nicohman/classfinder" target="_blank">public repo</a> if you want to check it out.
+                    If you have bug reports or feature sugestions, you can file an issue on
+                    <a href="https://github.com/nicohman/classfinder" target="_blank">GitHub</a>.
                     Thanks to Loc Truong and Arick Grootveld, who did the majority of the work on the code that actually parses Classfinder.
-                    </v-card-text>
+                  </v-card-text>
                   <v-divider></v-divider>
                   <v-card-actions>
                     <v-spacer></v-spacer>
@@ -116,8 +129,7 @@
               <div v-if="showAdvanced">
                 <v-row justify="center">
                   <v-col cols="12" md="2" sm="2">
-                    <v-text-field label="Credits" v-model="selected.credits" :rules="[numberRules]">
-                    </v-text-field>
+                    <v-text-field label="Credits" v-model="selected.credits" :rules="[numberRules]"></v-text-field>
                   </v-col>
                   <v-col cols="12" md="2" sm="2">
                     <v-checkbox v-model="selected.onlyOpen" label="Only Open Sections"></v-checkbox>
@@ -203,7 +215,11 @@ export default {
         const queryString = new URLSearchParams(toParse).toString();
         const data = await util.fetchClasses(queryString);
         this.$emit('results', data);
-        window.history.pushState(null, 'Classfinder Results', `/results?${queryString}`);
+        window.history.pushState(
+          null,
+          'Classfinder Results',
+          `/results?${queryString}`,
+        );
       }
     },
     courseNumberRules: (input) => {
@@ -221,6 +237,10 @@ export default {
       } catch (e) {
         return input.length === 0;
       }
+    },
+    goScratchSheet() {
+      this.$emit('goScratch', true);
+      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
     },
   },
 };

@@ -22,37 +22,9 @@
 <script>
 export default {
   name: 'Scratchsheet',
-  // props: {scratch: Array},
+  props: { scratch: Array },
   data: () => ({
-    scratch: [
-      {
-        Attributes: [],
-        TimeLocations: [{
-          days: ['M', 'W', 'R', 'F'], location: 'CF 110', startTime: '10:00', endTime: '10:50',
-        }],
-        _id: '5e65b82251ea0831bccab0e5',
-        CRN: 22304,
-        Instructor: 'Roser, Philipp Alexander',
-        Title: 'Principles of Physics II w/lab',
-        Name: 'PHYS 115',
-        Subject: 'PHYS',
-        CourseNumber: '115',
-        Prerequisites: 'PHYS 114',
-        Credits: '5',
-        Cost: '$50.00 Flat Fee',
-        StartDate: '03/31',
-        EndDate: '06/12',
-        Capacity: 25,
-        Enrolled: 25,
-        Available: 0,
-        Term: 'Spring 2020',
-        Description: 'Fluids; kinetic theory; heat and thermodynamics; principles of electricity and magnetism. Lab.',
-        __v: 0,
-        score: 0.6,
-        GUR: ['LSCI'],
-        CourseCount: '25/25/<span style="color:red">0</span>',
-      },
-    ],
+
   }),
   computed: {
     events() {
@@ -82,7 +54,6 @@ export default {
   methods: {
     goBack() {
       window.history.back();
-      window.location.href = '/';
     },
     convertToCalenderFormat(date) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.toTimeString().substr(0, 5)}`;

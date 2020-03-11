@@ -23,13 +23,17 @@
       <v-card-title></v-card-title>
       <v-data-table
         :headers="headers"
-        :items="results"
+        :items="parsed"
         :search="search"
         show-expand
         item-key="CRN"
       >
         <template v-slot:expanded-item="{ headers, item }">
           <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
+        </template>
+        <template v-slot:item.scratch="{header, value, item}">
+          <v-btn v-if="!onScratch(item)" v-on:click="addToScratchSheet(item)" icon large><v-icon>mdi-plus</v-icon></v-btn>
+          <v-btn v-else v-on:click="removeScratchSheet(item)" icon large><v-icon>mdi-minus</v-icon></v-btn>
         </template>
         <template v-slot:item.TimeLocations="{header, value}">
           <span v-html="displayTimeLocation(value)"></span>
@@ -47,7 +51,7 @@ const util = require('../../util.js');
 
 export default {
   name: 'Results',
-  props: { results: Array },
+  props: { results: Array, scratch: Array },
   components: { Expanded },
   data: () => ({
     headers: [
@@ -58,9 +62,11 @@ export default {
       { text: 'Instructor', value: 'Instructor' },
       { text: 'GUR Attributes', value: 'GUR' },
       { text: 'Classes', value: 'TimeLocations' },
+      { text: '', value: 'scratch' },
       { text: '', value: 'data-table-expand' },
     ],
     search: '',
+    parsed: [],
   }),
   methods: {
     displayTimeLocation(timeLocs) {
@@ -75,12 +81,23 @@ export default {
     goBack() {
       window.history.back();
     },
+    addToScratchSheet(item) {
+      this.$emit('addScratch', item);
+    },
+    removeScratchSheet(item) {
+      this.$emit('rmScratch', item);
+    },
+    onScratch(item) {
+      return this.scratch.some((i) => i.CRN === item.CRN);
+    },
   },
   async created() {
     const split = window.location.href.split('?');
     if (split.length > 1) {
       if (!this.results.length > 0) {
-        this.results = await util.fetchClasses(split[1]);
+        this.parsed = await util.fetchClasses(split[1]);
+      } else {
+        this.parsed = this.results;
       }
     }
   },

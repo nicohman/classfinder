@@ -23,5 +23,54 @@ async function fetchClasses(queryString) {
   });
   return data;
 }
+function convertToCalenderFormat(date) {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.toTimeString().substr(0, 5)}`;
+}
+function dayLetterToNum(letter) {
+  switch (letter) {
+    case 'M':
+      return 1;
+    case 'T':
+      return 2;
+    case 'W':
+      return 3;
+    case 'R':
+      return 4;
+    case 'F':
+      return 5;
+    default:
+      return 0;
+  }
+}
+function parseScratchDates(item) {
+  return item.TimeLocations.map((d) => d.days.map((i) => {
+    const startDate = new Date();
+    startDate.setDate(item.StartDate.split('/')[1]);
+    startDate.setMonth(item.StartDate.split('/')[0] - 1);
+    startDate.setDate(startDate.getDate() + (dayLetterToNum(i) - startDate.getDay()));
+    const endDate = new Date(startDate.toString());
+    let startHours = parseInt(d.startTime.split(':')[0], 10);
+    let endHours = parseInt(d.endTime.split(':')[0], 10);
+    if (startHours < 6) {
+      startHours += 12;
+      endHours += 12;
+    } else if (endHours < startHours) {
+      endHours += 12;
+    }
+    startDate.setHours(startHours);
+    startDate.setMinutes(d.startTime.split(':')[1]);
+    endDate.setHours(endHours);
+    endDate.setMinutes(d.endTime.split(':')[1]);
+    return {
+      name: item.Name,
+      start: convertToCalenderFormat(startDate),
+      end: convertToCalenderFormat(endDate),
+      startDate,
+      endDate,
+    };
+  })).flat().flat().flat();
+}
 
-module.exports = { fetchClasses };
+module.exports = {
+  fetchClasses, parseScratchDates, convertToCalenderFormat, dayLetterToNum,
+};

@@ -10,7 +10,7 @@
               <v-tooltip right>
                 <template v-slot:activator="{ on }">
                   <v-btn v-on:click="goScratchSheet" icon large v-on="on">
-                    <v-icon>mdi-settings</v-icon>
+                    <v-icon>mdi-calendar</v-icon>
                   </v-btn>
                 </template>
                 <span>Scratchsheet</span>

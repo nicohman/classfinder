@@ -32,8 +32,10 @@
           <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
         </template>
         <template v-slot:item.scratch="{header, value, item}">
+          <v-badge :value="checkScratchOverlap(item) && !onScratch(item)" color="red" content="!" offset-x="20" offset-y="20" dot>
           <v-btn v-if="!onScratch(item)" v-on:click="addToScratchSheet(item)" icon large><v-icon>mdi-plus</v-icon></v-btn>
           <v-btn v-else v-on:click="removeScratchSheet(item)" icon large><v-icon>mdi-minus</v-icon></v-btn>
+          </v-badge>
         </template>
         <template v-slot:item.TimeLocations="{header, value}">
           <span v-html="displayTimeLocation(value)"></span>
@@ -90,16 +92,42 @@ export default {
     onScratch(item) {
       return this.scratch.some((i) => i.CRN === item.CRN);
     },
+    checkScratchOverlap(item) {
+      // eslint-disable-next-line no-param-reassign
+      const allScratchDates = util.parseScratchDates(item);
+      console.log(allScratchDates);
+      return !allScratchDates.some((scratchDates) => !this.scratch.some((i) => {
+        const scratch = i.scratchDates;
+        return scratch.some((y) => {
+          console.log(y);
+          if (scratchDates.startDate.getTime() <= y.endDate.getTime() && scratchDates.endDate.getTime() >= y.startDate.getTime()) {
+            return true;
+          }
+          return false;
+        });
+      }));
+    },
   },
-  async created() {
+  async mounted() {
     const split = window.location.href.split('?');
     if (split.length > 1) {
       if (!this.results.length > 0) {
         this.parsed = await util.fetchClasses(split[1]);
-      } else {
-        this.parsed = this.results;
       }
     }
+  },
+  watch: {
+    async results() {
+      this.parsed = this.results;
+      const split = window.location.href.split('?');
+      if (split.length > 1) {
+        if (!this.results.length > 0) {
+          this.parsed = await util.fetchClasses(split[1]);
+        } else {
+          this.parsed = this.results;
+        }
+      }
+    },
   },
 };
 </script>

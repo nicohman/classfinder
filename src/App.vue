@@ -15,6 +15,7 @@ const Results = require('./components/results/results.vue').default;
 const Scratchsheet = require('./components/scratchsheet/scratchsheet.vue').default;
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
+const { parseScratchDates } = require('./util.js');
 
 selectOptions.instructors = instructors
   .sort()
@@ -28,7 +29,17 @@ export default {
       this.route = window.location.pathname;
     });
     if (localStorage.scratch) {
-      this.scratch = JSON.parse(localStorage.scratch);
+      this.scratch = JSON.parse(localStorage.scratch).map((y) => {
+        // eslint-disable-next-line no-param-reassign
+        y.scratchDates = y.scratchDates.map((i) => {
+        // eslint-disable-next-line no-param-reassign
+          i.startDate = new Date(i.scratchDates.startDate);
+          // eslint-disable-next-line no-param-reassign
+          i.endDate = new Date(i.scratchDates.endDate);
+          return i;
+        });
+        return y;
+      });
     }
   },
   data: () => ({
@@ -52,6 +63,9 @@ export default {
       this.route = '/results';
     },
     addScratch(item) {
+      const parsedDates = parseScratchDates(item);
+      // eslint-disable-next-line no-param-reassign
+      item.scratchDates = parsedDates;
       this.scratch.push(item);
     },
     rmScratch(item) {

@@ -94,7 +94,7 @@ export default {
     },
     checkScratchOverlap(item) {
       const allScratchDates = util.parseScratchDates(item);
-      return !allScratchDates.some((scratchDates) => !this.getScratch().some((i) => {
+      return allScratchDates.some((scratchDates) => this.getScratch().some((i) => {
         const scratch = i.scratchDates;
         return scratch.some((y) => {
           console.log(y);

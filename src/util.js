@@ -62,6 +62,8 @@ function parseScratchDates(item) {
     endDate.setHours(endHours);
     endDate.setMinutes(d.endTime.split(':')[1]);
     return {
+      CRN: item.CRN,
+      description: item.Description,
       name: item.Name,
       start: convertToCalenderFormat(startDate),
       end: convertToCalenderFormat(endDate),

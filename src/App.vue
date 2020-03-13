@@ -35,9 +35,9 @@ export default {
         // eslint-disable-next-line no-param-reassign
         y.scratchDates = y.scratchDates.map((i) => {
         // eslint-disable-next-line no-param-reassign
-          i.startDate = new Date(i.scratchDates.startDate);
+          i.startDate = new Date(i.startDate);
           // eslint-disable-next-line no-param-reassign
-          i.endDate = new Date(i.scratchDates.endDate);
+          i.endDate = new Date(i.endDate);
           return i;
         });
         return y;

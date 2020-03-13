@@ -2,7 +2,7 @@
   <v-app>
     <v-content>
       <keep-alive>
-        <component v-bind:results="results" v-on:results="onResults" v-on:addScratch="addScratch" v-on:rmScratch="rmScratch" v-on:goScratch="goScratch" v-bind:scratch="scratch" v-bind:is="this.routes[route]">
+        <component v-on:goScratch="goScratch" v-bind:is="this.routes[getRoute()]">
         </component>
       </keep-alive>
     </v-content>
@@ -10,12 +10,13 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex';
+
 const Form = require('./components/form/form.vue').default;
 const Results = require('./components/results/results.vue').default;
 const Scratchsheet = require('./components/scratchsheet/scratchsheet.vue').default;
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
-const { parseScratchDates } = require('./util.js');
 
 selectOptions.instructors = instructors
   .sort()
@@ -23,13 +24,14 @@ selectOptions.instructors = instructors
 
 export default {
   name: 'App',
-  components: { Form, Results },
+  components: { Form, Results, Scratchsheet },
   mounted() {
     window.addEventListener('popstate', () => {
-      this.route = window.location.pathname;
+      this.setRoute(window.location.pathname);
     });
+    this.setRoute(window.location.pathname);
     if (localStorage.scratch) {
-      this.scratch = JSON.parse(localStorage.scratch).map((y) => {
+      this.setScratch(JSON.parse(localStorage.scratch).map((y) => {
         // eslint-disable-next-line no-param-reassign
         y.scratchDates = y.scratchDates.map((i) => {
         // eslint-disable-next-line no-param-reassign
@@ -39,41 +41,28 @@ export default {
           return i;
         });
         return y;
-      });
+      }));
     }
+    this.$store.watch((state, getters) => getters.getScratch, (newValue) => {
+      localStorage.scratch = JSON.stringify(newValue);
+    });
   },
   data: () => ({
-    results: [],
     routes: {
       '/': Form,
       '/results': Results,
       '/scratchsheet': Scratchsheet,
     },
-    route: window.location.pathname,
-    scratch: [],
   }),
-  watch: {
-    scratch(newScratch) {
-      localStorage.scratch = JSON.stringify(newScratch);
-    },
-  },
   methods: {
-    onResults(data) {
-      this.results = data;
-      this.route = '/results';
-    },
-    addScratch(item) {
-      const parsedDates = parseScratchDates(item);
-      // eslint-disable-next-line no-param-reassign
-      item.scratchDates = parsedDates;
-      this.scratch.push(item);
-    },
-    rmScratch(item) {
-      this.scratch = this.scratch.filter((i) => i.CRN !== item.CRN);
+    onResults() {
+      this.setRoute('/results');
     },
     goScratch() {
-      this.route = '/scratchsheet';
+      this.setRoute('/scratchsheet');
     },
+    ...mapMutations(['setScratch', 'setRoute']),
+    ...mapGetters(['getRoute']),
   },
 };
 </script>

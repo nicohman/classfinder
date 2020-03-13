@@ -172,6 +172,8 @@
   </v-content>
 </template>
 <script>
+import { mapMutations } from 'vuex';
+
 const selectOptions = require('../../selectOptions');
 const { instructors } = require('../../fetched.json');
 const util = require('../../util.js');
@@ -214,7 +216,8 @@ export default {
         });
         const queryString = new URLSearchParams(toParse).toString();
         const data = await util.fetchClasses(queryString);
-        this.$emit('results', data);
+        this.setResults(data);
+        this.setRoute('/results');
         window.history.pushState(
           null,
           'Classfinder Results',
@@ -242,6 +245,7 @@ export default {
       this.$emit('goScratch', true);
       window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
     },
+    ...mapMutations(['setResults', 'setRoute']),
   },
 };
 </script>

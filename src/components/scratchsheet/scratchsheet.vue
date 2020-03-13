@@ -20,16 +20,17 @@
   </v-container>
 </template>
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'Scratchsheet',
-  props: { scratch: Array },
   data: () => ({
 
   }),
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars
-      return this.scratch.map((i) => i.scratchDates).flat();
+      return this.getScratch().map((i) => i.scratchDates).flat();
     },
     today() {
       return this.events[0].start;
@@ -39,6 +40,7 @@ export default {
     goBack() {
       window.history.back();
     },
+    ...mapGetters(['getScratch']),
   },
 };
 </script>

@@ -23,7 +23,7 @@
       <v-card-title></v-card-title>
       <v-data-table
         :headers="headers"
-        :items="parsed"
+        :items="results"
         :search="search"
         show-expand
         item-key="CRN"
@@ -33,8 +33,8 @@
         </template>
         <template v-slot:item.scratch="{header, value, item}">
           <v-badge :value="checkScratchOverlap(item) && !onScratch(item)" color="red" content="!" offset-x="20" offset-y="20" dot>
-          <v-btn v-if="!onScratch(item)" v-on:click="addToScratchSheet(item)" icon large><v-icon>mdi-plus</v-icon></v-btn>
-          <v-btn v-else v-on:click="removeScratchSheet(item)" icon large><v-icon>mdi-minus</v-icon></v-btn>
+          <v-btn v-if="!onScratch(item)" v-on:click="addScratch(item)" icon large><v-icon>mdi-plus</v-icon></v-btn>
+          <v-btn v-else v-on:click="rmScratch(item)" icon large><v-icon>mdi-minus</v-icon></v-btn>
           </v-badge>
         </template>
         <template v-slot:item.TimeLocations="{header, value}">
@@ -48,12 +48,13 @@
   </v-container>
 </template>
 <script>
+import { mapMutations, mapGetters } from 'vuex';
+
 const Expanded = require('./expanded.vue').default;
 const util = require('../../util.js');
 
 export default {
   name: 'Results',
-  props: { results: Array, scratch: Array },
   components: { Expanded },
   data: () => ({
     headers: [
@@ -70,6 +71,11 @@ export default {
     search: '',
     parsed: [],
   }),
+  computed: {
+    results() {
+      return this.getResults();
+    },
+  },
   methods: {
     displayTimeLocation(timeLocs) {
       const strings = timeLocs.map(
@@ -83,20 +89,12 @@ export default {
     goBack() {
       window.history.back();
     },
-    addToScratchSheet(item) {
-      this.$emit('addScratch', item);
-    },
-    removeScratchSheet(item) {
-      this.$emit('rmScratch', item);
-    },
     onScratch(item) {
-      return this.scratch.some((i) => i.CRN === item.CRN);
+      return this.getScratch().some((i) => i.CRN === item.CRN);
     },
     checkScratchOverlap(item) {
-      // eslint-disable-next-line no-param-reassign
       const allScratchDates = util.parseScratchDates(item);
-      console.log(allScratchDates);
-      return !allScratchDates.some((scratchDates) => !this.scratch.some((i) => {
+      return !allScratchDates.some((scratchDates) => !this.getScratch().some((i) => {
         const scratch = i.scratchDates;
         return scratch.some((y) => {
           console.log(y);
@@ -107,12 +105,14 @@ export default {
         });
       }));
     },
+    ...mapGetters(['getResults', 'getScratch']),
+    ...mapMutations(['addScratch', 'rmScratch', 'setResults']),
   },
   async mounted() {
     const split = window.location.href.split('?');
     if (split.length > 1) {
       if (!this.results.length > 0) {
-        this.parsed = await util.fetchClasses(split[1]);
+        this.setResults(await util.fetchClasses(split[1]));
       }
     }
   },
@@ -122,9 +122,7 @@ export default {
       const split = window.location.href.split('?');
       if (split.length > 1) {
         if (!this.results.length > 0) {
-          this.parsed = await util.fetchClasses(split[1]);
-        } else {
-          this.parsed = this.results;
+          this.setResults(await util.fetchClasses(split[1]));
         }
       }
     },

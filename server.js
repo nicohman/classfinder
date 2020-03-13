@@ -23,7 +23,9 @@ app.get('/getClass', routes.getClass);
 app.get('/getInstructors', routes.getInstructors);
 app.get('/searchClasses', routes.getClass);
 app.use(express.static('dist'));
-
+app.get('/results', (req, res) => {
+  res.sendFile(`${__dirname}/dist/index.html`);
+});
 httpRedirecter.use((req, res) => {
   res.redirect('https://classfinder.demenses.net');
 });

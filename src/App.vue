@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <v-content>
+    <CFAppBar class="d-flex d-sm-none"></CFAppBar>
+    <v-content class="fill-height mx-auto pt-4 pa-lg-auto" fluid>
       <keep-alive>
-        <component v-on:goScratch="goScratch" v-bind:is="this.routes[getRoute()]">
+        <component v-bind:is="this.routes[getRoute()]">
         </component>
       </keep-alive>
     </v-content>
@@ -11,8 +12,9 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+import CFAppBar from './components/mobile/appbar.vue';
 
-const Form = require('./components/form/form.vue').default;
+const Search = require('./components/search/search.vue').default;
 const Results = require('./components/results/results.vue').default;
 const Scratchsheet = require('./components/scratchsheet/scratchsheet.vue').default;
 const selectOptions = require('./selectOptions');
@@ -24,7 +26,9 @@ selectOptions.instructors = instructors
 
 export default {
   name: 'App',
-  components: { Form, Results, Scratchsheet },
+  components: {
+    Search, Results, Scratchsheet, CFAppBar,
+  },
   mounted() {
     window.addEventListener('popstate', () => {
       this.setRoute(window.location.pathname);
@@ -49,7 +53,7 @@ export default {
   },
   data: () => ({
     routes: {
-      '/': Form,
+      '/': Search,
       '/results': Results,
       '/scratchsheet': Scratchsheet,
     },
@@ -57,9 +61,6 @@ export default {
   methods: {
     onResults() {
       this.setRoute('/results');
-    },
-    goScratch() {
-      this.setRoute('/scratchsheet');
     },
     ...mapMutations(['setScratch', 'setRoute']),
     ...mapGetters(['getRoute']),

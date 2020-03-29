@@ -21,6 +21,18 @@ export default new Vuex.Store({
     getRoute(state) {
       return state.route;
     },
+    getRouteTitle(state) {
+      switch (state.route) {
+        case '/scratchsheet':
+          return 'Scratchsheet';
+        case '/':
+          return 'Search Classes';
+        case '/results':
+          return '';
+        default:
+          return 'Classfinder';
+      }
+    },
   },
   mutations: {
     addScratch(state, toAdd) {

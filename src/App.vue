@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <CFAppBar class="d-flex d-sm-none"></CFAppBar>
+    <CFAppBar v-if="$vuetify.breakpoint.xsOnly"></CFAppBar>
     <v-content class="fill-height mx-auto pt-4 pa-lg-auto" fluid>
       <keep-alive>
         <component v-bind:is="this.routes[getRoute()]">

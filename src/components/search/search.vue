@@ -1,6 +1,6 @@
 <template>
   <v-content class="mx-auto pa-0">
-    <v-container class="fill-height d-none d-sm-flex" fluid>
+    <v-container class="fill-height" fluid v-if="$vuetify.breakpoint.smAndUp">
       <v-row align="center" justify="center">
         <v-col cols="12">
           <v-card class="elevation-12">
@@ -31,7 +31,7 @@
         </v-col>
       </v-row>
     </v-container>
-              <v-container class="fill-height d-flex d-sm-none" fluid>
+              <v-container v-else class="fill-height" fluid>
             <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
           </v-container>
   </v-content>

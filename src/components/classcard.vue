@@ -1,16 +1,17 @@
 <template>
-  <v-dialog v-model="toShow" fullscreen>
+  <v-dialog v-model="toShow" v-bind:fullscreen="fullscreen">
     <v-card color="grey lighten-4" flat v-if="value" class="d-flex flex-column">
       <v-toolbar class="shrink" dark color="primary">
-        <v-toolbar-title>{{value.name}}</v-toolbar-title>
+        <v-toolbar-title>{{value.Name}}</v-toolbar-title>
         <v-spacer />
-        <v-btn right icon v-on:click="value = undefined">
+        <v-btn right icon v-on:click="$emit('input', undefined)">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-text class="grow"><br />
-      {{value.description}} <br />
-      {{value.startDate.toTimeString().substr(0, 5)}}-{{value.endDate.toTimeString().substr(0, 5)}}
+      <v-card-text class="grow">
+        <v-subheader>{{value.Title}}</v-subheader>
+        <br />
+      {{value.Description}} <br />
       </v-card-text>
       <v-card-actions>
         <v-btn icon v-on:click="rmClass">
@@ -18,7 +19,7 @@
         </v-btn>
         <v-btn
           target="_blank"
-          v-bind:href="`https://classfinder.demenses.net/results?name=${value.name}`"
+          v-bind:href="`https://classfinder.demenses.net/results?name=${value.Name}`"
         >Find other times</v-btn>
       </v-card-actions>
     </v-card>
@@ -40,11 +41,8 @@ export default {
   },
   methods: {
     rmClass() {
-      const gotClass = this.getScratch().filter(
-        (i) => i.CRN === this.value.CRN,
-      )[0];
-      this.value = undefined;
-      this.rmScratch(gotClass);
+      this.rmScratch(this.value);
+      this.$emit('input', undefined);
     },
     ...mapGetters(['getScratch', 'getScratchClassByCRN']),
     ...mapMutations(['rmScratch']),

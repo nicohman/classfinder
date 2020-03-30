@@ -21,6 +21,7 @@ export default new Vuex.Store({
     getRoute(state) {
       return state.route;
     },
+    getScratchClassByCRN: (state) => (crn) => state.scratch.filter((i) => i.CRN === crn)[0],
     getRouteTitle(state) {
       switch (state.route) {
         case '/scratchsheet':
@@ -28,7 +29,7 @@ export default new Vuex.Store({
         case '/':
           return 'Search Classes';
         case '/results':
-          return '';
+          return 'Results';
         default:
           return 'Classfinder';
       }

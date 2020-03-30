@@ -1,5 +1,6 @@
 <template>
-  <v-container>
+<v-content class="pa-0">
+  <v-container fluid class="pa-0 ma-0" v-if="$vuetify.breakpoint.smAndUp">
     <v-card>
       <v-toolbar color="primary" dark flat>
         <v-tooltip left>
@@ -21,55 +22,24 @@
         ></v-text-field>
       </v-toolbar>
       <v-card-title></v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="results"
-        :search="search"
-        show-expand
-        item-key="CRN"
-      >
-        <template v-slot:expanded-item="{ headers, item }">
-          <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
-        </template>
-        <template v-slot:item.scratch="{header, value, item}">
-          <v-badge :value="checkScratchOverlap(item) && !onScratch(item)" color="red" content="!" offset-x="20" offset-y="20" dot>
-          <v-btn v-if="!onScratch(item)" v-on:click="addScratch(item)" icon large><v-icon>mdi-plus</v-icon></v-btn>
-          <v-btn v-else v-on:click="rmScratch(item)" icon large><v-icon>mdi-minus</v-icon></v-btn>
-          </v-badge>
-        </template>
-        <template v-slot:item.TimeLocations="{header, value}">
-          <span v-html="displayTimeLocation(value)"></span>
-        </template>
-        <template v-slot:item.CourseCount="{header, value}">
-          <span v-html="value"></span>
-        </template>
-      </v-data-table>
+    <ResultsTable v-bind:search="search"></ResultsTable>
     </v-card>
   </v-container>
+      <ResultsTable v-bind:search="search" v-else></ResultsTable>
+
+  </v-content>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+import ResultsTable from './resultstable.vue';
 
-const Expanded = require('./expanded.vue').default;
 const util = require('../../util.js');
 
 export default {
   name: 'Results',
-  components: { Expanded },
+  components: { ResultsTable },
   data: () => ({
-    headers: [
-      { text: 'Class Code', value: 'Name' },
-      { text: 'CRN', value: 'CRN' },
-      { text: 'Name', value: 'Title' },
-      { text: 'Cap/Enrolled/Available', value: 'CourseCount' },
-      { text: 'Instructor', value: 'Instructor' },
-      { text: 'GUR Attributes', value: 'GUR' },
-      { text: 'Classes', value: 'TimeLocations' },
-      { text: '', value: 'scratch' },
-      { text: '', value: 'data-table-expand' },
-    ],
     search: '',
-    parsed: [],
   }),
   computed: {
     results() {

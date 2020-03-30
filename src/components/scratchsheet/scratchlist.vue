@@ -6,7 +6,7 @@
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
         <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
         <v-divider></v-divider>
-        <v-list-item link two-line v-for="event in day"  v-on:click="showClass(event)" v-bind:key="event.startDate">
+        <v-list-item link two-line v-for="event in day"  v-on:click="showClass(event)" v-bind:key="event.start">
           <v-list-item-content>
             <v-list-item-title>{{event.name }}</v-list-item-title>
             <v-list-item-subtitle>{{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}</v-list-item-subtitle>
@@ -26,7 +26,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import ClassCard from './classcard.vue';
+import ClassCard from '../classcard.vue';
 
 const { dayNumToWord } = require('../../util.js');
 
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     showClass(event) {
-      this.selectedClass = event;
+      this.selectedClass = this.getScratchClassByCRN()(event.CRN);
     },
     rmClass() {
       this.selectedOpen = false;

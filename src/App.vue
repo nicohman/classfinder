@@ -13,10 +13,10 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 import CFAppBar from './components/mobile/appbar.vue';
+import Search from './components/search/search.vue';
+import Results from './components/results/results.vue';
+import Scratchsheet from './components/scratchsheet/scratchsheet.vue';
 
-const Search = require('./components/search/search.vue').default;
-const Results = require('./components/results/results.vue').default;
-const Scratchsheet = require('./components/scratchsheet/scratchsheet.vue').default;
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
 

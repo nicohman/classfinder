@@ -1,5 +1,6 @@
 <template>
 <v-container fluid>
+  <ClassCard v-model="cardClass"></ClassCard>
     <v-calendar
       @click:event="showClass"
       v-if="events.length > 0"
@@ -29,6 +30,7 @@
             target="_blank"
             v-bind:href="`https://classfinder.demenses.net/results?name=${selectedClass.name}`"
           >Find other times</v-btn>
+          <v-btn v-on:click="cardClass = getScratchClassByCRN()(selectedClass.CRN)">View More</v-btn>
         </v-card-actions>
       </v-card>
     </v-menu>
@@ -36,6 +38,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import ClassCard from '../classcard.vue';
 
 export default {
   name: 'ScratchCalendar',
@@ -43,7 +46,9 @@ export default {
     selectedClass: null,
     selectedOpen: false,
     selectedElement: null,
+    cardClass: undefined,
   }),
+  components: { ClassCard },
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars

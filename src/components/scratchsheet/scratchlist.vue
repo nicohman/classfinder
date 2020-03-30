@@ -1,36 +1,34 @@
 <template>
-<v-container fluid>
-    <v-list v-if="events.length > 0">
-        <v-list-item two-line v-for="event in events" v-bind:key="event.start">
-                    <v-list-item-content>
-          <v-list-item-title>{{event.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}</v-list-item-subtitle>
-        </v-list-item-content>
-        </v-list-item>
 
+  <v-container fluid class="pa-0">
+    <ClassCard v-model="selectedClass" fullscreen></ClassCard>
+    <v-list v-if="events.length > 0" dense min-width="100vw">
+      <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
+        <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
+        <v-divider></v-divider>
+        <v-list-item link two-line v-for="event in day"  v-on:click="showClass(event)" v-bind:key="event.startDate">
+          <v-list-item-content>
+            <v-list-item-title>{{event.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}</v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-btn icon>
+              <v-icon>mdi-information</v-icon>
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+      </v-container>
     </v-list>
     <v-content justify="center" v-else>
       <span>Sorry, but you don't have any classes added to your scratchsheet!</span>
     </v-content>
-    <v-menu v-model="selectedOpen" v-if="selectedOpen" :activator="selectedElement" offset-x>
-      <v-card color="grey lighten-4" flat>
-        <v-card-title>{{selectedClass.name}}</v-card-title>
-        <v-card-text>{{selectedClass.description}}</v-card-text>
-        <v-card-actions>
-          <v-btn icon v-on:click="rmClass">
-            <v-icon>mdi-trash-can</v-icon>
-          </v-btn>
-          <v-btn
-            target="_blank"
-            v-bind:href="`https://classfinder.demenses.net/results?name=${selectedClass.name}`"
-          >Find other times</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-menu>
-</v-container>
+  </v-container>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import ClassCard from './classcard.vue';
+
+const { dayNumToWord } = require('../../util.js');
 
 export default {
   name: 'ScratchList',
@@ -39,22 +37,33 @@ export default {
     selectedOpen: false,
     selectedElement: null,
   }),
+  components: { ClassCard },
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars
       return this.getScratch()
         .map((i) => i.scratchDates)
-        .flat().sort((a, b) => a.startDate - b.startDate);
+        .flat()
+        .sort((a, b) => a.startDate - b.startDate);
+    },
+    eventsByDay() {
+      const days = [];
+      this.events.forEach((event) => {
+        const day = event.startDate.getDay();
+        if (!days[day]) {
+          days[day] = [];
+        }
+        days[day].push(event);
+      });
+      return days.filter((day) => day.length > 0);
     },
     today() {
       return this.events[0].start;
     },
   },
   methods: {
-    showClass({ nativeEvent, event }) {
+    showClass(event) {
       this.selectedClass = event;
-      this.selectedElement = nativeEvent.target;
-      this.selectedOpen = true;
     },
     rmClass() {
       this.selectedOpen = false;
@@ -63,6 +72,7 @@ export default {
       )[0];
       this.rmScratch(gotClass);
     },
+    dayNumToWord,
     ...mapGetters(['getScratch', 'getScratchClassByCRN']),
     ...mapMutations(['rmScratch']),
   },

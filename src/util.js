@@ -42,6 +42,23 @@ function dayLetterToNum(letter) {
       return 0;
   }
 }
+function dayNumToWord(num) {
+  console.log(num);
+  switch (num) {
+    case 1:
+      return 'Monday';
+    case 2:
+      return 'Tuesday';
+    case 3:
+      return 'Wednesday';
+    case 4:
+      return 'Thursday';
+    case 5:
+      return 'Friday';
+    default:
+      return '';
+  }
+}
 function parseScratchDates(item) {
   return item.TimeLocations.map((d) => d.days.map((i) => {
     const startDate = new Date();
@@ -74,5 +91,5 @@ function parseScratchDates(item) {
 }
 
 module.exports = {
-  fetchClasses, parseScratchDates, convertToCalenderFormat, dayLetterToNum,
+  fetchClasses, parseScratchDates, convertToCalenderFormat, dayLetterToNum, dayNumToWord,
 };

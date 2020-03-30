@@ -1,10 +1,10 @@
 <template>
   <v-container>
-    <v-app-bar app>
+    <v-app-bar app dark color="primary">
       <v-app-bar-nav-icon v-on:click="drawer = true"></v-app-bar-nav-icon>
       <v-toolbar-title > {{getRouteTitle() }}</v-toolbar-title>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer v-model="drawer" app temporary>
       <v-list nav dense>
         <v-list-item-group>
           <v-list-item v-on:click="goRoute('/')">

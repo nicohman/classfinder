@@ -100,7 +100,7 @@ export default {
       const strings = timeLocs.map(
         (i) => `${i.location}: ${i.days.join('')} ${i.startTime}-${i.endTime}`,
       );
-      return strings.join('<br></br>');
+      return strings.join('<br />');
     },
     displayExpanded(item) {
       return `<br></br><strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}<br></br>`;

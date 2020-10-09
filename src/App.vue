@@ -16,6 +16,7 @@ import CFAppBar from './components/mobile/appbar.vue';
 import Search from './components/search/search.vue';
 import Results from './components/results/results.vue';
 import Scratchsheet from './components/scratchsheet/scratchsheet.vue';
+import InformationMobile from './components/mobile/information.vue';
 
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
@@ -56,6 +57,7 @@ export default {
       '/': Search,
       '/results': Results,
       '/scratchsheet': Scratchsheet,
+      '/information': InformationMobile,
     },
   }),
   methods: {

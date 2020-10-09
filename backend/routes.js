@@ -66,6 +66,7 @@ const getClass = (req, res) => {
       queryObject[parsed] = req.query[queryParam];
     }
   });
+	res.set('Cache-Control', 'no-cache');
   console.log(queryObject);
   let query = Class.find(queryObject, optsObject);
   if (queryObject['TimeLocations.days']) {

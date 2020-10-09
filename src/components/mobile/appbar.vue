@@ -19,6 +19,12 @@
             </v-list-item-icon>
             <v-list-item-title>Scratchsheet</v-list-item-title>
           </v-list-item>
+          <v-list-item v-on:click="goRoute('/information')">
+          <v-list-item-icon>
+            <v-icon>mdi-information</v-icon>
+          </v-list-item-icon>
+          <v-list-item-title>About</v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

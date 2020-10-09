@@ -1,5 +1,5 @@
 module.exports = {
-  terms: [{ value: 'Spring 2020' }],
+  terms: [{ value: 'Spring 2020' }, { value: 'Summer 2020' }, { value: 'Fall 2020' }],
   gurs: [
     { code: 'ACOM', value: 'ACOM - A-Communication GUR' },
     { code: 'ACGM', value: 'ACGM - A-Comparative Gender GUR' },

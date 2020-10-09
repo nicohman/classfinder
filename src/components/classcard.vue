@@ -8,10 +8,49 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-text class="grow">
-        <v-subheader>{{value.Title}}</v-subheader>
+      <v-card-text class="grow mt-4">
+        <span class="headline">{{value.Title}}</span>
         <br />
-      {{value.Description}} <br />
+        {{value.Description}}
+        <br />
+        <v-list color="grey lighten-4">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>CRN</v-list-item-subtitle>
+              <v-list-item-title>{{value.CRN}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>Instructor</v-list-item-subtitle>
+              <v-list-item-title>{{value.Instructor}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>GUR Attributes</v-list-item-subtitle>
+              <v-list-item-title>{{value.GUR.join(",")}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>Cap/Enrolled/Available</v-list-item-subtitle>
+              <v-list-item-title v-html="value.CourseCount"></v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>Credits</v-list-item-subtitle>
+              <v-list-item-title>{{value.Credits}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-subtitle>Dates</v-list-item-subtitle>
+              <v-list-item-title>{{value.StartDate}}-{{value.EndDate}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
       </v-card-text>
       <v-card-actions>
         <v-btn icon v-on:click="rmClass">

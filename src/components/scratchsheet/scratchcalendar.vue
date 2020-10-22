@@ -28,7 +28,7 @@
           </v-btn>
           <v-btn
             target="_blank"
-            v-bind:href="`https://classfinder.demenses.net/results?name=${selectedClass.name}`"
+            v-bind:href="`https://classfinder.nicohman.com/results?name=${selectedClass.name}`"
           >Find other times</v-btn>
           <v-btn v-on:click="cardClass = getScratchClassByCRN()(selectedClass.CRN)">View More</v-btn>
         </v-card-actions>

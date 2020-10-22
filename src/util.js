@@ -4,7 +4,7 @@ const gurList = require('./selectOptions.js').gurs.map((i) => i.code);
 
 async function fetchClasses(queryString) {
   const res = await axios.get(
-    `https://classfinder.demenses.net/searchClasses?${queryString}`,
+    `https://classfinder.nicohman.com/searchClasses?${queryString}`,
   );
   const data = res.data.map((i) => {
     // eslint-disable-next-line no-param-reassign

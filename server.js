@@ -27,7 +27,7 @@ app.get('/results', (req, res) => {
   res.sendFile(`${__dirname}/dist/index.html`);
 });
 httpRedirecter.use((req, res) => {
-  res.redirect('https://classfinder.demenses.net');
+  res.redirect('https://classfinder.nicohman.com');
 });
 
 mongoose.connect(process.env.CF_MONGO_URL, config.mongooseConfig).then(() => {

@@ -58,7 +58,7 @@
         </v-btn>
         <v-btn
           target="_blank"
-          v-bind:href="`https://classfinder.demenses.net/results?name=${value.Name}`"
+          v-bind:href="`https://classfinder.nicohman.com/results?name=${value.Name}`"
         >Find other times</v-btn>
       </v-card-actions>
     </v-card>

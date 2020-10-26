@@ -116,7 +116,6 @@ export default {
       return allScratchDates.some((scratchDates) => this.getScratch().some((i) => {
         const scratch = i.scratchDates;
         return scratch.some((y) => {
-          console.log(y);
           if (
             scratchDates.startDate.getTime() <= y.endDate.getTime()
               && scratchDates.endDate.getTime() >= y.startDate.getTime()
@@ -137,17 +136,6 @@ export default {
         this.setResults(await util.fetchClasses(split[1]));
       }
     }
-  },
-  watch: {
-    async results() {
-      this.parsed = this.results;
-      const split = window.location.href.split('?');
-      if (split.length > 1) {
-        if (!this.results.length > 0) {
-          this.setResults(await util.fetchClasses(split[1]));
-        }
-      }
-    },
   },
 };
 </script>

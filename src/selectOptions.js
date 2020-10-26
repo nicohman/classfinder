@@ -1,5 +1,5 @@
 module.exports = {
-  terms: [{ value: 'Spring 2020' }, { value: 'Summer 2020' }, { value: 'Fall 2020' }],
+  terms: [{ value: 'Winter 2021' }, { value: 'Fall 2020' }, { value: 'Summer 2020' }, { value: 'Spring 2020' }],
   gurs: [
     { code: 'ACOM', value: 'ACOM - A-Communication GUR' },
     { code: 'ACGM', value: 'ACGM - A-Comparative Gender GUR' },
@@ -78,7 +78,7 @@ module.exports = {
     { code: 'ECON', value: 'ECON - Economics' },
     { code: 'EDAD', value: 'EDAD - Educational Administration' },
     { code: 'EDUC', value: 'EDUC - Education' },
-    { code: 'EE', value: 'EE - Electrical Engineering' },
+    { code: 'EECE', value: 'EECE - Electrical & Computer Engineer' },
     { code: 'EGEO', value: 'EGEO - Geography' },
     { code: 'ELED', value: 'ELED - Elementary Education' },
     { code: 'ELL', value: 'ELL - English Language Learners' },

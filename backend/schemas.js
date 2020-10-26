@@ -17,6 +17,7 @@ const Class = {
   Term: String,
   CourseNumber: String,
   Subject: String,
+  FetchedAt: Date,
 };
 module.exports = {
   Class,

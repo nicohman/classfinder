@@ -53,10 +53,14 @@
     <template v-slot:item.CourseCount="{header, value}">
       <span v-html="value"></span>
     </template>
+    <template v-slot:footer v-if="results.length > 0">
+      These were last updated {{ timeFrom(results[0].FetchedAt) }}
+    </template>
   </v-data-table>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';
+import moment from 'moment';
 import Expanded from './expanded.vue';
 import ClassCard from '../classcard.vue';
 
@@ -95,6 +99,9 @@ export default {
         return 'orange';
       }
       return 'green';
+    },
+    timeFrom(time) {
+      return moment(time).fromNow();
     },
     displayTimeLocation(timeLocs) {
       const strings = timeLocs.map(

@@ -19,7 +19,7 @@
               <v-tooltip right>
                 <template v-slot:activator="{ on }">
                   <v-btn v-on:click="showAdvanced = !showAdvanced" icon large v-on="on">
-                    <v-icon>mdi-settings</v-icon>
+                    <v-icon>mdi-cog</v-icon>
                   </v-btn>
                 </template>
                 <span>Advanced Search Filters</span>

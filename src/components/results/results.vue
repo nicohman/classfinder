@@ -1,6 +1,7 @@
 <template>
 <v-content class="pa-0">
   <v-container fluid class="pa-0 ma-0" v-if="$vuetify.breakpoint.smAndUp">
+    <v-col cols="18">
     <v-card>
       <v-toolbar color="primary" dark flat>
         <v-tooltip left>
@@ -24,6 +25,7 @@
       <v-card-title></v-card-title>
     <ResultsTable v-bind:search="search"></ResultsTable>
     </v-card>
+  </v-col>
   </v-container>
       <ResultsTable v-bind:search="search" v-else></ResultsTable>
   </v-content>

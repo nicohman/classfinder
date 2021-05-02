@@ -10,9 +10,9 @@
     <strong>Description</strong>
     : {{item.Description}}
     <br />
-    <span v-if="item.Prerequisites">
+    <span v-if="item.PrerequisiteText">
       <strong>Prerequisites</strong>
-      : {{item.Prerequisites}}
+      : {{item.PrerequisiteText}}
       <br />
     </span>
     <span v-if="item.Attributes.length > 0">

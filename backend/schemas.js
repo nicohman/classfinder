@@ -22,6 +22,8 @@ const Class = {
   Subject: String,
   Description: String,
   FetchedAt: Date,
+  Remote: Number,
+  Synchonous: Number
 };
 module.exports = {
   Class,

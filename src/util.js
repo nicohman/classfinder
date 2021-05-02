@@ -60,7 +60,7 @@ function dayNumToWord(num) {
   }
 }
 function parseScratchDates(item) {
-  return item.TimeLocations.map((d) => d.days.map((i) => {
+  return item.TimeLocations.filter((d) => d).map((d) => d.days.map((i) => {
     const startDate = new Date();
     startDate.setDate(item.StartDate.split('/')[1]);
     startDate.setMonth(item.StartDate.split('/')[0] - 1);
@@ -87,7 +87,10 @@ function parseScratchDates(item) {
       startDate,
       endDate,
     };
-  })).flat().flat().flat();
+  }))
+    .flat()
+    .flat()
+    .flat();
 }
 
 module.exports = {

@@ -81,6 +81,7 @@ export default {
       { text: 'Instructor', value: 'Instructor' },
       { text: 'GUR Attributes', value: 'GUR' },
       { text: 'Classes', value: 'TimeLocations' },
+      { text: 'Sync/Async', value: 'Synchronous' },
       { text: '', value: 'scratch' },
       { text: '', value: 'data-table-expand' },
     ],
@@ -104,10 +105,13 @@ export default {
       return moment(time).fromNow();
     },
     displayTimeLocation(timeLocs) {
-      const strings = timeLocs.map(
-        (i) => `${i.location}: ${i.days.join('')} ${i.startTime}-${i.endTime}`,
-      );
-      return strings.join('<br />');
+      if (timeLocs && timeLocs.length > 0 && timeLocs[0]) {
+        const strings = timeLocs.filter((i) => i).map(
+          (i) => `${i.location ? `${i.location}: ` : ''}${i.days.join('')} ${i.startTime}-${i.endTime}`,
+        );
+        return strings.join('<br />');
+      }
+      return 'TBA';
     },
     displayExpanded(item) {
       return `<br></br><strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}<br></br>`;

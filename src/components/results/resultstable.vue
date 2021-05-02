@@ -50,6 +50,9 @@
     <template v-slot:item.TimeLocations="{header, value}">
       <span v-html="displayTimeLocation(value)"></span>
     </template>
+    <template v-slot:item.Synchronous="{header, value}">
+      <span v-html="displaySync(value)"></span>
+    </template>
     <template v-slot:item.CourseCount="{header, value}">
       <span v-html="value"></span>
     </template>
@@ -95,6 +98,18 @@ export default {
     },
   },
   methods: {
+    displaySync(item) {
+      if (item === 0) {
+        return 'Synchronous';
+      }
+      if (item === 1) {
+        return 'Asynchronous';
+      }
+      if (item === 2) {
+        return 'Blended';
+      }
+      return item;
+    },
     getColor(item) {
       if (this.checkScratchOverlap(item) && !this.onScratch(item)) {
         return 'orange';

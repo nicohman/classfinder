@@ -53,6 +53,9 @@
     <template v-slot:item.Synchronous="{header, value}">
       <span v-html="displaySync(value)"></span>
     </template>
+    <template v-slot:item.Remote="{header, value}">
+      <span v-html="displayRemote(value)"></span>
+    </template>
     <template v-slot:item.CourseCount="{header, value}">
       <span v-html="value"></span>
     </template>
@@ -85,6 +88,7 @@ export default {
       { text: 'GUR Attributes', value: 'GUR' },
       { text: 'Classes', value: 'TimeLocations' },
       { text: 'Sync/Async', value: 'Synchronous' },
+      { text: 'Remote/F2F', value: 'Remote' },
       { text: '', value: 'scratch' },
       { text: '', value: 'data-table-expand' },
     ],
@@ -107,6 +111,18 @@ export default {
       }
       if (item === 2) {
         return 'Blended';
+      }
+      return item;
+    },
+    displayRemote(item) {
+      if (item === 0) {
+        return 'Face-to-Face';
+      }
+      if (item === 1) {
+        return 'Remote';
+      }
+      if (item === 2) {
+        return 'Hybrid';
       }
       return item;
     },

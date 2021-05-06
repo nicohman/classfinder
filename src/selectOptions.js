@@ -1,6 +1,7 @@
 module.exports = {
   terms: [{ value: 'Summer 2021' }, { value: 'Spring 2021' }],
-  remote: [{ value: 0, text: 'In-person' }, { value: 1, text: 'Remote' }, { value: 2, text: 'Blended' }],
+  remote: [{ value: 0, text: 'In-person' }, { value: 1, text: 'Remote' }, { value: 2, text: 'Hybrid' }],
+  sync: [{ value: 0, text: 'Synchronous' }, { value: 1, text: 'Asynchronous' }, { value: 2, text: 'Blended' }],
   gurs: [
     { code: 'ACOM', value: 'ACOM - A-Communication GUR' },
     { code: 'ACGM', value: 'ACGM - A-Comparative Gender GUR' },

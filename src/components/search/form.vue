@@ -74,6 +74,9 @@
       <v-col cols="12" sm="3">
         <v-select clearable :items = "options.remote" v-model="selected.remote" label="Remote/On-site"></v-select>
       </v-col>
+      <v-col cols="12" sm="3">
+        <v-select clearable :items="options.sync" v-model="selected.synchronous" label="Sync/async"></v-select>
+      </v-col>
     </v-row>
     <div v-if="showAdvanced">
       <v-row justify="center">

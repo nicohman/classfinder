@@ -18,6 +18,7 @@ const Class = {
   Enrolled: Number,
   Available: Number,
   Term: String,
+  Gurs: Array,
   CourseNumber: String,
   Subject: String,
   Description: String,

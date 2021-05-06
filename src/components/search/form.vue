@@ -71,6 +71,9 @@
           :rules="[courseNumberRules]"
         ></v-text-field>
       </v-col>
+      <v-col cols="12" sm="3">
+        <v-select clearable :items = "options.remote" v-model="selected.remote" label="Remote/On-site"></v-select>
+      </v-col>
     </v-row>
     <div v-if="showAdvanced">
       <v-row justify="center">
@@ -142,6 +145,7 @@ export default {
       subject: undefined,
       site: undefined,
       coursenumber: undefined,
+      remote: undefined,
       onlyOpen: false,
       credits: undefined,
       courseTitle: undefined,

@@ -15,10 +15,10 @@ const getClass = (req, res) => {
         parsed = 'CRN';
         break;
       case 'gur':
-        if (!queryObject.Attributes) {
-          queryObject.Attributes = { $all: [] };
+        if (!queryObject.Gurs) {
+          queryObject.Gurs = { $all: [] };
         }
-        queryObject.Attributes.$all.push(req.query.gur);
+        queryObject.Gurs.$all.push(req.query.gur);
         return;
       case 'other':
         if (!queryObject.Attributes) {
@@ -56,6 +56,8 @@ const getClass = (req, res) => {
       case 'description':
       case 'capacity':
       case 'enrolled':
+      case 'remote':
+      case 'synchronous':
       case 'available':
         parsed = queryParam.charAt(0).toUpperCase() + queryParam.slice(1);
         break;
@@ -70,7 +72,7 @@ const getClass = (req, res) => {
   console.log(queryObject);
   let query = Class.find(queryObject, optsObject);
   if (queryObject['TimeLocations.days']) {
-    query = query.sort({ score: { $meta: 'textScore' } });
+    //query = query.sort({ score: { $meta: 'textScore' } });
   }
   query.exec((err, classes) => {
     if (err) {

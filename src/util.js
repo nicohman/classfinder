@@ -43,7 +43,6 @@ function dayLetterToNum(letter) {
   }
 }
 function dayNumToWord(num) {
-  console.log(num);
   switch (num) {
     case 1:
       return 'Monday';

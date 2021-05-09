@@ -35,6 +35,11 @@ const getClass = (req, res) => {
       case 'coursenumber':
         parsed = 'CourseNumber';
         break;
+      case 'onlyOpen':
+        queryObject.Available = {
+          $gt: 0
+        };
+        break;
       case 'courseTitle':
         if (req.query.courseTitle.length === 0) {
           return;

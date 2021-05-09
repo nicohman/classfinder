@@ -20,7 +20,6 @@
                     <a href="https://git.sr.ht/~nicohman/classfinder" target="_blank">public repo</a> if you want to check it out.
                     If you have bug reports or feature sugestions, you can file an issue on
                     <a href="https://github.com/nicohman/classfinder" target="_blank">GitHub</a>.
-                    Thanks to Loc Truong and Arick Grootveld, who did the majority of the work on the code that parses Classfinder.
                   </v-card-text>
                   <v-divider></v-divider>
                   <v-card-actions>

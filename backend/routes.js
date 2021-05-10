@@ -24,7 +24,11 @@ const getClass = (req, res) => {
         if (!queryObject.Attributes) {
           queryObject.Attributes = { $all: [] };
         }
-        queryObject.Attributes.$all.push(req.query.other);
+        if (req.query.other.includes(" ")) {
+          queryObject.Attributes.$all = queryObject.Attributes.$all.concat(req.query.other.split(" "));
+        } else {
+          queryObject.Attributes.$all.push(req.query.other);
+        }
         return;
       case 'start_date':
         parsed = 'StartDate';

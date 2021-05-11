@@ -79,16 +79,26 @@ const getClass = (req, res) => {
   });
 	res.set('Cache-Control', 'no-cache');
   console.log(queryObject);
-  let query = Class.find(queryObject, optsObject);
+  let aggregation_pipeline=  [{$match: queryObject}, {$lookup: {
+    from: 'descriptions',
+    localField: 'Name',
+    foreignField: 'Name',
+    as: 'Description'
+  }}, {
+    $addFields: {
+      Description: {
+        $first: "$Description.Description"
+      }
+    }
+  }];
+  let query = Class.aggregate(aggregation_pipeline);
   if (queryObject['TimeLocations.days']) {
     //query = query.sort({ score: { $meta: 'textScore' } });
   }
-  query.exec((err, classes) => {
-    if (err) {
-      throw err;
-    } else {
-      res.send(classes);
-    }
+  query.then((classes) => {
+    res.send(classes);
+  }).catch((err) => {
+    throw err;
   });
 };
 

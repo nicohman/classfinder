@@ -74,7 +74,15 @@ const getClass = (req, res) => {
         break;
     }
     if (parsed) {
-      queryObject[parsed] = req.query[queryParam];
+      if (parsed === 'CRN' || parsed === 'Capacity' || parsed === 'Enrolled' || parsed === 'Available' || parsed === 'Remote' || parsed === 'Synchronous') {
+        try {
+          queryObject[parsed] = parseInt(req.query[queryParam]);
+        } catch (e) {
+          console.log(e);
+        }
+      } else {
+        queryObject[parsed] = req.query[queryParam];
+      }
     }
   });
 	res.set('Cache-Control', 'no-cache');

@@ -29,7 +29,7 @@
           <v-list-item>
             <v-list-item-content>
               <v-list-item-subtitle>GUR Attributes</v-list-item-subtitle>
-              <v-list-item-title>{{value.GUR.join(",")}}</v-list-item-title>
+              <v-list-item-title>{{value.Gurs.join(",")}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item>

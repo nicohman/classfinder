@@ -141,7 +141,7 @@ export default {
     options: selectOptions,
     selected: {
       instructor: undefined,
-      term: 'Spring 2021',
+      term: 'Summer 2021',
       gurs: undefined,
       other: undefined,
       days: [],

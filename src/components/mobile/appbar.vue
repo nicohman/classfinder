@@ -25,6 +25,14 @@
           </v-list-item-icon>
           <v-list-item-title>About</v-list-item-title>
           </v-list-item>
+          <v-list-item href="https://charts.mongodb.com/charts-classfinder-upefc/public/dashboards/609031cb-0c22-4ddf-8e6c-5aaeaf683b50" target="_blank">
+            <v-list-item-icon>
+              <v-icon>mdi-chart-box</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>
+              Charts
+            </v-list-item-title>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>

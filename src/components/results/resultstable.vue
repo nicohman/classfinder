@@ -85,7 +85,7 @@ export default {
       { text: 'Name', value: 'Title' },
       { text: 'Cap/Enrolled/Available', value: 'CourseCount' },
       { text: 'Instructor', value: 'Instructor' },
-      { text: 'GUR Attributes', value: 'GUR' },
+      { text: 'GUR Attributes', value: 'Gurs' },
       { text: 'Classes', value: 'TimeLocations' },
       { text: 'Sync/Async', value: 'Synchronous' },
       { text: 'Remote/F2F', value: 'Remote' },

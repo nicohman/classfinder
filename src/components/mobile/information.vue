@@ -21,9 +21,8 @@
     <a
       href="https://github.com/nicohman/classfinder"
       target="_blank"
-    >GitHub</a>.
-    Thanks to Loc Truong and Arick Grootveld, who did the majority of the work on the code that parses Classfinder.
-      </v-container>
+    >GitHub</a>
+    </v-container>
   </v-content>
 </template>
 <script>

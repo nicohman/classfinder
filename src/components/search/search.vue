@@ -13,14 +13,6 @@
                   <v-btn target="_blank" href="https://charts.mongodb.com/charts-classfinder-upefc/public/dashboards/609031cb-0c22-4ddf-8e6c-5aaeaf683b50" icon large v-on="on" ><v-icon>mdi-chart-box</v-icon></v-btn>
                 </template>
               </v-tooltip>
-              <v-tooltip right>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on:click="goScratchSheet" icon large v-on="on">
-                    <v-icon>mdi-calendar</v-icon>
-                  </v-btn>
-                </template>
-                <span>Scratchsheet</span>
-              </v-tooltip>
               <InfoDialog></InfoDialog>
               <v-tooltip right>
                 <template v-slot:activator="{ on }">
@@ -29,6 +21,15 @@
                   </v-btn>
                 </template>
                 <span>Advanced Search Filters</span>
+              </v-tooltip>
+              <v-tooltip right>
+                <template v-slot:activator="{ on }">
+                  <v-btn v-on:click="goScratchSheet" large v-on="on">
+                    <v-icon>mdi-calendar</v-icon>
+                    <span>Scratchsheet</span>
+                  </v-btn>
+                </template>
+                <span>Scratchsheet</span>
               </v-tooltip>
             </v-toolbar>
             <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>

@@ -20,7 +20,7 @@
       </v-container>
     </v-list>
     <v-content justify="center" v-else>
-      <span>You don't have any classes added to your scratchsheet yet</span>
+      <span>You don't have any classes added to your scratchsheet with times yet.</span>
     </v-content>
   </v-container>
 </template>

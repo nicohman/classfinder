@@ -21,6 +21,15 @@
           single-line
           hide-details
         ></v-text-field>
+        <v-spacer class="col-auto" />
+        <v-tooltip right>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on:click="goScratchSheet" large v-on="on">
+              <v-icon>mdi-calendar</v-icon>
+              <span>Scratchsheet</span>
+            </v-btn>
+          </template>
+        </v-tooltip>
       </v-toolbar>
       <v-card-title></v-card-title>
     <ResultsTable v-bind:search="search"></ResultsTable>
@@ -46,11 +55,15 @@ export default {
     },
   },
   methods: {
+    goScratchSheet() {
+      this.setRoute('/scratchsheet');
+      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
+    },
     goBack() {
       window.history.back();
     },
     ...mapGetters(['getResults', 'getScratch']),
-    ...mapMutations(['addScratch', 'rmScratch', 'setResults']),
+    ...mapMutations(['addScratch', 'rmScratch', 'setResults', 'setRoute']),
   },
 };
 </script>

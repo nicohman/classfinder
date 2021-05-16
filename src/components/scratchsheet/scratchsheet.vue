@@ -13,7 +13,23 @@
           </v-tooltip>
           <v-toolbar-title style="width:65vw">Scratchsheet</v-toolbar-title>
           <v-spacer />
+          <v-dialog v-model="dialog">
+            <template v-slot:activator="{ on }">
+              <v-btn v-on:click="openCRNS" large v-on="on">
+                View All CRNS
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                All CRNs
+              </v-card-title>
+              <v-card-text>
+              <span v-bind:key="item" v-for="item in getScratch()">{{ item.Name + " - " + item.CRN }}<br /></span>
+            </v-card-text>
+            </v-card>
+          </v-dialog>
         </v-toolbar>
+
         <v-card-title></v-card-title>
         <v-row>
           <ScratchCalendar></ScratchCalendar>
@@ -24,6 +40,8 @@
   </v-content>
 </template>
 <script>
+import { mapGetters } from 'vuex';
+
 import ScratchCalendar from './scratchcalendar.vue';
 import ScratchList from './scratchlist.vue';
 
@@ -34,6 +52,11 @@ export default {
     goBack() {
       window.history.back();
     },
+    openCRNS() {
+
+
+    },
+    ...mapGetters(['getScratch']),
   },
 };
 </script>

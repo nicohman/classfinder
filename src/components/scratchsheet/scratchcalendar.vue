@@ -16,7 +16,7 @@
     </template>
     </v-calendar>
     <v-content justify="center" v-else>
-      <span>Sorry, but you don't have any classes added to your scratchsheet!</span>
+      <span>You don't have any classes added to your scratchsheet with times</span>
     </v-content>
     <v-menu v-model="selectedOpen" v-if="selectedOpen" :activator="selectedElement" offset-x>
       <v-card color="grey lighten-4" flat>

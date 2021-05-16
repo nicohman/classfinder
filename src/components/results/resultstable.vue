@@ -1,4 +1,5 @@
 <template>
+  <div>
   <v-data-table
     :headers="headers"
     :items="results"
@@ -63,6 +64,9 @@
       These were last updated {{ timeFrom(results[0].FetchedAt) }}
     </template>
   </v-data-table>
+    <v-btn v-if="$vuetify.breakpoint.xsOnly">
+  </v-btn>
+  </div>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';

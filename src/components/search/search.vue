@@ -3,7 +3,7 @@
     <v-container class="fill-height" fluid v-if="$vuetify.breakpoint.smAndUp">
       <v-row align="center" justify="center">
         <v-col cols="12">
-          <v-card class="elevation-12">
+          <v-card class="elevation-12 pb-12">
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>Search for Classes</v-toolbar-title>
               <v-spacer />
@@ -14,14 +14,6 @@
                 </template>
               </v-tooltip>
               <InfoDialog></InfoDialog>
-              <v-tooltip right>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on:click="showAdvanced = !showAdvanced" icon large v-on="on">
-                    <v-icon>mdi-cog</v-icon>
-                  </v-btn>
-                </template>
-                <span>Advanced Search Filters</span>
-              </v-tooltip>
               <v-tooltip right>
                 <template v-slot:activator="{ on }">
                   <v-btn v-on:click="goScratchSheet" large v-on="on">

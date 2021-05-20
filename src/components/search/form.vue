@@ -111,13 +111,22 @@
         </v-col>
       </v-row>
     </div>
-    <v-row justify="center">
-      <v-col cols="12" sm="2">
+    <v-row justify="center" class="d-none d-sm-flex">
+      <v-spacer />
+        <v-btn v-on:click="showAdvanced = !showAdvanced">
+          {{ !showAdvanced ? "More Filters" : "Hide Filters" }}
+        </v-btn>
+        <v-spacer />
         <a class="d-none d-sm-flex"  v-on:click="searchClasses">
-          <v-btn  type="submit" to="/results">Search</v-btn>
+          <v-btn color="primary" type="submit" to="/results">Search Classes</v-btn>
         </a>
-        <a class="d-flex d-sm-none" v-on:click="searchClasses">
-          <v-btn block type="submit" to="/results">Search</v-btn>
+        <v-spacer />
+    </v-row>
+    <v-row justify="center" class="d-flex d-sm-none">
+      <v-col cols="12">
+          <v-btn block v-on:click="showAdvanced = !showAdvanced">{{ !showAdvanced ? "More Filters" : "Hide Filters" }} </v-btn>
+        <a class="mt-5 d-flex d-sm-none" v-on:click="searchClasses">
+          <v-btn block color="primary" type="submit" to="/results">Search</v-btn>
         </a>
       </v-col>
     </v-row>

@@ -9,6 +9,8 @@
     item-key="CRN"
     max-width="100vw"
     class="ma-0 pa-0"
+    disable-pagination="true"
+    hide-default-footer="true"
   >
     <template v-if="$vuetify.breakpoint.smAndUp" v-slot:expanded-item="{ headers, item }">
       <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
@@ -48,6 +50,9 @@
         v-on:click="addScratch(item)"
       >Add to scratchsheet</v-btn>
     </template>
+    <template v-slot:item.Available="{header, value}">
+      <v-chip v-bind:color="value > 0 ? 'green' : 'red'">{{value}}</v-chip>
+    </template>
     <template v-slot:item.TimeLocations="{header, value}">
       <span v-html="displayTimeLocation(value)"></span>
     </template>
@@ -61,7 +66,7 @@
       <span v-html="value"></span>
     </template>
     <template v-slot:footer v-if="results.length > 0">
-      These were last updated {{ timeFrom(results[0].FetchedAt) }}
+      <span class="text--secondary ml-10">These were last updated {{ timeFrom(results[0].FetchedAt) }}</span>
     </template>
   </v-data-table>
     <v-btn v-if="$vuetify.breakpoint.xsOnly">
@@ -84,6 +89,7 @@ export default {
   },
   data: () => ({
     headers: [
+      { text: 'Slots', value: 'Available' },
       { text: 'Class Code', value: 'Name' },
       { text: 'CRN', value: 'CRN' },
       { text: 'Name', value: 'Title' },

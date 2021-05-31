@@ -17,6 +17,7 @@ import Search from './components/search/search.vue';
 import Results from './components/results/results.vue';
 import Scratchsheet from './components/scratchsheet/scratchsheet.vue';
 import InformationMobile from './components/mobile/information.vue';
+import ScheduleBuilder from './components/schedulebuilder/schedulebuilder.vue';
 
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
@@ -58,6 +59,7 @@ export default {
       '/results': Results,
       '/scratchsheet': Scratchsheet,
       '/information': InformationMobile,
+      '/schedulebuilder': ScheduleBuilder,
     },
   }),
   methods: {

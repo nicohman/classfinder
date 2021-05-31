@@ -92,6 +92,19 @@ function parseScratchDates(item) {
     .flat();
 }
 
+function checkIndividualOverlap(item, item2) {
+  if (item && item2) {
+    return item.some((scratchDate) => item2.some((i) => {
+      if (scratchDate.startDate.getTime() <= i.endDate.getTime()
+        && scratchDate.endDate.getTime() >= i.startDate.getTime()) {
+        return true;
+      }
+      return false;
+    }));
+  }
+  return false;
+}
+
 module.exports = {
-  fetchClasses, parseScratchDates, convertToCalenderFormat, dayLetterToNum, dayNumToWord,
+  fetchClasses, parseScratchDates, convertToCalenderFormat, dayLetterToNum, dayNumToWord, checkIndividualOverlap,
 };

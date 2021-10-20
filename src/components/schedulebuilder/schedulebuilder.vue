@@ -1,6 +1,8 @@
 <template>
-    <v-container fluid class="pa-0">
-      <v-row align="center"><v-col cols="12">
+    <v-content class="mx-auto pa-0" justify="center">
+
+    <v-container fluid class="pa-0" justify="center">
+      <v-row align="center" justify="center"><v-col cols="4" justify="center">
       <v-dialog v-model="showPopup" width="500">
         <v-card>
           <v-card-title class="headline grey lighten-2" primary-title>There was a problem building a schedule</v-card-title>
@@ -14,21 +16,22 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-      <v-card class="elevation-12 pb-12" width="30vw">
+      <v-card class="elevation-12 pb-12" >
         <v-toolbar color="primary" dark flat>
           <v-toolbar-title>
-            Build a schedule automatically
+            Build a schedule automatically - Alpha
           </v-toolbar-title>
         </v-toolbar>
         <v-card-text class="pa-2">
           <h4>This lets you enter a list of classes and then receive options of schedules containing those classes with no timeslot conflicts.</h4>
           <v-chip v-for="(classd, i) in classes" :key="classd" close @click:close="classes.splice(i, 1)">{{ classd }}</v-chip>
           <v-text-field :value="classField" @input="classField = $event.toUpperCase()" v-on:keydown.enter="addClass"></v-text-field>
+          <v-select label="Term" :items="options.terms" item-text="value" v-model="term" item-value="value"></v-select>
           <v-btn @click="addClass()">Add Class</v-btn>
           <v-btn @click="handleBuild()">Find Schedule</v-btn>
           <v-row class="mt-5">
             <v-card v-for="(item, i) in schedule" :key="item[0].CRN">
-              <v-card-title>Schedule Option #{{i + 1}}</v-card-title>
+              <v-card-title>Schedule Option #{{i + 1}} - <v-btn icon @click="addToSheet(item)"><v-icon>mdi-plus</v-icon></v-btn></v-card-title>
               <v-card-text>
                 <v-list disabled>
               <v-list-item-group>
@@ -46,27 +49,34 @@
       </v-card>
       </v-col></v-row>
   </v-container>
+</v-content>
 </template>
 <script>
+import { mapMutations, mapGetters } from 'vuex';
+
 const { checkIndividualOverlap, parseScratchDates, fetchClasses } = require('../../util');
+const selectOptions = require('../../selectOptions');
+
 
 export default {
   name: 'ScheduleBuilder',
   data() {
     return {
       classField: '',
+      options: selectOptions,
       classes: [],
       showPopup: false,
+      term: '',
       popupText: '',
       schedule: [],
     };
   },
   methods: {
     async handleBuild() {
-      await this.buildSchedule(this.classes);
+      await this.buildSchedule(this.classes, this.term);
     },
-    async buildSchedule(names) {
-      const parsedQuery = names.map((name) => new URLSearchParams({ name }).toString());
+    async buildSchedule(names, term) {
+      const parsedQuery = names.map((name) => new URLSearchParams({ name, term }).toString());
       const results = await Promise.all(parsedQuery.map((query) => fetchClasses(query)));
       let empty = results.filter((l) => l.length < 1);
       if (empty.length > 0) {
@@ -129,6 +139,13 @@ export default {
       }
       return 'TBA';
     },
+    addToSheet(schedule) {
+      schedule.forEach((i) => {
+        this.addScratch(i);
+      });
+    },
+    ...mapGetters(['getScratch']),
+    ...mapMutations(['setScratch', 'addScratch']),
   },
 };
 </script>

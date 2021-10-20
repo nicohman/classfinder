@@ -2,7 +2,7 @@
   <v-content class="mx-auto pa-0">
     <v-container class="fill-height" fluid v-if="$vuetify.breakpoint.smAndUp">
       <v-row align="center" justify="center">
-        <v-col cols="12">
+        <v-col cols="6">
           <v-card class="elevation-12 pb-12">
             <v-toolbar color="primary" dark flat>
               <v-toolbar-title>Search for Classes</v-toolbar-title>
@@ -14,15 +14,6 @@
                 </template>
               </v-tooltip>
               <InfoDialog></InfoDialog>
-              <v-tooltip right>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on:click="goScratchSheet" large v-on="on">
-                    <v-icon>mdi-calendar</v-icon>
-                    <span>Scratchsheet</span>
-                  </v-btn>
-                </template>
-                <span>Scratchsheet</span>
-              </v-tooltip>
             </v-toolbar>
             <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
           </v-card>

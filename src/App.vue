@@ -1,12 +1,22 @@
 <template>
-  <v-app>
+  <v-app style="background-color: rgb(218, 231, 244)">
     <CFAppBar v-if="$vuetify.breakpoint.xsOnly"></CFAppBar>
-    <v-content class="fill-height mx-auto pt-4 pa-lg-auto" fluid>
+    <v-app-bar app dark color="primary" v-else>
+      <v-app-bar-title>Classfinder</v-app-bar-title>
+      <v-tabs :value="getRouteNumber()" @change="onTabChange($event)">
+        <v-tab>Search Classes</v-tab>
+        <v-tab>Scratchsheet</v-tab>
+        <v-tab>Schedule Builder</v-tab>
+      </v-tabs>
+    </v-app-bar>
+    <v-main>
+    <v-content fluid>
       <keep-alive>
         <component v-bind:is="this.routes[getRoute()]">
         </component>
       </keep-alive>
     </v-content>
+  </v-main>
   </v-app>
 </template>
 
@@ -65,6 +75,36 @@ export default {
   methods: {
     onResults() {
       this.setRoute('/results');
+    },
+    getRouteNumber() {
+      switch (this.getRoute()) {
+        case '/':
+          return 0;
+        case '/scratchsheet':
+          return 1;
+        case '/schedulebuilder':
+          return 2;
+        default:
+          return 0;
+      }
+    },
+    onTabChange(ev) {
+      switch (ev) {
+        case 0:
+          this.setRoute('/');
+          break;
+        case 1:
+          this.setRoute('/scratchsheet');
+          break;
+        case 2:
+          this.setRoute('/schedulebuilder');
+          break;
+        default:
+          this.setRoute('/');
+          break;
+      }
+      //  window.location.pathname = this.getRoute();
+      window.history.replaceState(null, this.getRoute(), this.getRoute());
     },
     ...mapMutations(['setScratch', 'setRoute']),
     ...mapGetters(['getRoute']),

@@ -1,16 +1,11 @@
 <template>
-  <v-content class="mx-auto pa-0" >
-    <v-container fluid v-if="$vuetify.breakpoint.smAndUp">
+  <v-content class="mx-auto pa-0" justify="center">
+    <v-container fluid v-if="$vuetify.breakpoint.smAndUp" justify="center">
+            <v-row align="center" justify="center">
+
+      <v-col cols="6" justify="center">
       <v-card justify="center">
         <v-toolbar color="primary" dark flat>
-          <v-tooltip left>
-            <template v-slot:activator="{ on }">
-              <v-btn v-on:click="goBack" icon large v-on="on">
-                <v-icon>mdi-arrow-left</v-icon>
-              </v-btn>
-            </template>
-            <span>Go Back</span>
-          </v-tooltip>
           <v-toolbar-title style="width:65vw">Scratchsheet</v-toolbar-title>
           <v-spacer />
           <v-dialog v-model="dialog">
@@ -29,12 +24,13 @@
             </v-card>
           </v-dialog>
         </v-toolbar>
-
         <v-card-title></v-card-title>
         <v-row>
           <ScratchCalendar></ScratchCalendar>
         </v-row>
       </v-card>
+    </v-col>
+        </v-row>
     </v-container>
     <ScratchList v-else></ScratchList>
   </v-content>

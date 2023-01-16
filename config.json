@@ -6,12 +6,11 @@
       "port": 8050
     },
     "mongooseConfig": {
-      "autoIndex": false,
       "useNewUrlParser": true,
       "auto_reconnect" :true,
       "reconnectTries": 10,
-      "ssl": false
+      "useUnifiedTopology": true
     },
-    "numberOfTermsCached" : 1
+    "numberOfTermsCached" : 5
   }
   

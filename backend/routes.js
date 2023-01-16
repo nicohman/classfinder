@@ -57,7 +57,7 @@ const getClass = (req, res) => {
         queryObject['TimeLocations.days'] = { $all: req.query.days.split(',') };
         return;
       case 'names':
-        queryObject['Name'] = { $in: }
+        queryObject['Name'] = { $in: req.query.names.split(',')}
         return;
       case 'name':
       case 'subject':

@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const gurList = require('./selectOptions.js').gurs.map((i) => i.code);
+const gurList = require('./selectOptions').gurs.map((i) => i.code);
 
 async function fetchClasses(queryString) {
   const res = await axios.get(

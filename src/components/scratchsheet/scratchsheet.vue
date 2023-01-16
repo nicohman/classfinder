@@ -48,10 +48,7 @@ export default {
     goBack() {
       window.history.back();
     },
-    openCRNS() {
-
-
-    },
+    openCRNS() { },
     ...mapGetters(['getScratch']),
   },
 };

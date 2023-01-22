@@ -7,78 +7,87 @@
     class="fill-height"
   >
     <v-row align="center" justify="center">
-      <v-col cols="12" sm="3">
-        <v-select
-          required
-          v-model="selected.term"
-          :items="options.terms"
-          label="Term"
-          item-text="value"
-          item-value="value"
-        ></v-select>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-autocomplete
-          clearable
-          v-model="selected.gur"
-          :items="options.gurs"
-          label="GUR"
-          item-text="value"
-          item-value="code"
-        ></v-autocomplete>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-text-field label="Course Title" v-model="selected.courseTitle"></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="12" sm="3">
-        <v-autocomplete
-          clearable
-          v-model="selected.other"
-          :items="options.others"
-          label="Other Attributes"
-          item-text="value"
-          item-value="code"
-        ></v-autocomplete>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-autocomplete
-          clearable
-          v-model="selected.subject"
-          :items="options.subjects"
-          label="Subject"
-          item-text="value"
-          item-value="code"
-        ></v-autocomplete>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-autocomplete
-          clearable
-          v-model="selected.instructor"
-          :items="options.instructors"
-          label="Instructors"
-          item-text="value"
-          item-value="code"
-        ></v-autocomplete>
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="12" sm="3">
+      <v-col cols="12" sm="9">
         <v-text-field
-          label="Course Number"
-          v-model="selected.coursenumber"
-          :rules="[courseNumberRules]"
+          label="Search"
+          placeholder="(example: classes for a chemistry major)"
+          v-model="userInput"
         ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-select clearable :items = "options.remote" v-model="selected.remote" label="Remote/On-site"></v-select>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-select clearable :items="options.sync" v-model="selected.synchronous" label="Sync/async"></v-select>
       </v-col>
     </v-row>
     <div v-if="showAdvanced">
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="3">
+          <v-select
+            required
+            v-model="selected.term"
+            :items="options.terms"
+            label="Term"
+            item-text="value"
+            item-value="value"
+          ></v-select>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-autocomplete
+            clearable
+            v-model="selected.gur"
+            :items="options.gurs"
+            label="GUR"
+            item-text="value"
+            item-value="code"
+          ></v-autocomplete>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-text-field label="Course Title" v-model="selected.courseTitle"></v-text-field>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12" sm="3">
+          <v-autocomplete
+            clearable
+            v-model="selected.other"
+            :items="options.others"
+            label="Other Attributes"
+            item-text="value"
+            item-value="code"
+          ></v-autocomplete>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-autocomplete
+            clearable
+            v-model="selected.subject"
+            :items="options.subjects"
+            label="Subject"
+            item-text="value"
+            item-value="code"
+          ></v-autocomplete>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-autocomplete
+            clearable
+            v-model="selected.instructor"
+            :items="options.instructors"
+            label="Instructors"
+            item-text="value"
+            item-value="code"
+          ></v-autocomplete>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col cols="12" sm="3">
+          <v-text-field
+            label="Course Number"
+            v-model="selected.coursenumber"
+            :rules="[courseNumberRules]"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-select clearable :items = "options.remote" v-model="selected.remote" label="Remote/On-site"></v-select>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <v-select clearable :items="options.sync" v-model="selected.synchronous" label="Sync/async"></v-select>
+        </v-col>
+      </v-row>
       <v-row justify="center">
         <v-col cols="12" sm="3">
           <v-text-field label="Credits" v-model="selected.credits" :rules="[numberRules]"></v-text-field>
@@ -106,7 +115,7 @@
         </v-col>
       </v-row>
       <v-row justify="center">
-        <v-col cols="2">
+        <v-col cols="3">
           <v-checkbox v-model="selected.onlyOpen" label="Only Open Sections"></v-checkbox>
         </v-col>
       </v-row>
@@ -114,7 +123,7 @@
     <v-row justify="center" class="d-none d-sm-flex">
       <v-spacer />
         <v-btn v-on:click="showAdvanced = !showAdvanced">
-          {{ !showAdvanced ? "More Filters" : "Hide Filters" }}
+          {{ !showAdvanced ? "Advanced Search" : "Hide Advanced" }}
         </v-btn>
         <v-spacer />
         <a class="d-none d-sm-flex"  v-on:click="searchClasses">
@@ -124,7 +133,7 @@
     </v-row>
     <v-row justify="center" class="d-flex d-sm-none">
       <v-col cols="12">
-          <v-btn block v-on:click="showAdvanced = !showAdvanced">{{ !showAdvanced ? "More Filters" : "Hide Filters" }} </v-btn>
+          <v-btn block v-on:click="showAdvanced = !showAdvanced">{{ !showAdvanced ? "Advanced Search" : "Hide Advanced" }} </v-btn>
         <a class="mt-5 d-flex d-sm-none" v-on:click="searchClasses">
           <v-btn block color="primary" type="submit" to="/results">Search</v-btn>
         </a>
@@ -163,6 +172,7 @@ export default {
       courseTitle: undefined,
     },
     valid: false,
+    userInput: '',
   }),
   methods: {
     async searchClasses(e) {

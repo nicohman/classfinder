@@ -10,12 +10,12 @@
       </v-tabs>
     </v-app-bar>
     <v-main>
-    <v-content fluid>
+    <v-main fluid>
       <keep-alive>
         <component v-bind:is="this.routes[getRoute()]">
         </component>
       </keep-alive>
-    </v-content>
+    </v-main>
   </v-main>
   </v-app>
 </template>

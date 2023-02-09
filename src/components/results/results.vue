@@ -1,5 +1,5 @@
 <template>
-<v-content class="pa-0">
+<v-main class="pa-0">
   <v-container fluid class="pa-0 ma-0" v-if="$vuetify.breakpoint.smAndUp">
     <v-col cols="18">
     <v-card>
@@ -37,7 +37,7 @@
   </v-col>
   </v-container>
       <ResultsTable v-bind:search="search" v-else></ResultsTable>
-  </v-content>
+  </v-main>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';

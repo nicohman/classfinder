@@ -1,5 +1,5 @@
 <template>
-  <v-content class="mx-auto pa-0">
+  <v-main class="mx-auto pa-0">
     <v-container class="fill-height" fluid v-if="$vuetify.breakpoint.smAndUp">
       <v-row align="center" justify="center">
         <v-col cols="6">
@@ -24,7 +24,7 @@
               <v-container v-else class="fill-height" fluid>
             <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
           </v-container>
-  </v-content>
+  </v-main>
 </template>
 <script>
 import { mapMutations } from 'vuex';

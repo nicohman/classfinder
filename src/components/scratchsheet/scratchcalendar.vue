@@ -15,9 +15,9 @@
     <template v-slot:day="{date}"><div>{{date}}</div>
     </template>
     </v-calendar>
-    <v-content justify="center" v-else>
+    <v-main justify="center" v-else>
       <span>You don't have any classes added to your scratchsheet with times</span>
-    </v-content>
+    </v-main>
     <v-menu v-model="selectedOpen" v-if="selectedOpen" :activator="selectedElement" offset-x>
       <v-card color="grey lighten-4" flat>
         <v-card-title>{{selectedClass.name}}</v-card-title>

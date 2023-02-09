@@ -1,5 +1,5 @@
 <template>
-  <v-content class="pt-3">
+  <v-main class="pt-3">
       <v-container>
     <br />This is an alternative to WWU's
     <a
@@ -23,7 +23,7 @@
       target="_blank"
     >GitHub</a>
     </v-container>
-  </v-content>
+  </v-main>
 </template>
 <script>
 export default {

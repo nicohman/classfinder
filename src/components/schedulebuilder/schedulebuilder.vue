@@ -1,5 +1,5 @@
 <template>
-    <v-content class="mx-auto pa-0" justify="center">
+    <v-main class="mx-auto pa-0" justify="center">
 
     <v-container fluid class="pa-0" justify="center">
       <v-row align="center" justify="center"><v-col cols="4" justify="center">
@@ -49,7 +49,7 @@
       </v-card>
       </v-col></v-row>
   </v-container>
-</v-content>
+</v-main>
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';

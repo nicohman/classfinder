@@ -1,5 +1,5 @@
 <template>
-  <v-content class="mx-auto pa-0" justify="center">
+  <v-main class="mx-auto pa-0" justify="center">
     <v-container fluid v-if="$vuetify.breakpoint.smAndUp" justify="center">
             <v-row align="center" justify="center">
 
@@ -33,7 +33,7 @@
         </v-row>
     </v-container>
     <ScratchList v-else></ScratchList>
-  </v-content>
+  </v-main>
 </template>
 <script>
 import { mapGetters } from 'vuex';

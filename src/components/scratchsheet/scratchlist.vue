@@ -19,9 +19,9 @@
         </v-list-item>
       </v-container>
     </v-list>
-    <v-content justify="center" v-else>
+    <v-main justify="center" v-else>
       <span>You don't have any classes added to your scratchsheet with times yet.</span>
-    </v-content>
+    </v-main>
   </v-container>
 </template>
 <script>

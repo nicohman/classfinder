@@ -1,5 +1,4 @@
 <template>
-
   <v-container fluid class="pa-0">
     <ClassCard v-model="selectedClass" fullscreen></ClassCard>
     <v-list v-if="events.length > 0" dense min-width="100vw">

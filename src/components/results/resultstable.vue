@@ -9,8 +9,8 @@
     item-key="CRN"
     max-width="100vw"
     class="ma-0 pa-0"
-    disable-pagination="true"
-    hide-default-footer="true"
+    :disable-pagination=disablePagination
+    :hide-default-footer=hideDefaultFooter
   >
     <template v-if="$vuetify.breakpoint.smAndUp" v-slot:expanded-item="{ headers, item }">
       <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
@@ -105,6 +105,8 @@ export default {
     search: '',
     parsed: [],
     shownClass: undefined,
+    disablePagination: true,
+    hideDefaultFooter: true,
   }),
   computed: {
     results() {

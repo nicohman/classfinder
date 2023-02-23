@@ -8,7 +8,9 @@
         <v-list-item link two-line v-for="event in day"  v-on:click="showClass(event)" v-bind:key="event.start">
           <v-list-item-content>
             <v-list-item-title>{{event.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}
+            </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
             <v-btn icon>
@@ -19,7 +21,7 @@
       </v-container>
     </v-list>
     <v-main v-else justify="center">
-      <span>You don't have any classes added to your scratchsheet with times yet.</span>
+      <div>No classes with times found for this scratchsheet</div>
     </v-main>
   </v-container>
 </template>

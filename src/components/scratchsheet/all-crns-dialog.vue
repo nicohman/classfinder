@@ -6,7 +6,8 @@
     <v-card>
       <v-card-title>All CRNs</v-card-title>
       <v-card-text>
-        <span v-bind:key="item" v-for="item in getScratch()">
+        <span v-if="scratchsheetEmpty">No classes in scratchsheet</span>
+        <span v-else v-bind:key="item" v-for="item in getScratch()">
           {{ item.Name + " - " + item.CRN }}
           <br />
         </span>
@@ -20,8 +21,16 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'AllCrnsDialog',
+  computed: {
+    scratchsheetEmpty() {
+      return (this.getScratch()).length === 0;
+    },
+  },
   methods: {
     ...mapGetters(['getScratch']),
+  },
+  created() {
+    console.log(this.getScratch());
   },
 };
 </script>

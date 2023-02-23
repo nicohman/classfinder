@@ -1,6 +1,6 @@
 <template>
   <v-main class="mx-auto pa-0" justify="center">
-    <v-container fluid v-if="$vuetify.breakpoint.smAndUp" justify="center">
+    <v-container v-if="$vuetify.breakpoint.smAndUp" fluid justify="center">
       <v-row align="center" justify="center">
         <v-col cols="10" justify="center">
           <v-card justify="center">

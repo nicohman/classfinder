@@ -90,9 +90,9 @@ const getClass = (req, res) => {
       }
     }
   });
-	res.set('Cache-Control', 'no-cache');
+  res.set('Cache-Control', 'no-cache');
   console.log(queryObject);
-  let aggregation_pipeline=  [{$match: queryObject}, {$lookup: {
+  let aggregation_pipeline = [{$match: queryObject}, {$lookup: {
     from: 'descriptions',
     localField: 'Name',
     foreignField: 'Name',

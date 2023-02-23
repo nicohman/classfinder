@@ -1,5 +1,4 @@
 <template>
-<!-- <v-main> -->
   <v-container
     v-if="$vuetify.breakpoint.smAndUp"
     fluid
@@ -14,15 +13,14 @@
               <v-spacer />
               <AllCrnsDialog></AllCrnsDialog>
           </v-toolbar>
-          <v-row>
+          <v-card-text>
             <ScratchCalendar></ScratchCalendar>
-          </v-row>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
   <ScratchList v-else></ScratchList>
-<!-- </v-main> -->
 </template>
 <script>
 import ScratchCalendar from './scratchcalendar.vue';

@@ -30,6 +30,11 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'AllCrnsDialog',
+  data() {
+    return {
+      dialog: false,
+    };
+  },
   computed: {
     scratchsheetEmpty() {
       return (this.getScratch()).length === 0;

@@ -9,9 +9,11 @@
     <v-row align="center" justify="center">
       <v-col cols="12" sm="9">
         <v-text-field
-          label="Search"
+          class="rounded-pill"
+          label="Search for classes"
           placeholder="(example: classes for a chemistry major)"
           v-model="userInput"
+          outlined
         ></v-text-field>
       </v-col>
     </v-row>
@@ -123,7 +125,7 @@
     <v-row justify="center" class="d-none d-sm-flex">
       <v-spacer />
         <v-btn v-on:click="showAdvanced = !showAdvanced">
-          {{ !showAdvanced ? "Advanced Search" : "Hide Advanced" }}
+          {{ !showAdvanced ? "Advanced" : "Hide Advanced" }}
         </v-btn>
         <v-spacer />
         <a class="d-none d-sm-flex"  v-on:click="searchClasses">
@@ -133,7 +135,7 @@
     </v-row>
     <v-row justify="center" class="d-flex d-sm-none">
       <v-col cols="12">
-          <v-btn block v-on:click="showAdvanced = !showAdvanced">{{ !showAdvanced ? "Advanced Search" : "Hide Advanced" }} </v-btn>
+          <v-btn block v-on:click="showAdvanced = !showAdvanced">{{ !showAdvanced ? "Advanced" : "Hide Advanced" }} </v-btn>
         <a class="mt-5 d-flex d-sm-none" v-on:click="searchClasses">
           <v-btn block color="primary" type="submit" to="/results">Search</v-btn>
         </a>

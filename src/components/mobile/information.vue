@@ -1,6 +1,5 @@
 <template>
-  <v-main class="pt-3">
-      <v-container>
+  <v-container class="mt-3 mt-14">
     <br />This is an alternative to WWU's
     <a
       href="https://admin.wwu.edu/pls/wwis/wwsktime.SelClass"
@@ -22,8 +21,7 @@
       href="https://github.com/nicohman/classfinder"
       target="_blank"
     >GitHub</a>
-    </v-container>
-  </v-main>
+  </v-container>
 </template>
 <script>
 export default {

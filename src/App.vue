@@ -9,14 +9,12 @@
         <v-tab>Schedule Builder</v-tab>
       </v-tabs>
     </v-app-bar>
-    <v-main>
     <v-main fluid>
       <keep-alive>
         <component v-bind:is="this.routes[getRoute()]">
         </component>
       </keep-alive>
     </v-main>
-  </v-main>
   </v-app>
 </template>
 

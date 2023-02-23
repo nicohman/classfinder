@@ -8,7 +8,6 @@
     :disable-sort="$vuetify.breakpoint.xsOnly"
     item-key="CRN"
     max-width="100vw"
-    class="ma-0 pa-0"
     :disable-pagination=disablePagination
     :hide-default-footer=hideDefaultFooter
   >

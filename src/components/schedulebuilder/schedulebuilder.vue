@@ -1,56 +1,58 @@
 <template>
-    <v-main class="mx-auto pa-0" justify="center">
-
-    <v-container fluid class="pa-0" justify="center">
-      <v-row align="center" justify="center"><v-col cols="4" justify="center">
-      <v-dialog v-model="showPopup" width="500">
-        <v-card>
-          <v-card-title class="headline grey lighten-2" primary-title>There was a problem building a schedule</v-card-title>
-          <v-card-text>
-            {{ popupText }}
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="showPopup = false">Close</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-      <v-card class="elevation-12 pb-12" >
-        <v-toolbar color="primary" dark flat>
-          <v-toolbar-title>
-            Build a schedule automatically - Alpha
-          </v-toolbar-title>
-        </v-toolbar>
-        <v-card-text class="pa-2">
-          <h4>This lets you enter a list of classes and then receive options of schedules containing those classes with no timeslot conflicts.</h4>
-          <v-chip v-for="(classd, i) in classes" :key="classd" close @click:close="classes.splice(i, 1)">{{ classd }}</v-chip>
-          <v-text-field :value="classField" @input="classField = $event.toUpperCase()" v-on:keydown.enter="addClass"></v-text-field>
-          <v-select label="Term" :items="options.terms" item-text="value" v-model="term" item-value="value"></v-select>
-          <v-btn @click="addClass()">Add Class</v-btn>
-          <v-btn @click="handleBuild()">Find Schedule</v-btn>
-          <v-row class="mt-5">
-            <v-card v-for="(item, i) in schedule" :key="item[0].CRN">
-              <v-card-title>Schedule Option #{{i + 1}} - <v-btn icon @click="addToSheet(item)"><v-icon>mdi-plus</v-icon></v-btn></v-card-title>
-              <v-card-text>
-                <v-list disabled>
-              <v-list-item-group>
-                <v-list-item v-for="classd in item" :key="classd.CRN">
-                  <v-list-item-content>
-                  {{ classd.Name }} - <span v-html="displayTimeLocation(classd.TimeLocations)"></span>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-              </v-card-text>
-            </v-card>
+  <v-container fluid class="mx-auto mt-14" justify="center">
+    <v-row align="center" justify="center">
+      <v-col cols="4" justify="center">
+        <v-dialog v-model="showPopup" width="500">
+          <v-card>
+            <v-card-title class="headline grey lighten-2" primary-title>
+              There was a problem building a schedule
+            </v-card-title>
+            <v-card-text>
+              {{ popupText }}
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="showPopup = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+        <v-card class="elevation-12 pb-12" >
+          <v-toolbar color="primary" dark flat>
+            <v-toolbar-title>
+              Build a schedule automatically - Alpha
+            </v-toolbar-title>
+          </v-toolbar>
+          <v-card-text class="pa-2">
+            <h4>This lets you enter a list of classes and then receive options of schedules containing those classes with no timeslot conflicts.</h4>
+            <v-chip v-for="(classd, i) in classes" :key="classd" close @click:close="classes.splice(i, 1)">{{ classd }}</v-chip>
+            <v-text-field :value="classField" @input="classField = $event.toUpperCase()" v-on:keydown.enter="addClass"></v-text-field>
+            <v-select label="Term" :items="options.terms" item-text="value" v-model="term" item-value="value"></v-select>
+            <v-btn @click="addClass()">Add Class</v-btn>
+            <v-btn @click="handleBuild()">Find Schedule</v-btn>
+            <v-row class="mt-5">
+              <v-card v-for="(item, i) in schedule" :key="item[0].CRN">
+                <v-card-title>Schedule Option #{{i + 1}} - <v-btn icon @click="addToSheet(item)"><v-icon>mdi-plus</v-icon></v-btn></v-card-title>
+                <v-card-text>
+                  <v-list disabled>
+                <v-list-item-group>
+                  <v-list-item v-for="classd in item" :key="classd.CRN">
+                    <v-list-item-content>
+                    {{ classd.Name }} - <span v-html="displayTimeLocation(classd.TimeLocations)"></span>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list-item-group>
+              </v-list>
+                </v-card-text>
+              </v-card>
             </v-row>
-        </v-card-text>
-      </v-card>
-      </v-col></v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
-</v-main>
 </template>
+
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 

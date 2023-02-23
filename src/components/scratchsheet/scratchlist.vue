@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="pa-0">
+  <v-container fluid>
     <ClassCard v-model="selectedClass" fullscreen></ClassCard>
     <v-list v-if="events.length > 0" dense min-width="100vw">
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
@@ -20,9 +20,7 @@
         </v-list-item>
       </v-container>
     </v-list>
-    <v-main v-else justify="center">
-      <div>No classes with times found for this scratchsheet</div>
-    </v-main>
+    <div v-else justify="center">No classes with times found for this scratchsheet</div>
   </v-container>
 </template>
 <script>

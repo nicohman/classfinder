@@ -49,7 +49,6 @@ export default {
       return !!this.value;
     },
     attributes() {
-      console.log('attrs test: ', this.value.CRN, this.value.Gurs.join(','));
       return [
         {
           text: 'CRN',
@@ -61,7 +60,7 @@ export default {
         },
         {
           text: 'GUR Attributes',
-          val: this.value.Gurs.join(','),
+          val: this.value.Gurs.join(',') || 'None',
         },
         {
           text: 'Cap/Enrolled/Available',

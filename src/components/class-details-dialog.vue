@@ -68,7 +68,7 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: 'ClassCard',
+  name: 'ClassDetailsDialog',
   props: {
     value: Object,
     fullscreen: Boolean,

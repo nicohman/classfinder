@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <ClassCard v-model="selectedClass" fullscreen></ClassCard>
+    <ClassDetailsDialog v-model="selectedClass" fullscreen></ClassDetailsDialog>
     <v-list v-if="events.length > 0" dense min-width="100vw">
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
         <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
@@ -25,7 +25,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import ClassCard from '../classcard.vue';
+import ClassDetailsDialog from '../class-details-dialog.vue';
 
 const { dayNumToWord } = require('../../util');
 
@@ -36,7 +36,7 @@ export default {
     selectedOpen: false,
     selectedElement: null,
   }),
-  components: { ClassCard },
+  components: { ClassDetailsDialog },
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars

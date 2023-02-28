@@ -16,11 +16,11 @@
     </template>
     <template v-if="$vuetify.breakpoint.xsOnly" v-slot:item.data-table-expand="{item}">
       <v-btn block width="87.75vw" v-on:click="shownClass = item">View More</v-btn>
-      <ClassCard fullscreen v-model="shownClass"></ClassCard>
+      <ClassDetailsDialog fullscreen v-model="shownClass"></ClassDetailsDialog>
     </template>
     <template v-slot:item.scratch="{header, value, item}">
       <v-badge
-        :value="checkScratchOverlap(item) && !onScratch(item)"
+        :value="checkScratchOverlap(item) &ClassDetailsDialog& !onScratch(item)"
         color="red"
         content="!"
         offset-x="20"
@@ -76,13 +76,13 @@
 import { mapMutations, mapGetters } from 'vuex';
 import moment from 'moment';
 import Expanded from './expanded.vue';
-import ClassCard from '../classcard.vue';
+import ClassDetailsDialog from '../class-details-dialog.vue';
 
 const util = require('../../util');
 
 export default {
   name: 'Results',
-  components: { Expanded, ClassCard },
+  components: { Expanded, ClassDetailsDialog },
   props: {
     search: String,
   },

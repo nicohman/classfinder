@@ -1,6 +1,7 @@
 <template>
   <v-container fluid>
-    <ClassCard v-model="cardClass"></ClassCard>
+    <!-- card class should also be a dialog, and not located here -->
+    <ClassDetailsDialog v-model="cardClass"></ClassDetailsDialog>
     <v-calendar
       v-if="events.length > 0"
       @click:event="showClass"
@@ -38,7 +39,7 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import ClassCard from '../classcard.vue';
+import ClassDetailsDialog from '../class-details-dialog.vue';
 
 export default {
   name: 'ScratchCalendar',
@@ -48,7 +49,7 @@ export default {
     selectedElement: null,
     cardClass: undefined,
   }),
-  components: { ClassCard },
+  components: { ClassDetailsDialog },
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars

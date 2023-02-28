@@ -7,7 +7,7 @@
       <v-card-title>All CRNs</v-card-title>
       <v-card-text>
         <span v-if="scratchsheetEmpty">No classes in scratchsheet</span>
-        <span v-else v-bind:key="item" v-for="item in getScratch()">
+        <span v-else :key="item.CRN" v-for="item in getScratch()">
           {{ item.Name + " - " + item.CRN }}
           <br />
         </span>

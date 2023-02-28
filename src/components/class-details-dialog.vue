@@ -14,40 +14,11 @@
         {{value.Description}}
         <br />
         <v-list color="grey lighten-4">
-          <v-list-item>
+          <v-list-item v-for="attr, idx in attributes" :key="idx">
             <v-list-item-content>
-              <v-list-item-subtitle>CRN</v-list-item-subtitle>
-              <v-list-item-title>{{value.CRN}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle>Instructor</v-list-item-subtitle>
-              <v-list-item-title>{{value.Instructor}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle>GUR Attributes</v-list-item-subtitle>
-              <v-list-item-title>{{value.Gurs.join(",")}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle>Cap/Enrolled/Available</v-list-item-subtitle>
-              <v-list-item-title v-html="value.CourseCount"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle>Credits</v-list-item-subtitle>
-              <v-list-item-title>{{value.Credits}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-subtitle>Dates</v-list-item-subtitle>
-              <v-list-item-title>{{value.StartDate}}-{{value.EndDate}}</v-list-item-title>
+              <v-list-item-subtitle>{{attr.text}}</v-list-item-subtitle>
+              <v-list-item-title v-if="!(attr.isHtml)">{{attr.val}}</v-list-item-title>
+              <v-list-item-title v-else v-html="attr.val"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -76,6 +47,36 @@ export default {
   computed: {
     toShow() {
       return !!this.value;
+    },
+    attributes() {
+      console.log('attrs test: ', this.value.CRN, this.value.Gurs.join(','));
+      return [
+        {
+          text: 'CRN',
+          val: this.value.CRN,
+        },
+        {
+          text: 'Instructor',
+          val: this.value.Instructor,
+        },
+        {
+          text: 'GUR Attributes',
+          val: this.value.Gurs.join(','),
+        },
+        {
+          text: 'Cap/Enrolled/Available',
+          val: this.value.CourseCount,
+          isHtml: true,
+        },
+        {
+          text: 'Credits',
+          val: this.value.Credits,
+        },
+        {
+          text: 'Date Range',
+          val: `${this.value.StartDate} - ${this.value.EndDate}`,
+        },
+      ];
     },
   },
   methods: {

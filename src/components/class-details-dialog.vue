@@ -8,17 +8,21 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-toolbar>
-      <v-card-text class="grow mt-4">
-        <span class="headline">{{value.Title}}</span>
-        <br />
-        {{value.Description}}
-        <br />
-        <v-list color="grey lighten-4">
-          <v-list-item v-for="attr, idx in attributes" :key="idx">
+      <v-card-title>{{value.Title}}</v-card-title>
+      <v-card-text class="grow">
+        <div class="classDesc">{{value.Description}}</div>
+        <v-list color="grey lighten-4" class="px-0">
+          <v-list-item v-for="attr, idx in attributes" :key="idx" class="px-0">
             <v-list-item-content>
-              <v-list-item-subtitle>{{attr.text}}</v-list-item-subtitle>
-              <v-list-item-title v-if="!(attr.isHtml)">{{attr.val}}</v-list-item-title>
-              <v-list-item-title v-else v-html="attr.val"></v-list-item-title>
+              <v-list-item-title>{{attr.text}}</v-list-item-title>
+              <v-list-item-subtitle
+                v-if="attr.isHtml"
+                v-html="attr.val"
+              ></v-list-item-subtitle>
+              <v-list-item-subtitle v-else>{{attr.val}}</v-list-item-subtitle>
+              <!-- <v-list-item-subtitle>{{attr.text}}</v-list-item-subtitle>
+              <div v-if="attr.isHtml" v-html="attr.val"></div>
+              <div v-else>{{attr.val}}</div> -->
             </v-list-item-content>
           </v-list-item>
         </v-list>

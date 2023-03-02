@@ -130,12 +130,13 @@ const getInstructors = (req, res) => {
 const keywordSearch = (req, res) => {
   const keywords = req.query.keywords;
   StemmedDescription.find({ $text:{ $search: req.query.keywords }},null,  {limit: 5}, (err, descs)  => {
+    const dMap = {};
       if (err) {
         throw err;
       } else {
-        Class.find({Name: {$in: descs.map((x) => { return x.Name; })}}, (err, classes) => {
+        Class.find({Name: {$in: descs.map((x) => { dMap[x.Name] = x; return x.Name; })}}, (err, classes) => {
           res.send(classes.map((c, i) => {
-            c.Description = descs[i].Description;
+            c.Description = dMap[c.Name].Description;
             return c;
           }));  
         });

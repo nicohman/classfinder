@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/getClass', routes.getClass);
 app.get('/getInstructors', routes.getInstructors);
 app.get('/searchClasses', routes.getClass);
+app.get('/keywordSearch', routes.keywordSearch);
 app.use(express.static('dist'));
 app.get('/results', (req, res) => {
   res.sendFile(`${__dirname}/dist/index.html`);

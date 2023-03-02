@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const schemas = require('./schemas');
-
+const stemSchema = new mongoose.Schema(schemas.Description);
+stemSchema.index({Description: 'text'});
 const Class = mongoose.model('Class', schemas.Class);
+const StemmedDescription = mongoose.model('StemmedClass', stemSchema, 'stemmed_descriptions');
 const getClass = (req, res) => {
   const queryObject = {};
   const optsObject = {};
@@ -125,6 +127,23 @@ const getInstructors = (req, res) => {
   });
 };
 
+const keywordSearch = (req, res) => {
+  const keywords = req.query.keywords;
+  StemmedDescription.find({ $text:{ $search: req.query.keywords }},null,  {limit: 5}, (err, descs)  => {
+      if (err) {
+        throw err;
+      } else {
+        Class.find({Name: {$in: descs.map((x) => { return x.Name; })}}, (err, classes) => {
+          res.send(classes.map((c, i) => {
+            c.Description = descs[i].Description;
+            return c;
+          }));  
+        });
+      
+      }
+  });
+};
+
 module.exports = {
-  getClass, getInstructors,
+  getClass, getInstructors, keywordSearch
 };

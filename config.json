@@ -9,7 +9,8 @@
       "useNewUrlParser": true,
       "auto_reconnect" :true,
       "reconnectTries": 10,
-      "useUnifiedTopology": true
+      "useUnifiedTopology": true,
+      "autoIndex":true
     },
     "numberOfTermsCached" : 5
   }

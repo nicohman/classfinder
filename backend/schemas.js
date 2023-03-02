@@ -26,6 +26,12 @@ const Class = {
   Remote: Number,
   Synchronous: Number
 };
+
+const Description = {
+  Name: String,
+  Description: String,
+};
+
 module.exports = {
-  Class,
+  Class,Description,
 };

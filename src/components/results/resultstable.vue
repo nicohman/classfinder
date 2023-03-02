@@ -79,7 +79,7 @@ import moment from 'moment';
 import Expanded from './expanded.vue';
 import ClassCard from '../classcard.vue';
 
-const util = require('../../util.js');
+const util = require('../../util');
 
 export default {
   name: 'Results',

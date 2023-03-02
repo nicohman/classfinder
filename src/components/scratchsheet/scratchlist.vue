@@ -28,7 +28,7 @@
 import { mapGetters, mapMutations } from 'vuex';
 import ClassCard from '../classcard.vue';
 
-const { dayNumToWord } = require('../../util.js');
+const { dayNumToWord } = require('../../util');
 
 export default {
   name: 'ScratchList',

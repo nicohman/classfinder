@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-const util = require('../util.js');
+const util = require('../util');
 
 Vue.use(Vuex);
 

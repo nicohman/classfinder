@@ -57,7 +57,6 @@ import { mapMutations, mapGetters } from 'vuex';
 const { checkIndividualOverlap, parseScratchDates, fetchClasses } = require('../../util');
 const selectOptions = require('../../selectOptions');
 
-
 export default {
   name: 'ScheduleBuilder',
   data() {

@@ -23,6 +23,29 @@ async function fetchClasses(queryString) {
   });
   return data;
 }
+
+async function fetchClassesNLP(queryString) {
+  const res = await axios.get(
+    `https://classfinder.nicohman.com/keywordSearch?${queryString}`,
+  );
+  const data = res.data.map((i) => {
+    // eslint-disable-next-line no-param-reassign
+    i.GUR = i.Attributes.filter((a) => gurList.indexOf(a) !== -1);
+    if (i.GUR.length > 0) {
+      // eslint-disable-next-line no-param-reassign,prefer-destructuring
+      i.Attributes = i.Attributes.filter((a) => a !== i.GUR[0]);
+    }
+    let color = 'green';
+    if (i.Available <= 0) {
+      color = 'red';
+    }
+    // eslint-disable-next-line no-param-reassign
+    i.CourseCount = `${i.Capacity}/${i.Enrolled}/<span style="color:${color}">${i.Available}</span>`;
+    return i;
+  });
+  return data;
+}
+
 function convertToCalenderFormat(date) {
   return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.toTimeString().substr(0, 5)}`;
 }
@@ -106,5 +129,5 @@ function checkIndividualOverlap(item, item2) {
 }
 
 module.exports = {
-  fetchClasses, parseScratchDates, convertToCalenderFormat, dayLetterToNum, dayNumToWord, checkIndividualOverlap,
+  fetchClasses, fetchClassesNLP, parseScratchDates, convertToCalenderFormat, dayLetterToNum, dayNumToWord, checkIndividualOverlap,
 };

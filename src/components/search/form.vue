@@ -149,6 +149,7 @@ import { mapMutations } from 'vuex';
 const selectOptions = require('../../selectOptions');
 const { instructors } = require('../../fetched.json');
 const util = require('../../util');
+const nlp = require('./nlp');
 
 selectOptions.instructors = instructors
   .sort()
@@ -178,22 +179,35 @@ export default {
   }),
   methods: {
     async searchClasses(e) {
-      e.preventDefault();
-      if (this.valid) {
-        const toParse = {};
-        Object.keys(this.selected).forEach((i) => {
-          if (this.selected[i] !== undefined && this.selected[i] !== []) {
-            toParse[i] = this.selected[i];
-          }
-        });
-        const queryString = new URLSearchParams(toParse).toString();
-        const data = await util.fetchClasses(queryString);
+      if (this.userInput === '') {
+        e.preventDefault();
+        if (this.valid) {
+          const toParse = {};
+          Object.keys(this.selected).forEach((i) => {
+            if (this.selected[i] !== undefined && this.selected[i] !== []) {
+              toParse[i] = this.selected[i];
+            }
+          });
+          const queryString = new URLSearchParams(toParse).toString();
+          const data = await util.fetchClasses(queryString);
+          this.setResults(data);
+          this.setRoute('/results');
+          window.history.pushState(
+            null,
+            'Classfinder Results',
+            `/results?${queryString}`,
+          );
+        }
+      } else {
+        const stemmedInput = nlp.processQuery(this.userInput);
+        console.log(stemmedInput);
+        const data = await util.fetchClassesNLP(stemmedInput);
         this.setResults(data);
         this.setRoute('/results');
         window.history.pushState(
           null,
           'Classfinder Results',
-          `/results?${queryString}`,
+          `/results?${stemmedInput}`,
         );
       }
     },

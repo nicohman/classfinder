@@ -26,7 +26,7 @@ async function fetchClasses(queryString) {
 
 async function fetchClassesNLP(queryString) {
   const res = await axios.get(
-    `https://classfinder.nicohman.com/keywordSearch?${queryString}`,
+    `https://classfinder.nicohman.com/keywordSearch?keywords=${queryString}`,
   );
   const data = res.data.map((i) => {
     // eslint-disable-next-line no-param-reassign

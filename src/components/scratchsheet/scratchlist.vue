@@ -1,7 +1,6 @@
 <template>
-
-  <v-container fluid class="pa-0">
-    <ClassCard v-model="selectedClass" fullscreen></ClassCard>
+  <v-container fluid>
+    <ClassDetailsDialog v-model="selectedClass" fullscreen></ClassDetailsDialog>
     <v-list v-if="events.length > 0" dense min-width="100vw">
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
         <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
@@ -9,7 +8,9 @@
         <v-list-item link two-line v-for="event in day"  v-on:click="showClass(event)" v-bind:key="event.start">
           <v-list-item-content>
             <v-list-item-title>{{event.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}</v-list-item-subtitle>
+            <v-list-item-subtitle>
+              {{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}
+            </v-list-item-subtitle>
           </v-list-item-content>
           <v-list-item-action>
             <v-btn icon>
@@ -19,14 +20,12 @@
         </v-list-item>
       </v-container>
     </v-list>
-    <v-content justify="center" v-else>
-      <span>You don't have any classes added to your scratchsheet with times yet.</span>
-    </v-content>
+    <div v-else justify="center">No classes with times found for this scratchsheet</div>
   </v-container>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import ClassCard from '../classcard.vue';
+import ClassDetailsDialog from '../class-details-dialog.vue';
 
 const { dayNumToWord } = require('../../util');
 
@@ -37,7 +36,7 @@ export default {
     selectedOpen: false,
     selectedElement: null,
   }),
-  components: { ClassCard },
+  components: { ClassDetailsDialog },
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars

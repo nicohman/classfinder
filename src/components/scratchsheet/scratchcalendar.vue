@@ -1,9 +1,10 @@
 <template>
-<v-container fluid>
-  <ClassCard v-model="cardClass"></ClassCard>
+  <v-container fluid>
+    <!-- card class should also be a dialog, and not located here -->
+    <ClassDetailsDialog v-model="cardClass"></ClassDetailsDialog>
     <v-calendar
-      @click:event="showClass"
       v-if="events.length > 0"
+      @click:event="showClass"
       :value="today"
       type="week"
       interval-count="12"
@@ -12,12 +13,12 @@
       v-bind:start="events[0].start"
       :weekdays="[1,2,3,4,5]"
     >
-    <template v-slot:day="{date}"><div>{{date}}</div>
-    </template>
+      <template v-slot:day="{date}"><div>{{date}}</div></template>
     </v-calendar>
-    <v-content justify="center" v-else>
-      <span>You don't have any classes added to your scratchsheet with times</span>
-    </v-content>
+    <div justify="center" v-else>
+      No classes with times found for this scratchsheet
+    </div>
+    <!-- I think we should replace the thing below w/ a dialog -->
     <v-menu v-model="selectedOpen" v-if="selectedOpen" :activator="selectedElement" offset-x>
       <v-card color="grey lighten-4" flat>
         <v-card-title>{{selectedClass.name}}</v-card-title>
@@ -34,11 +35,11 @@
         </v-card-actions>
       </v-card>
     </v-menu>
-</v-container>
+  </v-container>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import ClassCard from '../classcard.vue';
+import ClassDetailsDialog from '../class-details-dialog.vue';
 
 export default {
   name: 'ScratchCalendar',
@@ -48,7 +49,7 @@ export default {
     selectedElement: null,
     cardClass: undefined,
   }),
-  components: { ClassCard },
+  components: { ClassDetailsDialog },
   computed: {
     events() {
       // eslint-disable-next-line no-unused-vars

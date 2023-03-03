@@ -42,9 +42,8 @@ mongoose.connect(process.env.CF_MONGO_URL, config.mongooseConfig).then(() => {
       key: privKey,
       cert,
     }, app).listen(process.env.CF_API_PORT);
-    httpRedirecter.listen(80);  
+    httpRedirecter.listen(80);
   }
-  
 }).catch((err) => {
   console.error(`${err}`);
 });

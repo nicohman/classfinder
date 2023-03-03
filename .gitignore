@@ -2,10 +2,8 @@
 node_modules
 /dist
 *fetched.json
-# local env files
-.env.local
-.env.*.local
-.env
+# env files
+.env*
 
 # Log files
 npm-debug.log*

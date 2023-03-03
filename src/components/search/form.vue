@@ -17,7 +17,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
-    <div v-if="showAdvanced">
+    <v-container v-if="showAdvanced" class="mb-8">
       <v-row align="center" justify="center">
         <v-col cols="12" sm="3">
           <v-select
@@ -94,7 +94,7 @@
         <v-col cols="12" sm="3">
           <v-text-field label="Credits" v-model="selected.credits" :rules="[numberRules]"></v-text-field>
         </v-col>
-                <v-col cols="12" sm="3">
+        <v-col cols="12" sm="3">
           <v-select
             clearable
             v-model="selected.days"
@@ -121,7 +121,7 @@
           <v-checkbox v-model="selected.onlyOpen" label="Only Open Sections"></v-checkbox>
         </v-col>
       </v-row>
-    </div>
+    </v-container>
     <v-row justify="center" class="d-none d-sm-flex">
       <v-spacer />
         <v-btn v-on:click="showAdvanced = !showAdvanced">

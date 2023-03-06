@@ -11,7 +11,7 @@
         <v-text-field
           class="rounded-pill"
           label="Search for classes"
-          hint="(example: classes for chemistry major)"
+          placeholder="(example: classes for chemistry major)"
           v-model="userInput"
           prepend-inner-icon="mdi-magnify"
           outlined

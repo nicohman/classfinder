@@ -1,16 +1,22 @@
 <template>
   <div class="fill-height">
-    <v-container v-if="$vuetify.breakpoint.smAndUp" class="fill-height" fluid>
-      <v-row align="center" justify="center" class="my-auto">
+    <v-container class="fill-height" fluid>
+      <!-- mobile screen (xs screen) -->
+      <v-row v-if="$vuetify.breakpoint.xs" align="center" justify="center" class="my-auto">
+        <v-col cols="11">
+          <v-card class="elevation-0 pb-12" style="background-color: rgb(250, 253, 255)">
+            <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
+          </v-card>
+        </v-col>
+      </v-row>
+      <!-- non-mobile screen (screen sizes sm, md, and up) -->
+      <v-row v-else align="center" justify="center" class="my-auto">
         <v-col cols="7">
           <v-card class="elevation-0 pb-12" style="background-color: rgb(250, 253, 255)">
             <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
-    <v-container v-else class="fill-height" fluid>
-      <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
     </v-container>
   </div>
 </template>

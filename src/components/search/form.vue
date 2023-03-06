@@ -7,11 +7,11 @@
     class="fill-height"
   >
     <v-row align="center" justify="center">
-      <v-col cols="12" sm="9">
+      <v-col cols="12" md="9">
         <v-text-field
           class="rounded-pill"
           label="Search for classes"
-          placeholder="(example: classes for chemistry major)"
+          hint="(example: classes for chemistry major)"
           v-model="userInput"
           prepend-inner-icon="mdi-magnify"
           outlined

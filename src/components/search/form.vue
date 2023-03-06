@@ -11,9 +11,11 @@
         <v-text-field
           class="rounded-pill"
           label="Search for classes"
-          placeholder="(example: classes for a chemistry major)"
+          placeholder="(example: classes for chemistry major)"
           v-model="userInput"
+          prepend-inner-icon="mdi-magnify"
           outlined
+          clearable
         ></v-text-field>
       </v-col>
     </v-row>

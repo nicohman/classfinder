@@ -20,7 +20,7 @@
     </template>
     <template v-slot:item.scratch="{header, value, item}">
       <v-badge
-        :value="checkScratchOverlap(item) &ClassDetailsDialog& !onScratch(item)"
+        :value="checkScratchOverlap(item) && !onScratch(item)"
         color="red"
         content="!"
         offset-x="20"

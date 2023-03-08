@@ -1,7 +1,5 @@
 <template>
   <v-container fluid>
-    <!-- card class should also be a dialog, and not located here -->
-    <ClassDetailsDialog v-model="cardClass"></ClassDetailsDialog>
     <v-calendar
       v-if="events.length > 0"
       @click:event="showClass"
@@ -20,14 +18,15 @@
     <div justify="center" v-else>
       No classes with times found for this scratchsheet
     </div>
-    <!-- I think we should replace the thing below w/ a dialog -->
+
+    <!-- Popup on class click -- may want to refactor as separate component -->
     <v-menu
       v-if="selectedOpen"
       v-model="selectedOpen"
       :activator="selectedElement"
       offset-x
     >
-      <v-card color="grey lighten-4" flat>
+      <v-card color="grey lighten-4" flat max-width="25rem">
         <v-card-title>{{selectedClass.name}}</v-card-title>
         <v-card-text>{{selectedClass.description}}</v-card-text>
         <v-card-actions>
@@ -48,6 +47,9 @@
         </v-card-actions>
       </v-card>
     </v-menu>
+
+    <!-- View More Dialog -->
+    <ClassDetailsDialog v-model="cardClass"></ClassDetailsDialog>
   </v-container>
 </template>
 <script>

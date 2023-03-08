@@ -24,7 +24,6 @@
       v-if="selectedOpen"
       v-model="selectedOpen"
       :activator="selectedElement"
-      offset-x
       offset-y
     >
       <v-card color="grey lighten-4" flat max-width="25rem">

@@ -38,7 +38,7 @@
       </v-tooltip>
       <InfoDialog></InfoDialog>
     </v-app-bar>
-    <v-main fluid>
+    <v-main fluid class="mt-16">
       <keep-alive>
         <component v-bind:is="this.routes[getRoute()]">
         </component>

@@ -1,3 +1,13 @@
+const rules = {
+  // 'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  // 'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  'max-len': 'off',
+};
+
+if (process.env.ENV_OS !== 'linux') { // [] wasn't acceptable
+  rules['linebreak-style'] = ["error", "windows"];
+}
+
 module.exports = {
   root: true,
   env: {
@@ -10,10 +20,5 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  rules: {
-//    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-  //  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'max-len': 'off',
-    'linebreak-style': process.env.ENV_OS === 'linux' ? [] : ["error", "windows"],
-  },
+  rules,
 };

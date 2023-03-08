@@ -14,6 +14,6 @@ module.exports = {
 //    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   //  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'max-len': 'off',
-    'linebreak-style': ["error", "windows"]
+    'linebreak-style': process.env.ENV_OS === 'linux' ? [] : ["error", "windows"],
   },
 };

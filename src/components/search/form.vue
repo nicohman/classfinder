@@ -202,7 +202,7 @@ export default {
         }
       } else {
         const stemmedInput = nlp.processQuery(this.userInput);
-        console.log(stemmedInput);
+        // console.log(stemmedInput);
         const data = await util.fetchClassesNLP(stemmedInput);
         this.setResults(data);
         this.setRoute('/results');

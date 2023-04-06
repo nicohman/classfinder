@@ -20,5 +20,15 @@ module.exports = {
   parserOptions: {
     parser: 'babel-eslint',
   },
-  rules,
+  rules: {
+//    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  //  'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'm\ax-len': 'off',
+    'vue/multi-word-component-names':'off',
+    'vue/valid-v-slot':'off',
+    'vue/no-unused-vars':'off',
+    'vue/no-dupe-keys':'off',
+    'vue/no-v-text-v-html-on-component':'off',
+    'vue/no-mutating-props':'off'
+  }
 };

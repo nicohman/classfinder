@@ -43,8 +43,8 @@ export default {
   methods: {
     ...mapGetters(['getScratch']),
   },
-  created() {
-    console.log(this.getScratch());
-  },
+  // created() {
+  //   console.log(this.getScratch());
+  // },
 };
 </script>

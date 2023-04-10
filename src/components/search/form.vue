@@ -2,7 +2,7 @@
   <v-form
     ref="form"
     v-on:keydown.enter="searchClasses"
-    @submit="searchClasses"
+    @submit.prevent=""
     v-model="valid"
     class="fill-height"
   >

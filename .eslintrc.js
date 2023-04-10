@@ -29,6 +29,8 @@ module.exports = {
     'vue/no-unused-vars':'off',
     'vue/no-dupe-keys':'off',
     'vue/no-v-text-v-html-on-component':'off',
-    'vue/no-mutating-props':'off'
+    'vue/no-mutating-props':'off',
+    "linebreak-style": 0,
+    "prefer-destructuring": ["error", {"object": true, "array": false}]
   }
 };

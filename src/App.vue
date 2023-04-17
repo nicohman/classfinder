@@ -3,8 +3,24 @@
   <v-app style="background-color: rgb(250, 253, 255)">
     <CFAppBar v-if="$vuetify.breakpoint.xsOnly"></CFAppBar>
     <v-app-bar v-else app dark color="primary">
-      <v-toolbar-title class="grow mr-4">WWU Classfinder</v-toolbar-title>
-      <!-- <img v-if="$vuetify.breakpoint.smAndUp" :src="require('./assets/classfinder-logo.jpeg')" height="40px" fluid /> -->
+      <img v-if="$vuetify.breakpoint.smAndUp" :src="require('./assets/classfinder-logo.jpeg')" height="40px" fluid />
+      <!-- <v-img v-if="$vuetify.breakpoint.mdAndUp" :src="require('./assets/classfinder-logo.jpeg')" contain class="fill-height" style align-self="left" justify-self="left" fluid></v-img> -->
+      <!-- <v-app-bar-nav-icon>
+        <template v-slot:placeholder>
+          <v-row
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
+          >
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+      </v-app-bar-nav-icon> -->
+      <!-- <v-spacer width="20vw"></v-spacer> -->
+      <!-- <v-toolbar-title class="grow">WWU Classfinder</v-toolbar-title> -->
       <v-tabs
         :value="getRouteNumber()"
         @change="onTabChange($event)"

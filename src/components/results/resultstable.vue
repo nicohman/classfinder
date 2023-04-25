@@ -54,7 +54,7 @@
           >
             <v-tooltip bottom nudge-top="5rem">
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" @click="addScratch(item)" plain outlined text block>Add</v-btn>
+                <v-btn v-on="on" @click="addScratch(item)" color="primary" plain outlined text block>Add</v-btn>
               </template>
               <span>to Scratch Sheet</span>
             </v-tooltip>
@@ -71,14 +71,14 @@
           </v-badge> -->
           <v-tooltip v-else bottom nudge-top="5rem">
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" @click="addScratch(item)" block>Add</v-btn>
+              <v-btn v-on="on" @click="addScratch(item)" color="primary" block>Add</v-btn>
             </template>
             <span>to Scratch Sheet</span>
           </v-tooltip>
         </div>
         <v-tooltip v-else bottom nudge-top="5rem">
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" @click="rmScratch(item)" block>Remove</v-btn>
+            <v-btn v-on="on" @click="rmScratch(item)" color="primary" block>Remove</v-btn>
           </template>
           <span>from Scratch Sheet</span>
         </v-tooltip>
@@ -123,16 +123,16 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Slots', value: 'Available' },
+      { text: 'Open Spots', value: 'Available' },
       { text: 'Class Code', value: 'Name' },
       { text: 'CRN', value: 'CRN' },
       { text: 'Name', value: 'Title' },
-      { text: 'Cap/Enrolled/Available', value: 'CourseCount' },
+      { text: 'Cap / Enrolled / Open', value: 'CourseCount' },
       { text: 'Instructor', value: 'Instructor' },
       { text: 'GUR Attributes', value: 'Gurs' },
       { text: 'Classes', value: 'TimeLocations' },
-      { text: 'Sync/Async', value: 'Synchronous' },
-      { text: 'Remote/F2F', value: 'Remote' },
+      { text: 'Sync / Async', value: 'Synchronous' },
+      { text: 'Remote / F2F', value: 'Remote' },
       { text: '', value: 'scratch' },
       { text: '', value: 'data-table-expand' },
     ],

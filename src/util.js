@@ -18,7 +18,7 @@ async function fetchClasses(queryString) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.Capacity}/${i.Enrolled}/<span style="color:${color}">${i.Available}</span>`;
+    i.CourseCount = `${i.Capacity} / ${i.Enrolled} / <span style="color:${color}">${i.Available}</span>`;
     return i;
   });
   return data;
@@ -40,7 +40,7 @@ async function fetchClassesNLP(queryString) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.Capacity}/${i.Enrolled}/<span style="color:${color}">${i.Available}</span>`;
+    i.CourseCount = `${i.Capacity} / ${i.Enrolled} / <span style="color:${color}">${i.Available}</span>`;
     return i;
   });
   return data;

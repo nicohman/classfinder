@@ -17,7 +17,7 @@
             <v-list-item-icon>
               <v-icon>mdi-calendar</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Scratchsheet</v-list-item-title>
+            <v-list-item-title>Scratch Sheet</v-list-item-title>
           </v-list-item>
           <v-list-item v-on:click="goRoute('/information')">
           <v-list-item-icon>

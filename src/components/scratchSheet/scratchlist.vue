@@ -20,7 +20,7 @@
         </v-list-item>
       </v-container>
     </v-list>
-    <div v-else justify="center">No classes with times found for this scratchsheet</div>
+    <div v-else justify="center">No classes with times found for this scratch sheet</div>
   </v-container>
 </template>
 <script>

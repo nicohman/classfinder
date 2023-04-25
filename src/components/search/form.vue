@@ -239,7 +239,7 @@ export default {
     },
     goScratchSheet() {
       this.$emit('goScratch', true);
-      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
+      window.history.pushState(null, 'Scratch Sheet', '/scratchsheet');
     },
     ...mapMutations(['setResults', 'setRoute']),
   },

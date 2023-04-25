@@ -26,14 +26,14 @@
           block
           color="red"
           v-on:click="rmScratch(item)"
-        >Remove from scratchsheet</v-btn>
+        >Remove from Scratch Sheet</v-btn>
         <v-btn
           v-else
           width="87.75vw"
           block
           v-bind:color="getColor(item)"
           v-on:click="addScratch(item)"
-        >Add to scratchsheet</v-btn>
+        >Add to Scratch Sheet</v-btn>
       </div>
       <div v-else>
         <div v-if="!onScratch(item)">
@@ -56,7 +56,7 @@
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" @click="addScratch(item)" plain outlined text block>Add</v-btn>
               </template>
-              <span>to Scratchsheet</span>
+              <span>to Scratch Sheet</span>
             </v-tooltip>
           </v-badge>
           <!-- <v-badge
@@ -73,14 +73,14 @@
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" @click="addScratch(item)" block>Add</v-btn>
             </template>
-            <span>to Scratchsheet</span>
+            <span>to Scratch Sheet</span>
           </v-tooltip>
         </div>
         <v-tooltip v-else bottom nudge-top="5rem">
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" @click="rmScratch(item)" block>Remove</v-btn>
           </template>
-          <span>from Scratchsheet</span>
+          <span>from Scratch Sheet</span>
         </v-tooltip>
       </div>
     </template>

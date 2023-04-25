@@ -25,10 +25,10 @@
             <template v-slot:activator="{ on }">
               <v-btn v-on:click="goScratchSheet" large v-on="on">
                 <v-icon>mdi-calendar</v-icon>
-                <span>Scratchsheet</span>
+                <span>Scratch Sheet</span>
               </v-btn>
             </template>
-            <span>Go to Scratchsheet</span>
+            <span>Go to Scratch Sheet</span>
           </v-tooltip>
         </v-toolbar>
         <v-card-title></v-card-title>
@@ -56,7 +56,7 @@ export default {
   methods: {
     goScratchSheet() {
       this.setRoute('/scratchsheet');
-      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
+      window.history.pushState(null, 'Scratch Sheet', '/scratchsheet');
     },
     goBack() {
       window.history.back();

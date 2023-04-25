@@ -27,7 +27,7 @@
         show-arrows
       >
         <v-tab>Search Classes</v-tab>
-        <v-tab>Scratchsheet</v-tab>
+        <v-tab>Scratch Sheet</v-tab>
         <v-tab>Schedule Builder</v-tab>
       </v-tabs>
       <v-tooltip right>
@@ -52,7 +52,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import CFAppBar from './components/mobile/appbar.vue';
 import Search from './components/search/search.vue';
 import Results from './components/results/results.vue';
-import Scratchsheet from './components/scratchsheet/scratchsheet.vue';
+import ScratchSheet from './components/scratchSheet/scratchSheet.vue';
 import InformationMobile from './components/mobile/information.vue';
 import ScheduleBuilder from './components/schedulebuilder/schedulebuilder.vue';
 import InfoDialog from './components/search/info.vue';
@@ -67,7 +67,7 @@ selectOptions.instructors = instructors
 export default {
   name: 'App',
   components: {
-    Search, Results, Scratchsheet, CFAppBar, InfoDialog,
+    Search, Results, ScratchSheet, CFAppBar, InfoDialog,
   },
   mounted() {
     window.addEventListener('popstate', () => {
@@ -95,7 +95,7 @@ export default {
     routes: {
       '/': Search,
       '/results': Results,
-      '/scratchsheet': Scratchsheet,
+      '/scratchsheet': ScratchSheet,
       '/information': InformationMobile,
       '/schedulebuilder': ScheduleBuilder,
     },

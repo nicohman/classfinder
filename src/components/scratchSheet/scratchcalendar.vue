@@ -16,7 +16,7 @@
       </template>
     </v-calendar>
     <div justify="center" v-else>
-      No classes with times found for this scratchsheet
+      No classes with times found for this scratch sheet
     </div>
 
     <!-- Popup on class click -- may want to refactor as separate component -->

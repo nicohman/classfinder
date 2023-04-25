@@ -34,7 +34,7 @@ export default {
   methods: {
     goScratchSheet() {
       this.setRoute('/scratchsheet');
-      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
+      window.history.pushState(null, 'Scratch Sheet', '/scratchsheet');
     },
     ...mapMutations(['setRoute']),
   },

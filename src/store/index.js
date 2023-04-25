@@ -25,7 +25,7 @@ export default new Vuex.Store({
     getRouteTitle(state) {
       switch (state.route) {
         case '/scratchsheet':
-          return 'Scratchsheet';
+          return 'Scratch Sheet';
         case '/':
           return 'Search Classes';
         case '/results':

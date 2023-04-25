@@ -1,7 +1,6 @@
 <template>
   <v-form
     ref="form"
-    v-on:keydown.enter="searchClasses"
     @submit.prevent=""
     v-model="valid"
     class="fill-height"
@@ -16,6 +15,7 @@
           prepend-inner-icon="mdi-magnify"
           outlined
           clearable
+          @keydown.enter="searchClasses"
         ></v-text-field>
       </v-col>
     </v-row>

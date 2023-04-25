@@ -42,7 +42,7 @@
 import { mapMutations, mapGetters } from 'vuex';
 
 export default {
-  name: 'CFAppBar',
+  name: 'MobileAppBar',
   components: {},
   data: () => ({
     drawer: false,

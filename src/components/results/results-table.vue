@@ -13,10 +13,10 @@
   >
     <template v-if="$vuetify.breakpoint.xsOnly" v-slot:item.data-table-expand="{item}">
       <v-btn block width="87.75vw" v-on:click="shownClass = item">View More</v-btn>
-      <ClassDetailsDialog fullscreen v-model="shownClass"></ClassDetailsDialog>
+      <ClassDetailsDialog fullscreen v-model="shownClass" />
     </template>
     <template v-else v-slot:expanded-item="{ headers, item }">
-      <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
+      <ResultsExpanded v-bind:item="item" v-bind:headers="headers" />
     </template>
 
     <template v-slot:item.scratch="{header, value, item}">
@@ -110,14 +110,14 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 import moment from 'moment';
-import Expanded from './expanded.vue';
+import ResultsExpanded from './results-expanded.vue';
 import ClassDetailsDialog from '../class-details-dialog.vue';
 
 const util = require('../../util');
 
 export default {
-  name: 'Results',
-  components: { Expanded, ClassDetailsDialog },
+  name: 'ResultsTable',
+  components: { ResultsExpanded, ClassDetailsDialog },
   props: {
     search: String,
   },

@@ -49,7 +49,7 @@
     </v-menu>
 
     <!-- View More Dialog -->
-    <ClassDetailsDialog v-model="cardClass"></ClassDetailsDialog>
+    <ClassDetailsDialog v-model="cardClass" />
   </v-container>
 </template>
 <script>
@@ -58,7 +58,7 @@ import ClassDetailsDialog from '../class-details-dialog.vue';
 import config from '../../../config.json';
 
 export default {
-  name: 'ScratchCalendar',
+  name: 'ScratchSheetCalendar',
   data: () => ({
     selectedClass: null,
     selectedOpen: false,

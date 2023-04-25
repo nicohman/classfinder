@@ -1,7 +1,7 @@
 <template>
   <!--<v-app style="background-color: rgb(218, 231, 244)">-->
   <v-app style="background-color: rgb(250, 253, 255)">
-    <CFAppBar v-if="$vuetify.breakpoint.xsOnly"></CFAppBar>
+    <MobileAppBar v-if="$vuetify.breakpoint.xsOnly"></MobileAppBar>
     <v-app-bar v-else app dark color="primary">
       <img v-if="$vuetify.breakpoint.smAndUp" :src="require('./assets/classFinderLogo.jpeg')" height="40px" fluid />
       <!-- <v-img v-if="$vuetify.breakpoint.mdAndUp" :src="require('./assets/classFinderLogo.jpeg')" contain class="fill-height" style align-self="left" justify-self="left" fluid></v-img> -->
@@ -36,7 +36,7 @@
           <v-btn target="_blank" href="https://charts.mongodb.com/charts-classfinder-upefc/public/dashboards/609031cb-0c22-4ddf-8e6c-5aaeaf683b50" icon large v-on="on" ><v-icon>mdi-chart-box</v-icon></v-btn>
         </template>
       </v-tooltip>
-      <InfoDialog></InfoDialog>
+      <InfoDialog />
     </v-app-bar>
     <v-main fluid class="mt-16">
       <keep-alive>
@@ -49,13 +49,13 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import CFAppBar from './components/mobile/appbar.vue';
-import Search from './components/search/search.vue';
-import Results from './components/results/results.vue';
-import ScratchSheet from './components/scratchSheet/scratchSheet.vue';
-import InformationMobile from './components/mobile/information.vue';
-import ScheduleBuilder from './components/schedulebuilder/schedulebuilder.vue';
-import InfoDialog from './components/search/info.vue';
+import MobileAppBar from './components/mobile/mobile-app-bar.vue';
+import SearchPage from './components/search/search-page.vue';
+import ResultsPage from './components/results/results-page.vue';
+import ScratchSheetPage from './components/scratch-sheet/scratch-sheet.vue';
+import MobileInfoPage from './components/mobile/mobile-info-page.vue';
+import ScheduleBuilderPage from './components/schedule-builder/schedule-builder-page.vue';
+import InfoDialog from './components/info-dialog.vue';
 
 const selectOptions = require('./selectOptions');
 const { instructors } = require('./fetched.json');
@@ -67,7 +67,7 @@ selectOptions.instructors = instructors
 export default {
   name: 'App',
   components: {
-    Search, Results, ScratchSheet, CFAppBar, InfoDialog,
+    SearchPage, ResultsPage, ScratchSheetPage, MobileAppBar, InfoDialog,
   },
   mounted() {
     window.addEventListener('popstate', () => {
@@ -93,11 +93,11 @@ export default {
   },
   data: () => ({
     routes: {
-      '/': Search,
-      '/results': Results,
-      '/scratchsheet': ScratchSheet,
-      '/information': InformationMobile,
-      '/schedulebuilder': ScheduleBuilder,
+      '/': SearchPage,
+      '/results': ResultsPage,
+      '/scratchsheet': ScratchSheetPage,
+      '/information': MobileInfoPage,
+      '/schedulebuilder': ScheduleBuilderPage,
     },
   }),
   methods: {

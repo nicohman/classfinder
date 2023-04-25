@@ -11,24 +11,24 @@
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Scratch Sheet</v-toolbar-title>
               <v-spacer />
-              <AllCrnsBtn></AllCrnsBtn>
+              <AllCrnsDialog />
           </v-toolbar>
           <v-card-text>
-            <ScratchCalendar></ScratchCalendar>
+            <ScratchSheetCalendar />
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
-  <ScratchList v-else></ScratchList>
+  <ScratchSheetList v-else />
 </template>
 <script>
-import ScratchCalendar from './scratchcalendar.vue';
-import ScratchList from './scratchlist.vue';
-import AllCrnsBtn from './all-crns-btn.vue';
+import ScratchSheetCalendar from './scratch-sheet-calendar.vue';
+import ScratchSheetList from './scratch-sheet-list.vue';
+import AllCrnsDialog from './all-crns-dialog.vue';
 
 export default {
-  name: 'ScratchSheet',
-  components: { ScratchCalendar, ScratchList, AllCrnsBtn },
+  name: 'ScratchSheetPage',
+  components: { ScratchSheetCalendar, ScratchSheetList, AllCrnsDialog },
 };
 </script>

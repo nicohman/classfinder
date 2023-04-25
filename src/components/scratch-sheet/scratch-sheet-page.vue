@@ -1,6 +1,25 @@
 <template>
+  <!-- mobile: -->
+  <v-container v-if="$vuetify.breakpoint.xsOnly" fluid>
+    <ClassDetailsDialog v-model="selectedClass" fullscreen />
+
+    <v-select
+      label="Select a term"
+      v-model="selectedTerm"
+      :items="terms"
+      solo
+    />
+
+    <ScratchSheetList
+      :term="selectedTerm"
+      :events="classEvents"
+      :noEvents="sheetEmptyForTerm"
+    />
+  </v-container>
+
+  <!-- non-mobile: -->
   <v-container
-    v-if="$vuetify.breakpoint.smAndUp"
+    v-else
     fluid
     justify="center"
     class="mx-auto mt-14"
@@ -11,15 +30,15 @@
           <v-toolbar color="primary" dark flat>
             <v-toolbar-title>Scratch Sheet</v-toolbar-title>
             <v-spacer class="col-auto" />
-            <!-- <v-spacer /> -->
             <v-col cols="4">
               <v-select
                 label="Select a term"
-                hint="Display classes by term"
-                persistent-hint
                 v-model="selectedTerm"
                 :items="terms"
                 solo
+
+                hint="Display classes by term"
+                persistent-hint
                 hide-details
               />
             </v-col>
@@ -41,12 +60,6 @@
       </v-col>
     </v-row>
   </v-container>
-  <ScratchSheetList
-    v-else
-    :term="selectedTerm"
-    :events="classEvents"
-    :noEvents="sheetEmptyForTerm"
-  />
 </template>
 <script>
 import { mapGetters } from 'vuex';
@@ -54,12 +67,18 @@ import { mapGetters } from 'vuex';
 import ScratchSheetCalendar from './scratch-sheet-calendar.vue';
 import ScratchSheetList from './scratch-sheet-list.vue';
 import AllCrnsDialog from './all-crns-dialog.vue';
+import ClassDetailsDialog from '../class-details-dialog.vue';
 
 import options from '../../selectOptions';
 
 export default {
   name: 'ScratchSheetPage',
-  components: { ScratchSheetCalendar, ScratchSheetList, AllCrnsDialog },
+  components: {
+    ScratchSheetCalendar,
+    AllCrnsDialog,
+    ScratchSheetList,
+    ClassDetailsDialog,
+  },
   data() {
     return {
       // selectedTerm: options.terms.slice(-1)[0].value,

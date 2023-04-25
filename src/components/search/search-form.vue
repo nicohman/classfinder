@@ -156,8 +156,9 @@ const nlp = require('./nlp');
 selectOptions.instructors = instructors
   .sort()
   .map((i) => ({ value: i, code: i }));
+
 export default {
-  name: 'ClassForm',
+  name: 'SearchForm',
   props: { showAdvanced: Boolean },
   components: {},
   data: () => ({

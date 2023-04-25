@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <ClassDetailsDialog v-model="selectedClass" fullscreen></ClassDetailsDialog>
+    <ClassDetailsDialog v-model="selectedClass" fullscreen />
     <v-list v-if="events.length > 0" dense min-width="100vw">
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
         <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
@@ -30,7 +30,7 @@ import ClassDetailsDialog from '../class-details-dialog.vue';
 const { dayNumToWord } = require('../../util');
 
 export default {
-  name: 'ScratchList',
+  name: 'ScratchSheetList',
   data: () => ({
     selectedClass: null,
     selectedOpen: false,

@@ -32,18 +32,18 @@
           </v-tooltip>
         </v-toolbar>
         <v-card-title></v-card-title>
-      <ResultsTable v-bind:search="search"></ResultsTable>
+      <ResultsTable v-bind:search="search" />
       </v-card>
     </v-col>
   </v-container>
-  <ResultsTable v-bind:search="search" v-else></ResultsTable>
+  <ResultsTable v-else v-bind:search="search" />
 </template>
 <script>
 import { mapMutations, mapGetters } from 'vuex';
-import ResultsTable from './resultstable.vue';
+import ResultsTable from './results-table.vue';
 
 export default {
-  name: 'Results',
+  name: 'ResultsPage',
   components: { ResultsTable },
   data: () => ({
     search: '',

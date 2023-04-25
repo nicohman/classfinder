@@ -25,6 +25,6 @@
 </template>
 <script>
 export default {
-  name: 'InformationMobile',
+  name: 'MobileInfoPage',
 };
 </script>

@@ -5,7 +5,7 @@
       <v-row v-if="$vuetify.breakpoint.xs" align="center" justify="center" class="my-auto">
         <v-col cols="11">
           <v-card class="elevation-0 pb-12" style="background-color: rgb(250, 253, 255)">
-            <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
+            <SearchForm v-bind:showAdvanced="showAdvanced" />
           </v-card>
         </v-col>
       </v-row>
@@ -13,7 +13,7 @@
       <v-row v-else align="center" justify="center" class="my-auto">
         <v-col cols="7">
           <v-card class="elevation-0 pb-12" style="background-color: rgb(250, 253, 255)">
-            <ClassForm v-bind:showAdvanced="showAdvanced"></ClassForm>
+            <SearchForm v-bind:showAdvanced="showAdvanced" />
           </v-card>
         </v-col>
       </v-row>
@@ -22,11 +22,11 @@
 </template>
 <script>
 import { mapMutations } from 'vuex';
-import ClassForm from './form.vue';
+import SearchForm from './search-form.vue';
 
 export default {
   name: 'Search',
-  components: { ClassForm },
+  components: { SearchForm },
   data: () => ({
     showAdvanced: false,
     drawer: false,

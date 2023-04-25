@@ -52,7 +52,7 @@ import { mapMutations, mapGetters } from 'vuex';
 import MobileAppBar from './components/mobile/mobile-app-bar.vue';
 import SearchPage from './components/search/search-page.vue';
 import ResultsPage from './components/results/results-page.vue';
-import ScratchSheetPage from './components/scratch-sheet/scratch-sheet.vue';
+import ScratchSheetPage from './components/scratch-sheet/scratch-sheet-page.vue';
 import MobileInfoPage from './components/mobile/mobile-info-page.vue';
 import ScheduleBuilderPage from './components/schedule-builder/schedule-builder-page.vue';
 import InfoDialog from './components/info-dialog.vue';

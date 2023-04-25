@@ -1,22 +1,25 @@
 <template>
   <v-container fluid>
     <v-calendar
-      v-if="events.length > 0"
+      v-if="!sheetEmptyForTerm"
       @click:event="showClass"
       :value="today"
       type="week"
       :interval-count="config.calendarDayLength"
       :first-interval="config.calendarStartHour"
-      :events="events"
-      v-bind:start="events[0].start"
+      :events="classEvents"
+      :start="classEvents[0].start"
       :weekdays="[1,2,3,4,5]"
     >
       <template v-slot:day="{date}">
         <div>{{date}}</div>
       </template>
     </v-calendar>
-    <div justify="center" v-else>
-      No classes with times found for this scratch sheet
+    <div v-else-if="!term" justify="center" align="center">
+      No term selected
+    </div>
+    <div v-else justify="center"  align="center">
+      Your scratch sheet for {{term}} has no classes with times
     </div>
 
     <!-- Popup on class click -- may want to refactor as separate component -->
@@ -48,8 +51,9 @@
       </v-card>
     </v-menu>
 
-    <!-- View More Dialog -->
+    <!-- dialog opens when you click View More -->
     <ClassDetailsDialog v-model="cardClass" />
+
   </v-container>
 </template>
 <script>
@@ -59,23 +63,18 @@ import config from '../../../config.json';
 
 export default {
   name: 'ScratchSheetCalendar',
+  props: { term: String, classEvents: Array, sheetEmptyForTerm: Boolean },
   data: () => ({
+    config,
     selectedClass: null,
     selectedOpen: false,
     selectedElement: null,
     cardClass: undefined,
-    config,
   }),
   components: { ClassDetailsDialog },
   computed: {
-    events() {
-      // eslint-disable-next-line no-unused-vars
-      return this.getScratch()
-        .map((i) => i.scratchDates)
-        .flat();
-    },
     today() {
-      return this.events[0].start;
+      return this.classEvents[0].start;
     },
   },
   methods: {

@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <ClassDetailsDialog v-model="selectedClass" fullscreen />
-    <v-list v-if="events.length > 0" dense min-width="100vw">
+    <v-list v-if="!sheetEmptyForTerm" dense min-width="100vw">
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
         <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
         <v-divider></v-divider>
@@ -20,7 +20,12 @@
         </v-list-item>
       </v-container>
     </v-list>
-    <div v-else justify="center">No classes with times found for this scratch sheet</div>
+    <div v-else-if="!term" justify="center" align="center">
+      No term selected
+    </div>
+    <div v-else justify="center"  align="center">
+      Your scratch sheet for {{term}} has no classes with times
+    </div>
   </v-container>
 </template>
 <script>
@@ -31,6 +36,7 @@ const { dayNumToWord } = require('../../util');
 
 export default {
   name: 'ScratchSheetList',
+  props: { term: String, events: Array, sheetEmptyForTerm: Boolean },
   data: () => ({
     selectedClass: null,
     selectedOpen: false,
@@ -38,13 +44,13 @@ export default {
   }),
   components: { ClassDetailsDialog },
   computed: {
-    events() {
-      // eslint-disable-next-line no-unused-vars
-      return this.getScratch()
-        .map((i) => i.scratchDates)
-        .flat()
-        .sort((a, b) => a.startDate - b.startDate);
-    },
+    // events() {
+    //   // eslint-disable-next-line no-unused-vars
+    //   return this.getScratch()
+    //     .map((i) => i.scratchDates)
+    //     .flat()
+    //     .sort((a, b) => a.startDate - b.startDate);
+    // },
     eventsByDay() {
       const days = [];
       this.events.forEach((event) => {

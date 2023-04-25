@@ -4,7 +4,7 @@
     <a
       href="https://admin.wwu.edu/pls/wwis/wwsktime.SelClass"
       target="_blank"
-    >Classfinder</a> website.
+    >ClassFinder</a> website.
     For an outline of how it works, you can look at the
     <a
       href="https://man.sr.ht/~nicohman/classfinder"

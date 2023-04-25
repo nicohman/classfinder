@@ -31,7 +31,7 @@ export default new Vuex.Store({
         case '/results':
           return 'Results';
         default:
-          return 'Classfinder';
+          return 'ClassFinder';
       }
     },
   },

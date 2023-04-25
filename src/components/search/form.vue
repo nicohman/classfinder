@@ -196,7 +196,7 @@ export default {
           this.setRoute('/results');
           window.history.pushState(
             null,
-            'Classfinder Results',
+            'ClassFinder Results',
             `/results?${queryString}`,
           );
         }
@@ -208,7 +208,7 @@ export default {
         this.setRoute('/results');
         window.history.pushState(
           null,
-          'Classfinder Results',
+          'ClassFinder Results',
           `/results?${stemmedInput}`,
         );
       }

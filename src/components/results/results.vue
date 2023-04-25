@@ -11,7 +11,7 @@
             </template>
             <span>Go Back</span>
           </v-tooltip>
-          <v-toolbar-title>Classfinder</v-toolbar-title>
+          <v-toolbar-title>ClassFinder</v-toolbar-title>
           <v-spacer />
           <v-text-field
             v-model="search"

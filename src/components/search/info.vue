@@ -12,7 +12,7 @@
         <a
           href="https://admin.wwu.edu/pls/wwis/wwsktime.SelClass"
           target="_blank"
-        >Classfinder</a> website.
+        >ClassFinder</a> website.
         For an outline of how it works, you can look at the
         <a href="https://man.sr.ht/~nicohman/classfinder" target="_blank">WIP Docs</a>.
         This is still in an alpha stage, and many planned features are not present yet or are limited in their scope.

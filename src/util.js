@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const gurList = require('./selectOptions').gurs.map((i) => i.code);
+const config = require('../config.json');
 
 async function fetchClasses(queryString) {
   const res = await axios.get(
@@ -90,7 +91,7 @@ function parseScratchDates(item) {
     const endDate = new Date(startDate.toString());
     let startHours = parseInt(d.startTime.split(':')[0], 10);
     let endHours = parseInt(d.endTime.split(':')[0], 10);
-    if (startHours < 6) {
+    if (startHours < config.calendarStartHour) {
       startHours += 12;
       endHours += 12;
     } else if (endHours < startHours) {

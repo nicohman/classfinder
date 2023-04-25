@@ -12,6 +12,8 @@
       "useUnifiedTopology": true,
       "autoIndex":true
     },
-    "numberOfTermsCached" : 5
+    "numberOfTermsCached": 5,
+    "calendarStartHour": 7,
+    "calendarDayLength": 11
   }
   

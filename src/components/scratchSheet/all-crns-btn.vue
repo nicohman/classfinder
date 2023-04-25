@@ -6,9 +6,9 @@
     <v-card>
       <v-card-title>All CRNs</v-card-title>
       <v-card-text>
-        <span v-if="scratchsheetEmpty">No classes in scratchsheet</span>
+        <span v-if="scratchSheetEmpty">No classes in scratch sheet</span>
         <span v-else :key="item.CRN" v-for="item in getScratch()">
-          {{ item.Name + " - " + item.CRN }}
+          {{ `${item.Name} (${item.Title}) - ${item.CRN}` }}
           <br />
         </span>
       </v-card-text>
@@ -36,7 +36,7 @@ export default {
     };
   },
   computed: {
-    scratchsheetEmpty() {
+    scratchSheetEmpty() {
       return (this.getScratch()).length === 0;
     },
   },

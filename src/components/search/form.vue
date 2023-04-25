@@ -196,7 +196,7 @@ export default {
           this.setRoute('/results');
           window.history.pushState(
             null,
-            'Classfinder Results',
+            'ClassFinder Results',
             `/results?${queryString}`,
           );
         }
@@ -208,7 +208,7 @@ export default {
         this.setRoute('/results');
         window.history.pushState(
           null,
-          'Classfinder Results',
+          'ClassFinder Results',
           `/results?${stemmedInput}`,
         );
       }
@@ -239,7 +239,7 @@ export default {
     },
     goScratchSheet() {
       this.$emit('goScratch', true);
-      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
+      window.history.pushState(null, 'Scratch Sheet', '/scratchsheet');
     },
     ...mapMutations(['setResults', 'setRoute']),
   },

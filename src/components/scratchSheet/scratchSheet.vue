@@ -9,7 +9,7 @@
       <v-col cols="10" justify="center">
         <v-card justify="center">
           <v-toolbar color="primary" dark flat>
-            <v-toolbar-title>Scratchsheet</v-toolbar-title>
+            <v-toolbar-title>Scratch Sheet</v-toolbar-title>
               <v-spacer />
               <AllCrnsBtn></AllCrnsBtn>
           </v-toolbar>
@@ -28,7 +28,7 @@ import ScratchList from './scratchlist.vue';
 import AllCrnsBtn from './all-crns-btn.vue';
 
 export default {
-  name: 'Scratchsheet',
+  name: 'ScratchSheet',
   components: { ScratchCalendar, ScratchList, AllCrnsBtn },
 };
 </script>

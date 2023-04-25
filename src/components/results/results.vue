@@ -11,7 +11,7 @@
             </template>
             <span>Go Back</span>
           </v-tooltip>
-          <v-toolbar-title>Classfinder</v-toolbar-title>
+          <v-toolbar-title>ClassFinder</v-toolbar-title>
           <v-spacer />
           <v-text-field
             v-model="search"
@@ -21,13 +21,14 @@
             hide-details
           ></v-text-field>
           <v-spacer class="col-auto" />
-          <v-tooltip right>
+          <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn v-on:click="goScratchSheet" large v-on="on">
                 <v-icon>mdi-calendar</v-icon>
-                <span>Scratchsheet</span>
+                <span>Scratch Sheet</span>
               </v-btn>
             </template>
+            <span>Go to Scratch Sheet</span>
           </v-tooltip>
         </v-toolbar>
         <v-card-title></v-card-title>
@@ -55,7 +56,7 @@ export default {
   methods: {
     goScratchSheet() {
       this.setRoute('/scratchsheet');
-      window.history.pushState(null, 'Scratchsheet', '/scratchsheet');
+      window.history.pushState(null, 'Scratch Sheet', '/scratchsheet');
     },
     goBack() {
       window.history.back();

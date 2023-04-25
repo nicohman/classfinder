@@ -11,43 +11,78 @@
     :disable-pagination=disablePagination
     :hide-default-footer=hideDefaultFooter
   >
-    <template v-if="$vuetify.breakpoint.smAndUp" v-slot:expanded-item="{ headers, item }">
-      <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
-    </template>
     <template v-if="$vuetify.breakpoint.xsOnly" v-slot:item.data-table-expand="{item}">
       <v-btn block width="87.75vw" v-on:click="shownClass = item">View More</v-btn>
       <ClassDetailsDialog fullscreen v-model="shownClass"></ClassDetailsDialog>
     </template>
+    <template v-else v-slot:expanded-item="{ headers, item }">
+      <Expanded v-bind:item="item" v-bind:headers="headers"></Expanded>
+    </template>
+
     <template v-slot:item.scratch="{header, value, item}">
-      <v-badge
-        :value="checkScratchOverlap(item) && !onScratch(item)"
-        color="red"
-        content="!"
-        offset-x="20"
-        offset-y="20"
-        dot
-        v-if="$vuetify.breakpoint.smAndUp"
-      >
-        <v-btn v-if="!onScratch(item)" v-on:click="addScratch(item)" icon large>
-          <v-icon>mdi-plus</v-icon>
-        </v-btn>
-        <v-btn v-else v-on:click="rmScratch(item)" icon large>
-          <v-icon>mdi-minus</v-icon>
-        </v-btn>
-      </v-badge>
-      <v-btn
-        block
-        v-else-if="onScratch(item)"
-        color="red"
-        v-on:click="rmScratch(item)"
-      >Remove from scratchsheet</v-btn>
-      <v-btn
-        width="87.75vw"
-        block
-        v-else
-        v-bind:color="getColor(item)"
-        v-on:click="addScratch(item)"
-      >Add to scratchsheet</v-btn>
+      <div v-if="$vuetify.breakpoint.xsOnly">
+        <v-btn
+          v-if="onScratch(item)"
+          block
+          color="red"
+          v-on:click="rmScratch(item)"
+        >Remove from Scratch Sheet</v-btn>
+        <v-btn
+          v-else
+          width="87.75vw"
+          block
+          v-bind:color="getColor(item)"
+          v-on:click="addScratch(item)"
+        >Add to Scratch Sheet</v-btn>
+      </div>
+      <div v-else>
+        <div v-if="!onScratch(item)">
+          <!-- <v-badge
+            v-if="checkScratchOverlap(item)"
+            color="error"
+            content="!"
+            offset-x="20"
+            offset-y="10"
+          > -->
+          <v-badge
+            v-if="checkScratchOverlap(item)"
+            color="error"
+            content="Conflicts"
+            offset-x="30"
+            offset-y="10"
+            :style="{'width': '100%'}"
+          >
+            <v-tooltip bottom nudge-top="5rem">
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" @click="addScratch(item)" color="primary" plain outlined text block>Add</v-btn>
+              </template>
+              <span>to Scratch Sheet</span>
+            </v-tooltip>
+          </v-badge>
+          <!-- <v-badge
+            v-if="checkScratchOverlap(item)"
+            color="error"
+            content="Conflicts"
+            offset-x="77"
+            offset-y="50"
+            :style="{'width': '100%'}"
+          >
+            <v-btn @click="addScratch(item)" plain block>Add</v-btn>
+          </v-badge> -->
+          <v-tooltip v-else bottom nudge-top="5rem">
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" @click="addScratch(item)" color="primary" block>Add</v-btn>
+            </template>
+            <span>to Scratch Sheet</span>
+          </v-tooltip>
+        </div>
+        <v-tooltip v-else bottom nudge-top="5rem">
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" @click="rmScratch(item)" color="primary" block>Remove</v-btn>
+          </template>
+          <span>from Scratch Sheet</span>
+        </v-tooltip>
+      </div>
     </template>
     <template v-slot:item.Available="{header, value}">
       <v-chip v-bind:color="value > 0 ? 'green' : 'red'">{{value}}</v-chip>
@@ -88,16 +123,16 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Slots', value: 'Available' },
+      { text: 'Open Spots', value: 'Available' },
       { text: 'Class Code', value: 'Name' },
       { text: 'CRN', value: 'CRN' },
-      { text: 'Name', value: 'Title' },
-      { text: 'Cap/Enrolled/Available', value: 'CourseCount' },
+      { text: 'Class Name', value: 'Title' },
+      { text: 'Cap/Enrolled/Open', value: 'CourseCount' },
       { text: 'Instructor', value: 'Instructor' },
       { text: 'GUR Attributes', value: 'Gurs' },
-      { text: 'Classes', value: 'TimeLocations' },
+      { text: 'Meetings', value: 'TimeLocations' },
       { text: 'Sync/Async', value: 'Synchronous' },
-      { text: 'Remote/F2F', value: 'Remote' },
+      { text: 'F2F/Remote', value: 'Remote' },
       { text: '', value: 'scratch' },
       { text: '', value: 'data-table-expand' },
     ],

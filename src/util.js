@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 const gurList = require('./selectOptions').gurs.map((i) => i.code);
+const config = require('../config.json');
 
 async function fetchClasses(queryString) {
   const res = await axios.get(
@@ -18,7 +19,7 @@ async function fetchClasses(queryString) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.Capacity}/${i.Enrolled}/<span style="color:${color}">${i.Available}</span>`;
+    i.CourseCount = `${i.Capacity} / ${i.Enrolled} / <span style="color:${color}">${i.Available}</span>`;
     return i;
   });
   return data;
@@ -40,7 +41,7 @@ async function fetchClassesNLP(queryString) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.Capacity}/${i.Enrolled}/<span style="color:${color}">${i.Available}</span>`;
+    i.CourseCount = `${i.Capacity} / ${i.Enrolled} / <span style="color:${color}">${i.Available}</span>`;
     return i;
   });
   return data;
@@ -90,7 +91,7 @@ function parseScratchDates(item) {
     const endDate = new Date(startDate.toString());
     let startHours = parseInt(d.startTime.split(':')[0], 10);
     let endHours = parseInt(d.endTime.split(':')[0], 10);
-    if (startHours < 6) {
+    if (startHours < config.calendarStartHour) {
       startHours += 12;
       endHours += 12;
     } else if (endHours < startHours) {

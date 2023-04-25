@@ -5,8 +5,8 @@
       @click:event="showClass"
       :value="today"
       type="week"
-      interval-count="12"
-      first-interval="6"
+      :interval-count="config.calendarDayLength"
+      :first-interval="config.calendarStartHour"
       :events="events"
       v-bind:start="events[0].start"
       :weekdays="[1,2,3,4,5]"
@@ -16,7 +16,7 @@
       </template>
     </v-calendar>
     <div justify="center" v-else>
-      No classes with times found for this scratchsheet
+      No classes with times found for this scratch sheet
     </div>
 
     <!-- Popup on class click -- may want to refactor as separate component -->
@@ -55,6 +55,7 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 import ClassDetailsDialog from '../class-details-dialog.vue';
+import config from '../../../config.json';
 
 export default {
   name: 'ScratchCalendar',
@@ -63,6 +64,7 @@ export default {
     selectedOpen: false,
     selectedElement: null,
     cardClass: undefined,
+    config,
   }),
   components: { ClassDetailsDialog },
   computed: {

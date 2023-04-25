@@ -1,7 +1,13 @@
 <template>
   <v-container fluid>
+    <div v-if="!term" justify="center" align="center">
+      No term selected
+    </div>
+    <div v-else-if="sheetEmptyForTerm" justify="center"  align="center">
+      Your scratch sheet for {{term}} has no classes with times
+    </div>
     <v-calendar
-      v-if="!sheetEmptyForTerm"
+      v-else
       @click:event="showClass"
       :value="today"
       type="week"
@@ -15,12 +21,6 @@
         <div>{{date}}</div>
       </template>
     </v-calendar>
-    <div v-else-if="!term" justify="center" align="center">
-      No term selected
-    </div>
-    <div v-else justify="center"  align="center">
-      Your scratch sheet for {{term}} has no classes with times
-    </div>
 
     <!-- Popup on class click -- may want to refactor as separate component -->
     <v-menu

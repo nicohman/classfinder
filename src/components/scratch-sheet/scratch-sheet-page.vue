@@ -24,7 +24,11 @@
               />
             </v-col>
             <!-- <v-spacer /> -->
-            <AllCrnsDialog/>
+            <AllCrnsDialog
+              :term="selectedTerm"
+              :classesSet="classesSet"
+              :sheetEmptyForTerm="sheetEmptyForTerm"
+            />
           </v-toolbar>
           <v-card-text>
             <ScratchSheetCalendar
@@ -76,12 +80,17 @@ export default {
         .map((i) => i.scratchDates)
         .flat()
         .sort((a, b) => a.startDate - b.startDate); // for scratch-sheet-list
-      console.log(`all scratch classes in ${this.term}: ${JSON.stringify(events, null, 2)}`);
+      // console.log(`all scratch classes in ${this.selectedTerm}: ${JSON.stringify(events, null, 2)}`);
 
       return events;
     },
     sheetEmptyForTerm() {
       return this.classEvents.length === 0;
+    },
+    classesSet() {
+      const classes = this.getScratch().filter((i) => i.Term === this.selectedTerm);
+      // console.log(`set of classes in ${this.selectedTerm}: ${JSON.stringify(classes, null, 2)}`);
+      return classes;
     },
   },
   methods: {

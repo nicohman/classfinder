@@ -6,11 +6,16 @@
     <v-card>
       <v-card-title>All CRNs</v-card-title>
       <v-card-text>
-        <span v-if="scratchSheetEmpty">No classes in scratch sheet</span>
-        <span v-else :key="item.CRN" v-for="item in getScratch()">
+        <div v-if="!term" justify="center">
+          No term selected
+        </div>
+        <div v-else-if="sheetEmptyForTerm" justify="center" >
+          Your scratch sheet for {{term}} has no classes with times
+        </div>
+        <div v-else v-for="item in classesSet" :key="item.CRN">
           {{ `${item.Name} (${item.Title}) - ${item.CRN}` }}
           <br />
-        </span>
+        </div>
       </v-card-text>
       <v-card-actions>
         <v-btn
@@ -30,21 +35,14 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'AllCrnsDialog',
+  props: { term: String, sheetEmptyForTerm: Boolean, classesSet: Array },
   data() {
     return {
       dialog: false,
     };
   },
-  computed: {
-    scratchSheetEmpty() {
-      return (this.getScratch()).length === 0;
-    },
-  },
   methods: {
     ...mapGetters(['getScratch']),
   },
-  // created() {
-  //   console.log(this.getScratch());
-  // },
 };
 </script>

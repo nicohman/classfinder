@@ -1,7 +1,14 @@
 <template>
   <v-container fluid>
     <ClassDetailsDialog v-model="selectedClass" fullscreen />
-    <v-list v-if="!sheetEmptyForTerm" dense min-width="100vw">
+
+    <div v-if="!term" justify="center" align="center">
+      No term selected
+    </div>
+    <div v-else-if="noEvents" justify="center"  align="center">
+      Your scratch sheet for {{term}} has no classes with times
+    </div>
+    <v-list v-else dense min-width="100vw">
       <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
         <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
         <v-divider></v-divider>
@@ -20,12 +27,6 @@
         </v-list-item>
       </v-container>
     </v-list>
-    <div v-else-if="!term" justify="center" align="center">
-      No term selected
-    </div>
-    <div v-else justify="center"  align="center">
-      Your scratch sheet for {{term}} has no classes with times
-    </div>
   </v-container>
 </template>
 <script>
@@ -36,7 +37,7 @@ const { dayNumToWord } = require('../../util');
 
 export default {
   name: 'ScratchSheetList',
-  props: { term: String, events: Array, sheetEmptyForTerm: Boolean },
+  props: { term: String, events: Array, noEvents: Boolean },
   data: () => ({
     selectedClass: null,
     selectedOpen: false,

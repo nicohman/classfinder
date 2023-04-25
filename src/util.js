@@ -105,6 +105,7 @@ function parseScratchDates(item) {
       CRN: item.CRN,
       description: item.Description,
       name: item.Name,
+      title: item.Title,
       start: convertToCalenderFormat(startDate),
       end: convertToCalenderFormat(endDate),
       startDate,

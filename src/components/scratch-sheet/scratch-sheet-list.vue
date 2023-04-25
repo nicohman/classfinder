@@ -1,50 +1,61 @@
 <template>
-  <v-container fluid>
-    <ClassDetailsDialog v-model="selectedClass" fullscreen />
-    <v-list v-if="events.length > 0" dense min-width="100vw">
-      <v-container v-for="(day,i) in eventsByDay" v-bind:key="i">
-        <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
-        <v-divider></v-divider>
-        <v-list-item link two-line v-for="event in day"  v-on:click="showClass(event)" v-bind:key="event.start">
-          <v-list-item-content>
-            <v-list-item-title>{{event.name }}</v-list-item-title>
-            <v-list-item-subtitle>
-              {{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-btn icon>
-              <v-icon>mdi-information</v-icon>
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </v-container>
-    </v-list>
-    <div v-else justify="center">No classes with times found for this scratch sheet</div>
-  </v-container>
+  <div v-if="!term" justify="center" align="center">
+    No term is selected, so can't display classes
+  </div>
+  <div v-else-if="noEvents" justify="center"  align="center">
+    Your scratch sheet for {{term}} has no classes with times
+  </div>
+  <v-list v-else dense min-width="100vw">
+    <v-container v-for="(day, i) in eventsByDay" :key="i">
+      <v-list-item>{{dayNumToWord(day[0].startDate.getDay())}}</v-list-item>
+      <v-divider></v-divider>
+
+      <v-list-item
+        v-for="event in day"
+        :key="event.start"
+        @click="showClass(event)"
+        link
+        two-line
+      >
+        <v-list-item-content>
+          <v-list-item-title>{{event.name }}</v-list-item-title>
+          <v-list-item-subtitle>
+            {{event.startDate.toTimeString().substr(0, 5)}}-{{event.endDate.toTimeString().substr(0, 5)}}
+          </v-list-item-subtitle>
+        </v-list-item-content>
+        <v-list-item-action>
+          <v-btn icon>
+            <v-icon>mdi-information</v-icon>
+          </v-btn>
+        </v-list-item-action>
+      </v-list-item>
+
+    </v-container>
+  </v-list>
 </template>
 <script>
 import { mapGetters, mapMutations } from 'vuex';
-import ClassDetailsDialog from '../class-details-dialog.vue';
+// import ClassDetailsDialog from '../class-details-dialog.vue';
 
 const { dayNumToWord } = require('../../util');
 
 export default {
   name: 'ScratchSheetList',
+  props: { term: String, events: Array, noEvents: Boolean },
   data: () => ({
     selectedClass: null,
     selectedOpen: false,
     selectedElement: null,
   }),
-  components: { ClassDetailsDialog },
+  // components: { ClassDetailsDialog },
   computed: {
-    events() {
-      // eslint-disable-next-line no-unused-vars
-      return this.getScratch()
-        .map((i) => i.scratchDates)
-        .flat()
-        .sort((a, b) => a.startDate - b.startDate);
-    },
+    // events() {
+    //   // eslint-disable-next-line no-unused-vars
+    //   return this.getScratch()
+    //     .map((i) => i.scratchDates)
+    //     .flat()
+    //     .sort((a, b) => a.startDate - b.startDate);
+    // },
     eventsByDay() {
       const days = [];
       this.events.forEach((event) => {

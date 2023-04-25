@@ -21,13 +21,14 @@
             hide-details
           ></v-text-field>
           <v-spacer class="col-auto" />
-          <v-tooltip right>
+          <v-tooltip bottom>
             <template v-slot:activator="{ on }">
               <v-btn v-on:click="goScratchSheet" large v-on="on">
                 <v-icon>mdi-calendar</v-icon>
                 <span>Scratchsheet</span>
               </v-btn>
             </template>
+            <span>Go to Scratchsheet</span>
           </v-tooltip>
         </v-toolbar>
         <v-card-title></v-card-title>

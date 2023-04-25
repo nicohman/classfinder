@@ -10,16 +10,26 @@
     max-width="100vw"
     :disable-pagination=disablePagination
     :hide-default-footer=hideDefaultFooter
+    @click:row="rowClicked"
+    :expanded.sync="expandedItems"
   >
-    <template v-if="$vuetify.breakpoint.xsOnly" v-slot:item.data-table-expand="{item}">
-      <v-btn block width="87.75vw" v-on:click="shownClass = item">View More</v-btn>
-      <ClassDetailsDialog fullscreen v-model="shownClass" />
+    <template v-slot:item.Available="{header, value}">
+      <v-chip v-bind:color="value > 0 ? 'green' : 'red'">{{value}}</v-chip>
     </template>
-    <template v-else v-slot:expanded-item="{ headers, item }">
-      <ResultsExpanded v-bind:item="item" v-bind:headers="headers" />
+    <template v-slot:item.CourseCount="{header, value}">
+      <span v-html="value"></span>
+    </template>
+    <template v-slot:item.TimeLocations="{header, value}">
+      <span v-html="displayTimeLocation(value)"></span>
+    </template>
+    <template v-slot:item.Synchronous="{header, value}">
+      <span v-html="displaySync(value)"></span>
+    </template>
+    <template v-slot:item.Remote="{header, value}">
+      <span v-html="displayRemote(value)"></span>
     </template>
 
-    <template v-slot:item.scratch="{header, value, item}">
+    <template v-slot:item.scratchBtn="{header, value, item}">
       <div v-if="$vuetify.breakpoint.xsOnly">
         <v-btn
           v-if="onScratch(item)"
@@ -37,13 +47,6 @@
       </div>
       <div v-else>
         <div v-if="!onScratch(item)">
-          <!-- <v-badge
-            v-if="checkScratchOverlap(item)"
-            color="error"
-            content="!"
-            offset-x="20"
-            offset-y="10"
-          > -->
           <v-badge
             v-if="checkScratchOverlap(item)"
             color="error"
@@ -59,16 +62,6 @@
               <span>to Scratch Sheet</span>
             </v-tooltip>
           </v-badge>
-          <!-- <v-badge
-            v-if="checkScratchOverlap(item)"
-            color="error"
-            content="Conflicts"
-            offset-x="77"
-            offset-y="50"
-            :style="{'width': '100%'}"
-          >
-            <v-btn @click="addScratch(item)" plain block>Add</v-btn>
-          </v-badge> -->
           <v-tooltip v-else bottom nudge-top="5rem">
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" @click="addScratch(item)" color="primary" block>Add</v-btn>
@@ -84,21 +77,17 @@
         </v-tooltip>
       </div>
     </template>
-    <template v-slot:item.Available="{header, value}">
-      <v-chip v-bind:color="value > 0 ? 'green' : 'red'">{{value}}</v-chip>
+
+    <!-- xs screen: custom expansion behavior components -->
+    <template v-if="$vuetify.breakpoint.xsOnly" v-slot:item.data-table-expand="{item}">
+      <v-btn block width="87.75vw" @click="shownClass = item">View More</v-btn>
+      <ClassDetailsDialog fullscreen v-model="shownClass" />
     </template>
-    <template v-slot:item.TimeLocations="{header, value}">
-      <span v-html="displayTimeLocation(value)"></span>
+    <!-- bigger screen: custom expanded row -->
+    <template v-else v-slot:expanded-item="{ headers, item }">
+      <ResultExpanded :item="item" :headers="headers" />
     </template>
-    <template v-slot:item.Synchronous="{header, value}">
-      <span v-html="displaySync(value)"></span>
-    </template>
-    <template v-slot:item.Remote="{header, value}">
-      <span v-html="displayRemote(value)"></span>
-    </template>
-    <template v-slot:item.CourseCount="{header, value}">
-      <span v-html="value"></span>
-    </template>
+
     <template v-slot:footer v-if="results.length > 0">
       <span class="text--secondary ml-10">These were last updated {{ timeFrom(results[0].FetchedAt) }}</span>
     </template>
@@ -110,14 +99,14 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex';
 import moment from 'moment';
-import ResultsExpanded from './results-expanded.vue';
+import ResultExpanded from './result-expanded.vue';
 import ClassDetailsDialog from '../class-details-dialog.vue';
 
 const util = require('../../util');
 
 export default {
   name: 'ResultsTable',
-  components: { ResultsExpanded, ClassDetailsDialog },
+  components: { ResultExpanded, ClassDetailsDialog },
   props: {
     search: String,
   },
@@ -133,7 +122,7 @@ export default {
       { text: 'Meetings', value: 'TimeLocations' },
       { text: 'Sync/Async', value: 'Synchronous' },
       { text: 'F2F/Remote', value: 'Remote' },
-      { text: '', value: 'scratch' },
+      { text: '', value: 'scratchBtn' },
       { text: '', value: 'data-table-expand' },
     ],
     search: '',
@@ -141,6 +130,7 @@ export default {
     shownClass: undefined,
     disablePagination: true,
     hideDefaultFooter: true,
+    expandedItems: [],
   }),
   computed: {
     results() {
@@ -148,6 +138,19 @@ export default {
     },
   },
   methods: {
+    rowClicked(item) {
+      console.log('row clicked!');
+      console.log(item);
+
+      const index = this.expandedItems.indexOf(item);
+      if (index > -1) {
+        this.expandedItems.splice(index, 1);
+        console.log(`closing expanded ${item.Name}`);
+      } else {
+        this.expandedItems.push(item);
+        console.log(`expanding ${item.Name}`);
+      }
+    },
     displaySync(item) {
       if (item === 0) {
         return 'Synchronous';
@@ -190,9 +193,9 @@ export default {
       }
       return 'TBA';
     },
-    displayExpanded(item) {
-      return `<br></br><strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}<br></br>`;
-    },
+    // displayExpanded(item) {
+    //   return `<br></br><strong>Credits</strong>: ${item.Credits}<br></br><strong>Dates</strong>: ${item.StartDate}-${item.EndDate}<br></br><strong>Description</strong>: ${item.Description}<br></br>`;
+    // },
     goBack() {
       window.history.back();
     },

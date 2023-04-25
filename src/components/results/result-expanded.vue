@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-  name: 'ResultsExpanded',
+  name: 'ResultExpanded',
   props: { item: Object, headers: Array },
 };
 </script>

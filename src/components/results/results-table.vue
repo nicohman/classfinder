@@ -10,7 +10,7 @@
     max-width="100vw"
     :disable-pagination=disablePagination
     :hide-default-footer=hideDefaultFooter
-    @click:row="rowClicked"
+    @click:row="handleClickRow"
     :expanded.sync="expandedItems"
   >
     <template v-slot:item.Available="{header, value}">
@@ -138,18 +138,25 @@ export default {
     },
   },
   methods: {
-    rowClicked(item) {
-      console.log('row clicked!');
-      console.log(item);
+    handleClickRow(item, _, event) {
+      if (
+        event.target.type === 'BUTTON'
+        // || event.target.className === 'v-btn__content'
+        || event.target.parentElement.type === 'button'
+      ) {
+        return null;
+      }
 
       const index = this.expandedItems.indexOf(item);
       if (index > -1) {
         this.expandedItems.splice(index, 1);
-        console.log(`closing expanded ${item.Name}`);
+        // console.log(`closing expanded ${item.Name}`);
       } else {
         this.expandedItems.push(item);
-        console.log(`expanding ${item.Name}`);
+        // console.log(`expanding ${item.Name}`);
       }
+
+      return item; // not currently used
     },
     displaySync(item) {
       if (item === 0) {

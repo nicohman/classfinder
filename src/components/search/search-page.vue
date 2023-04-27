@@ -25,7 +25,7 @@ import { mapMutations } from 'vuex';
 import SearchForm from './search-form.vue';
 
 export default {
-  name: 'Search',
+  name: 'SearchPage',
   components: { SearchForm },
   data: () => ({
     showAdvanced: false,

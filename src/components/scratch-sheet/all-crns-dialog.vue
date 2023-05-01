@@ -13,7 +13,7 @@
           Your scratch sheet for {{term}} has no classes with times
         </div>
         <div v-else v-for="item in classesSet" :key="item.CRN">
-          {{ `${item.Name} (${item.Title}) - ${item.CRN}` }}
+          <strong>{{ item.CRN }}</strong>{{ ` - ${item.Name} (${item.Title})` }}
           <br />
         </div>
       </v-card-text>

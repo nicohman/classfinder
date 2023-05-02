@@ -1,12 +1,12 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const https = require('https');
 const fs = require('fs');
+
 require('dotenv').config();
 const config = require('./config.json');
 const routes = require('./backend/routes');
-
+const sequelize = require('./backend/postgres');
 const app = express();
 const httpRedirecter = express();
 
@@ -31,11 +31,13 @@ httpRedirecter.use((req, res) => {
   res.redirect('https://classfinder.nicohman.com');
 });
 
-mongoose.connect(process.env.CF_MONGO_URL, config.mongooseConfig).then(() => {
-  console.log(`connected to ${process.env.CF_MONGO_URL}`);
+
+
+sequelize.authenticate().then(() => {
+  console.log(`connected to ${process.env.DATABASE_URL}`);
   if (process.env.CF_DEV_MODE === 'true') {
     console.log('Starting development server locally');
-    app.listen(8080);
+    app.listen(8081);
   } else {
     console.log('Starting production server');
     https.createServer({
@@ -44,6 +46,6 @@ mongoose.connect(process.env.CF_MONGO_URL, config.mongooseConfig).then(() => {
     }, app).listen(process.env.CF_API_PORT);
     httpRedirecter.listen(80);
   }
-}).catch((err) => {
-  console.error(`${err}`);
 });
+
+

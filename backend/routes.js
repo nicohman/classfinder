@@ -1,9 +1,6 @@
-const mongoose = require('mongoose');
-const schemas = require('./schemas');
-const stemSchema = new mongoose.Schema(schemas.Description);
-stemSchema.index({Description: 'text'});
-const Class = mongoose.model('Class', schemas.Class);
-const StemmedDescription = mongoose.model('StemmedClass', stemSchema, 'stemmed_descriptions');
+const { Op } = require('sequelize');
+const { Class, Description, StemmedDescription } = require('./schemas');
+
 const getClass = (req, res) => {
   const queryObject = {};
   const optsObject = {};
@@ -13,38 +10,29 @@ const getClass = (req, res) => {
       return;
     }
     switch (queryParam) {
-      case 'crn':
-        parsed = 'CRN';
-        break;
       case 'gur':
-        if (!queryObject.Gurs) {
+       /* if (!queryObject.Gurs) {
           queryObject.Gurs = { $all: [] };
         }
         queryObject.Gurs.$all.push(req.query.gur);
-        return;
+        return;*/
       case 'other':
-        if (!queryObject.Attributes) {
+        /*if (!queryObject.Attributes) {
           queryObject.Attributes = { $all: [] };
         }
         if (req.query.other.includes(" ")) {
           queryObject.Attributes.$all = queryObject.Attributes.$all.concat(req.query.other.split(" "));
         } else {
           queryObject.Attributes.$all.push(req.query.other);
-        }
+        }*/
         return;
-      case 'start_date':
-        parsed = 'StartDate';
-        break;
-      case 'end_date':
-        parsed = 'EndDate';
-        break;
       case 'coursenumber':
-        parsed = 'CourseNumber';
+        parsed = 'course_number';
         break;
       case 'onlyOpen':
         if (req.query.onlyOpen == 'true') {
-          queryObject.Available = {
-            $gt: 0
+          queryObject.available = {
+            [Op.gt]: 0
           };
         }
         break;
@@ -52,14 +40,13 @@ const getClass = (req, res) => {
         if (req.query.courseTitle.length === 0) {
           return;
         }
-        queryObject.$text = { $search: req.query.courseTitle };
-        optsObject.score = { $meta: 'textScore' };
+        queryObject.course_title = { [Op.match]: req.query.courseTitle };
         return;
       case 'days':
-        queryObject['TimeLocations.days'] = { $all: req.query.days.split(',') };
+       // queryObject['TimeLocations.days'] = { $all: req.query.days.split(',') };
         return;
       case 'names':
-        queryObject['Name'] = { $in: req.query.names.split(',')}
+        queryObject['name'] = { [Op.in]: req.query.names.split(',')}
         return;
       case 'name':
       case 'subject':
@@ -75,13 +62,13 @@ const getClass = (req, res) => {
       case 'remote':
       case 'synchronous':
       case 'available':
-        parsed = queryParam.charAt(0).toUpperCase() + queryParam.slice(1);
+        parsed = queryParam;
         break;
       default:
         break;
     }
     if (parsed) {
-      if (parsed === 'CRN' || parsed === 'Capacity' || parsed === 'Enrolled' || parsed === 'Available' || parsed === 'Remote' || parsed === 'Synchronous') {
+      if (parsed === 'crn' || parsed === 'capacity' || parsed === 'enrolled' || parsed === 'available' || parsed === 'remote' || parsed === 'synchronous') {
         try {
           queryObject[parsed] = parseInt(req.query[queryParam]);
         } catch (e) {
@@ -94,22 +81,10 @@ const getClass = (req, res) => {
   });
   res.set('Cache-Control', 'no-cache');
   console.log(queryObject);
-  let aggregation_pipeline = [{$match: queryObject}, {$lookup: {
-    from: 'descriptions',
-    localField: 'Name',
-    foreignField: 'Name',
-    as: 'Description'
-  }}, {
-    $addFields: {
-      Description: {
-        $first: "$Description.Description"
-      }
-    }
-  }];
-  let query = Class.aggregate(aggregation_pipeline);
-  if (queryObject['TimeLocations.days']) {
-    //query = query.sort({ score: { $meta: 'textScore' } });
-  }
+
+  const query = Class.findAll({
+    where: queryObject
+  });
   query.then((classes) => {
     res.send(classes);
   }).catch((err) => {

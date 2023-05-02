@@ -18,5 +18,6 @@ module.exports = {
     'prefer-destructuring': 'off',
     'vue/no-unused-components': 'off',
     'vue/no-unused-vars': 'off',
+    'linebreak-style': 0
   }
 };

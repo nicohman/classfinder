@@ -1,247 +1,6 @@
-// Helper functions for Porter Stemming
-/* Step 1b (part 2):
-                AT  →   ATE
-                BL  →   BLE
-                IZ  →   IZE
-  (*d and not (*L or *S or *Z))   →   single letter
-          (m=1 and *o)  →   E
-*/
-/* function endsWith(str, suffixes) {
-  return suffixes.some((suffix) => str.endsWith(suffix));
-}
-function hasVowel(word) {
-  return /[aeiouy]/.test(word);
-}
-function doubleConsonant(word) {
-  const lastTwo = word.slice(-2);
-  return /(bb|cc|dd|ff|gg|hh|jj|kk|ll|mm|nn|pp|qq|rr|ss|tt|vv|ww|xx|zz)$/.test(lastTwo);
-}
-function porter1bHelper(word) {
-  if (word.endsWith('at')) {
-    return `${word}e`;
-  }
-  if (word.endsWith('bl')) {
-    return `${word}e`;
-  }
-  if (word.endsWith('iz')) {
-    return `${word}e`;
-  }
-  if (doubleConsonant(word) && !endsWith(word, ['l', 's', 'z'])) {
-    return word.slice(0, -1);
-  }
-  if ((/[^aeiouy][aeiouy][^aeiouy]$/.test(word.slice(-3)))) {
-    return `${word}e`;
-  }
-  return word;
-}
-function measureFunc(word) {
-  let m = 0;
-  let isPreviousCharVowel = false;
-  const pattern = '[^aeiou][aeiouy][^aeiouy]';
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
-  for (let i = 0; i < word.length; i += 1) {
-    if (vowels.includes(word[i])) {
-      if (!isPreviousCharVowel) {
-        m += 1;
-        isPreviousCharVowel = true;
-      }
-    } else {
-      isPreviousCharVowel = false;
-    }
-  }
-  const regex = new RegExp(pattern, 'gi');
-  const matches = (word.match(regex) || []);
-  m -= matches.length;
-  // Return measure if value, otherwise no pattern exists.
-  return m > 0 ? m : 0;
-}
-function stemWord(word) {
-  let stemmedWord = word.toLowerCase();
-  if (stemmedWord.endsWith('sses')) {
-    stemmedWord = stemmedWord.slice(0, -2);
-  } else if (stemmedWord.endsWith('ies')) {
-    stemmedWord = stemmedWord.slice(0, -2);
-  } else if (stemmedWord.endsWith('s') && !stemmedWord.endsWith('ss')) {
-    stemmedWord = stemmedWord.slice(0, -1);
-  }
-  if (stemmedWord.endsWith('eed')) {
-    if (porter1bHelper(stemmedWord.slice(0, -3)) > 0) {
-      stemmedWord = stemmedWord.slice(0, -1);
-    } else {
-      return stemmedWord;
-    }
-  } else if (stemmedWord.endsWith('ed')) {
-    if (hasVowel(stemmedWord.slice(0, -2))) {
-      stemmedWord = porter1bHelper(stemmedWord.slice(0, -2));
-    } else {
-      return stemmedWord;
-    }
-  } else if (stemmedWord.endsWith('ing')) {
-    if (hasVowel(stemmedWord.endsWith(0, -3))) {
-      stemmedWord = porter1bHelper(stemmedWord.slice(0, -3));
-    } else {
-      return stemmedWord;
-    }
-  }
-  if ((stemmedWord.endsWith('y')) && (hasVowel(stemmedWord.slice(0, -1)))) {
-    stemmedWord = `${stemmedWord.slice(0, -1)}i`;
-  }
-  switch (true) {
-    case stemmedWord.endsWith('ational'):
-      stemmedWord = stemmedWord.replace('ational', 'ate');
-      break;
-    case stemmedWord.endsWith('tional'):
-      stemmedWord = stemmedWord.replace('tional', 'tion');
-      break;
-    case stemmedWord.endsWith('enci'):
-      stemmedWord = stemmedWord.replace('enci', 'ence');
-      break;
-    case stemmedWord.endsWith('anci'):
-      stemmedWord = stemmedWord.replace('anci', 'ance');
-      break;
-    case stemmedWord.endsWith('izer'):
-      stemmedWord = stemmedWord.replace('izer', 'ize');
-      break;
-    case stemmedWord.endsWith('abli'):
-      stemmedWord = stemmedWord.replace('abli', 'able');
-      break;
-    case stemmedWord.endsWith('alli'):
-      stemmedWord = stemmedWord.replace('alli', 'al');
-      break;
-    case stemmedWord.endsWith('entli'):
-      stemmedWord = stemmedWord.replace('entli', 'ent');
-      break;
-    case stemmedWord.endsWith('eli'):
-      stemmedWord = stemmedWord.replace('eli', 'e');
-      break;
-    case stemmedWord.endsWith('ousli'):
-      stemmedWord = stemmedWord.replace('ousli', 'ous');
-      break;
-    case stemmedWord.endsWith('ization'):
-      stemmedWord = stemmedWord.replace('ization', 'ize');
-      break;
-    case stemmedWord.endsWith('ation'):
-      stemmedWord = stemmedWord.replace('ation', 'ate');
-      break;
-    case stemmedWord.endsWith('ator'):
-      stemmedWord = stemmedWord.replace('ator', 'ate');
-      break;
-    case stemmedWord.endsWith('alism'):
-      stemmedWord = stemmedWord.replace('alism', 'al');
-      break;
-    case stemmedWord.endsWith('iveness'):
-      stemmedWord = stemmedWord.replace('iveness', 'ive');
-      break;
-    case stemmedWord.endsWith('fulness'):
-      stemmedWord = stemmedWord.replace('fulness', 'ful');
-      break;
-    case stemmedWord.endsWith('ousness'):
-      stemmedWord = stemmedWord.replace('ousness', 'ous');
-      break;
-    case stemmedWord.endsWith('aliti'):
-      stemmedWord = stemmedWord.replace('aliti', 'al');
-      break;
-    case stemmedWord.endsWith('iviti'):
-      stemmedWord = stemmedWord.replace('iviti', 'ive');
-      break;
-    case stemmedWord.endsWith('biliti'):
-      stemmedWord = stemmedWord.replace('biliti', 'ble');
-      break;
-    default:
-      break;
-  }
-  switch (true) {
-    case stemmedWord.endsWith('icate'):
-      stemmedWord = stemmedWord.replace('icate', 'ic');
-      break;
-    case stemmedWord.endsWith('ative'):
-      stemmedWord = stemmedWord.replace('ative', '');
-      break;
-    case stemmedWord.endsWith('alize'):
-      stemmedWord = stemmedWord.replace('alize', 'al');
-      break;
-    case stemmedWord.endsWith('iciti'):
-      stemmedWord = stemmedWord.replace('iciti', 'ic');
-      break;
-    case stemmedWord.endsWith('ical'):
-      stemmedWord = stemmedWord.replace('ical', 'ic');
-      break;
-    case stemmedWord.endsWith('ful'):
-      stemmedWord = stemmedWord.replace('ful', '');
-      break;
-    case stemmedWord.endsWith('ness'):
-      stemmedWord = stemmedWord.replace('ness', '');
-      break;
-    default:
-      break;
-  }
-  // Step 4
-  let m = measureFunc(stemmedWord);
-  if (m > 1) {
-    if (stemmedWord.endsWith('al')) {
-      stemmedWord = stemmedWord.slice(0, -2);
-    } else if (stemmedWord.endsWith('ance')) {
-      stemmedWord = stemmedWord.slice(0, -4);
-    } else if (stemmedWord.endsWith('ence')) {
-      stemmedWord = stemmedWord.slice(0, -4);
-    } else if (stemmedWord.endsWith('er')) {
-      stemmedWord = stemmedWord.slice(0, -2);
-    } else if (stemmedWord.endsWith('ic')) {
-      stemmedWord = stemmedWord.slice(0, -2);
-    } else if (stemmedWord.endsWith('able')) {
-      stemmedWord = stemmedWord.slice(0, -4);
-    } else if (stemmedWord.endsWith('ible')) {
-      stemmedWord = stemmedWord.slice(0, -4);
-    } else if (stemmedWord.endsWith('ant')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('ement')) {
-      stemmedWord = stemmedWord.slice(0, -5);
-    } else if (stemmedWord.endsWith('ment')) {
-      stemmedWord = stemmedWord.slice(0, -4);
-    } else if (stemmedWord.endsWith('ent')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if ((stemmedWord.endsWith('s') || stemmedWord.endsWith('t')) && stemmedWord.endsWith('ion')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('ou')) {
-      stemmedWord = stemmedWord.slice(0, -2);
-    } else if (stemmedWord.endsWith('ism')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('ate')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('iti')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('ous')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('ive')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    } else if (stemmedWord.endsWith('ize')) {
-      stemmedWord = stemmedWord.slice(0, -3);
-    }
-  }
-  // Step 5 a & b
-  m = measureFunc(stemmedWord);
-  const endsWithDoubleConsonant = /(bb|dd|ff|gg|mm|nn|pp|rr|tt)$/.test(stemmedWord);
-  const endsWithL = /[^aeiou]l$/.test(stemmedWord);
-  if (m > 1 && stemmedWord.endsWith('e')) {
-    if (stemmedWord.endsWith('ee') || stemmedWord.endsWith('oe')) {
-      return stemmedWord;
-    }
-    if (endsWithL && !stemmedWord.endsWith('le')) {
-      return stemmedWord.slice(0, -1);
-    }
-    if (!endsWithDoubleConsonant && !endsWithL && !stemmedWord.endsWith('o')) {
-      return stemmedWord.slice(0, -1);
-    }
-  } else if (m === 1 && !word.endsWith('o') && stemmedWord.endsWith('e')) {
-    return stemmedWord.slice(0, -1);
-  }
-  if (m > 1 && endsWithDoubleConsonant && /[lsz]$/.test(stemmedWord.slice(-3, -2))) {
-    return stemmedWord.slice(0, -1);
-  }
-  return stemmedWord;
-}
-*/
-const step2list = {
+const natural = require('natural');
+
+/* const step2list = {
   ational: 'ate',
   tional: 'tion',
   enci: 'ence',
@@ -291,7 +50,7 @@ see also http://www.tartarus.org/~martin/PorterStemmer
 
 Release 1 be 'andargor', Jul 2004
 Release 2 (substantially revised) by Christopher McKenzie, Aug 2009
-*/
+
 function stemmer(word) {
   let stem;
   let suffix;
@@ -427,7 +186,7 @@ function stemmer(word) {
   }
 
   return w;
-}
+} */
 
 function removeStopwords(query, stopwords) {
   const words = query.toLowerCase().split(/\W+/);
@@ -437,6 +196,10 @@ function removeStopwords(query, stopwords) {
 function containsStopword(userInput) {
   const query = userInput;
   const stopWords = new Set([
+    'course',
+    'courses',
+    'class',
+    'classes',
     'a',
     'able',
     'about',
@@ -1107,12 +870,8 @@ function containsStopword(userInput) {
 function processQuery(userInput) {
   const keywords = containsStopword(userInput);
   const keywordArray = keywords.split(' ');
-  /* let stemmedArray = [];
   for (let i = 0; i < keywordArray.length; i += 1) {
-    stemmedArray.push(stemWord(keywordArray[i]));
-  } */
-  for (let i = 0; i < keywordArray.length; i += 1) {
-    keywordArray[i] = stemmer(keywordArray[i]);
+    keywordArray[i] = natural.LancasterStemmer.stem(keywordArray[i]);
   }
   console.log(keywordArray);
   return keywordArray;

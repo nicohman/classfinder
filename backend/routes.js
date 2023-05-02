@@ -40,7 +40,7 @@ const getClass = (req, res) => {
         if (req.query.courseTitle.length === 0) {
           return;
         }
-        queryObject.course_title = { [Op.match]: req.query.courseTitle };
+        queryObject.title = { [Op.match]: req.query.courseTitle };
         return;
       case 'days':
        // queryObject['TimeLocations.days'] = { $all: req.query.days.split(',') };
@@ -83,7 +83,8 @@ const getClass = (req, res) => {
   console.log(queryObject);
 
   const query = Class.findAll({
-    where: queryObject
+    where: queryObject,
+    include: [Description,StemmedDescription],
   });
   query.then((classes) => {
     res.send(classes);
@@ -104,19 +105,17 @@ const getInstructors = (req, res) => {
 
 const keywordSearch = (req, res) => {
   const keywords = req.query.keywords;
-  StemmedDescription.find({ $text:{ $search: req.query.keywords }},null,  {limit: 5}, (err, descs)  => {
-    const dMap = {};
-      if (err) {
-        throw err;
-      } else {
-        Class.find({Name: {$in: descs.map((x) => { dMap[x.Name] = x; return x.Name; })}}, (err, classes) => {
-          res.send(classes.map((c, i) => {
-            c.Description = dMap[c.Name].Description;
-            return c;
-          }));  
-        });
-      
+  StemmedDescription.findAll({
+    where: {
+      description: {
+        [Op.match]: req.query.keywords
       }
+    },
+    limit: 10,
+  }).then((descs) => {
+      Class.findAll({where: {name: {[Op.in]: descs.map((x) => {  return x.name; })}}, include: [Description]}).then((classes) => {
+        res.send(classes);  
+      });
   });
 };
 

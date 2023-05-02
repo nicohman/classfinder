@@ -150,8 +150,8 @@ const StemmedDescription = sequelize.define('StemmedDescription', {
   tableName: 'stemmed_descriptions',
   timestamps: false
 });
-Class.hasOne(Description, {targetKey: 'name', foreignKey: 'name'});
-Class.hasOne(StemmedDescription, {targetKey: 'name', foreignKey: 'name'});
+Class.hasOne(Description, {sourceKey: 'name', foreignKey: 'name'});
+Class.hasOne(StemmedDescription, {sourceKey: 'name', foreignKey: 'name'});
 module.exports = {
   Class,Description,StemmedDescription
 };

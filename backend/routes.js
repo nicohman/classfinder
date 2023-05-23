@@ -16,7 +16,21 @@ const getClass = (req, res) => {
         }
         queryObject.Gurs.$all.push(req.query.gur);
         return;*/
+        queryObject.gurs = {
+          [Op.contains]: req.query.gur,
+        };
+        return;
       case 'other':
+        const attr = [];
+        if (req.query.other.includes(" ")) {
+          attr = attr.concat(req.query.other.split(" "));
+        } else {
+          attr.push(req.query.other);
+        }
+        queryObject.attributes = {
+          [Op.contains]: attr,
+        };
+        return;
         /*if (!queryObject.Attributes) {
           queryObject.Attributes = { $all: [] };
         }
@@ -94,12 +108,11 @@ const getClass = (req, res) => {
 };
 
 const getInstructors = (req, res) => {
-  Class.distinct('Instructor', (err, instructors) => {
-    if (err) {
-      throw err;
-    } else {
-      res.send(instructors);
-    }
+  Class.aggregate('instructor', 'DISTINCT',{ plain: false }).then((instructors) => {
+
+      res.send(instructors.map((x) => {
+        return x.DISTINCT;
+      }));
   });
 };
 

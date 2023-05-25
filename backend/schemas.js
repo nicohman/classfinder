@@ -146,6 +146,9 @@ const StemmedDescription = sequelize.define('StemmedDescription', {
   description: {
     type: DataTypes.STRING,
   },
+  wasstemmed: {
+    type: DataTypes.NUMBER,
+  },
 }, {
   tableName: 'stemmed_descriptions',
   timestamps: false

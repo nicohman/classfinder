@@ -46,6 +46,7 @@ sequelize.authenticate().then(() => {
     }, app).listen(process.env.CF_API_PORT);
     httpRedirecter.listen(80);
   }
+  
 });
 
 

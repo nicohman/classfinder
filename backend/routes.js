@@ -1,4 +1,4 @@
-const { Op } = require('sequelize');
+const { Op, fn } = require('sequelize');
 const { Class, Description, StemmedDescription } = require('./schemas');
 const getClass = (req, res) => {
   const queryObject = {};
@@ -108,7 +108,6 @@ const getClass = (req, res) => {
 
 const getInstructors = (req, res) => {
   Class.aggregate('instructor', 'DISTINCT',{ plain: false }).then((instructors) => {
-
     res.send(instructors.map((x) => {
       return x.DISTINCT;
     }));
@@ -126,7 +125,8 @@ async function startUp() {
         }).join(" ");
         return StemmedDescription.update({
           description: newDesc,
-          wasstemmed: 1
+          wasstemmed: 1,
+          tsdoc:  fn('to_tsquery', newDesc),
         }, {
           where: {
             name: desc.name
@@ -143,13 +143,14 @@ const keywordSearch = (req, res) => {
   const keywords = req.query.keywords;
   StemmedDescription.findAll({
     where: {
-      description: {
-        [Op.match]: req.query.keywords
-      }
+      tsdoc: {
+        [Op.match]: fn('to_tsquery', req.query.keywords),
+      },
+      term: 'Fall 2023',
     },
     limit: 10,
   }).then((descs) => {
-    Class.findAll({where: {name: {[Op.in]: descs.map((x) => {  return x.name; })}}, include: [Description]}).then((classes) => {
+    Class.findAll({where: {name: {[Op.in]: descs.map((x) => {  return x.name; })}, term: 'Fall 2023'}, include: [Description]}).then((classes) => {
       res.send(classes);  
     });
   });

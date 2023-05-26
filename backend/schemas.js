@@ -149,6 +149,9 @@ const StemmedDescription = sequelize.define('StemmedDescription', {
   wasstemmed: {
     type: DataTypes.NUMBER,
   },
+  tsdoc: {
+    type: DataTypes.TSVECTOR,
+  }
 }, {
   tableName: 'stemmed_descriptions',
   timestamps: false

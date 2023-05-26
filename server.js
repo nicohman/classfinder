@@ -37,7 +37,7 @@ sequelize.authenticate().then(() => {
   console.log(`connected to ${process.env.DATABASE_URL}`);
   if (process.env.CF_DEV_MODE === 'true') {
     console.log('Starting development server locally');
-    app.listen(8081);
+    app.listen(8082);
   } else {
     console.log('Starting production server');
     https.createServer({

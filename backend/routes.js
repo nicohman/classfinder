@@ -126,7 +126,7 @@ async function startUp() {
         return StemmedDescription.update({
           description: newDesc,
           wasstemmed: 1,
-          tsdoc:  fn('to_tsquery', newDesc),
+          tsdoc:  fn('to_tsvector', newDesc),
         }, {
           where: {
             name: desc.name

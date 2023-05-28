@@ -10,14 +10,14 @@
     <strong>Description</strong>
     : {{item.Description}}
     <br />
-    <span v-if="item.PrerequisiteText">
+    <span v-if="item.prerequisite_text">
       <strong>Prerequisites</strong>
-      : {{item.PrerequisiteText}}
+      : {{item.prerequisite_text}}
       <br />
     </span>
-    <span v-if="item.Attributes.length > 0">
+    <span v-if="item.attributes.length > 0">
       <strong>Other Attributes</strong>
-      : {{item.Attributes.join(',')}}
+      : {{item.attributes.join(',')}}
     </span>
   </td>
 </template>

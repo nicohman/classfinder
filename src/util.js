@@ -9,17 +9,17 @@ async function fetchClasses(queryString) {
   );
   const data = res.data.map((i) => {
     // eslint-disable-next-line no-param-reassign
-    i.GUR = i.Attributes.filter((a) => gurList.indexOf(a) !== -1);
-    if (i.GUR.length > 0) {
+    i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
+    if (i.gurs.length > 0) {
       // eslint-disable-next-line no-param-reassign,prefer-destructuring
-      i.Attributes = i.Attributes.filter((a) => a !== i.GUR[0]);
+      i.attributes = i.attributes.filter((a) => a !== i.gurs[0]);
     }
     let color = 'green';
-    if (i.Available <= 0) {
+    if (i.available <= 0) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.Capacity} / ${i.Enrolled} / <span style="color:${color}">${i.Available}</span>`;
+    i.CourseCount = `${i.capacity} / ${i.enrolled} / <span style="color:${color}">${i.available}</span>`;
     return i;
   });
   return data;
@@ -31,17 +31,17 @@ async function fetchClassesNLP(queryString) {
   );
   const data = res.data.map((i) => {
     // eslint-disable-next-line no-param-reassign
-    i.GUR = i.Attributes.filter((a) => gurList.indexOf(a) !== -1);
-    if (i.GUR.length > 0) {
+    i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
+    if (i.gurs.length > 0) {
       // eslint-disable-next-line no-param-reassign,prefer-destructuring
-      i.Attributes = i.Attributes.filter((a) => a !== i.GUR[0]);
+      i.attributes = i.attributes.filter((a) => a !== i.gurs[0]);
     }
     let color = 'green';
-    if (i.Available <= 0) {
+    if (i.available <= 0) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.Capacity} / ${i.Enrolled} / <span style="color:${color}">${i.Available}</span>`;
+    i.CourseCount = `${i.capacity} / ${i.enrolled} / <span style="color:${color}">${i.available}</span>`;
     return i;
   });
   return data;
@@ -83,10 +83,10 @@ function dayNumToWord(num) {
   }
 }
 function parseScratchDates(item) {
-  return item.TimeLocations.filter((d) => d).map((d) => d.days.map((i) => {
+  return item.time_locations.filter((d) => d).map((d) => d.days.map((i) => {
     const startDate = new Date();
-    startDate.setDate(item.StartDate.split('/')[1]);
-    startDate.setMonth(item.StartDate.split('/')[0] - 1);
+    startDate.setDate(item.start_date.split('/')[1]);
+    startDate.setMonth(item.start_date.split('/')[0] - 1);
     startDate.setDate(startDate.getDate() + (dayLetterToNum(i) - startDate.getDay()));
     const endDate = new Date(startDate.toString());
     let startHours = parseInt(d.startTime.split(':')[0], 10);
@@ -102,10 +102,10 @@ function parseScratchDates(item) {
     endDate.setHours(endHours);
     endDate.setMinutes(d.endTime.split(':')[1]);
     return {
-      CRN: item.CRN,
+      CRN: item.crn,
       description: item.Description,
-      name: item.Name,
-      title: item.Title,
+      name: item.name,
+      title: item.title,
       start: convertToCalenderFormat(startDate),
       end: convertToCalenderFormat(endDate),
       startDate,

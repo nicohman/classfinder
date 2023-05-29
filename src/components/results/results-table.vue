@@ -6,26 +6,26 @@
     :search="search"
     :show-expand="$vuetify.breakpoint.smAndUp"
     :disable-sort="$vuetify.breakpoint.xsOnly"
-    item-key="CRN"
+    item-key="crn"
     max-width="100vw"
     :disable-pagination=disablePagination
     :hide-default-footer=hideDefaultFooter
     @click:row="handleClickRow"
     :expanded.sync="expandedItems"
   >
-    <template v-slot:item.Available="{header, value}">
+    <template v-slot:item.available="{header, value}">
       <v-chip v-bind:color="value > 0 ? 'green' : 'red'">{{value}}</v-chip>
     </template>
-    <template v-slot:item.CourseCount="{header, value}">
+    <template v-slot:item.course_count="{header, value}">
       <span v-html="value"></span>
     </template>
-    <template v-slot:item.TimeLocations="{header, value}">
+    <template v-slot:item.time_locations="{header, value}">
       <span v-html="displayTimeLocation(value)"></span>
     </template>
-    <template v-slot:item.Synchronous="{header, value}">
+    <template v-slot:item.synchronous="{header, value}">
       <span v-html="displaySync(value)"></span>
     </template>
-    <template v-slot:item.Remote="{header, value}">
+    <template v-slot:item.remote="{header, value}">
       <span v-html="displayRemote(value)"></span>
     </template>
 
@@ -112,16 +112,16 @@ export default {
   },
   data: () => ({
     headers: [
-      { text: 'Open Spots', value: 'Available' },
-      { text: 'Class Code', value: 'Name' },
-      { text: 'CRN', value: 'CRN' },
-      { text: 'Class Name', value: 'Title' },
-      { text: 'Cap/Enrolled/Open', value: 'CourseCount' },
-      { text: 'Instructor', value: 'Instructor' },
-      { text: 'GUR Attributes', value: 'Gurs' },
-      { text: 'Meetings', value: 'TimeLocations' },
-      { text: 'Sync/Async', value: 'Synchronous' },
-      { text: 'F2F/Remote', value: 'Remote' },
+      { text: 'Open Spots', value: 'available' },
+      { text: 'Class Code', value: 'name' },
+      { text: 'CRN', value: 'crn' },
+      { text: 'Class Name', value: 'title' },
+      { text: 'Cap/Enrolled/Open', value: 'course_count' },
+      { text: 'Instructor', value: 'instructor' },
+      { text: 'GUR Attributes', value: 'gurs' },
+      { text: 'Meetings', value: 'time_locations' },
+      { text: 'Sync/Async', value: 'synchronous' },
+      { text: 'F2F/Remote', value: 'remote' },
       { text: '', value: 'scratchBtn' },
       { text: '', value: 'data-table-expand' },
     ],
@@ -193,8 +193,8 @@ export default {
     },
     displayTimeLocation(timeLocs) {
       if (timeLocs && timeLocs.length > 0 && timeLocs[0]) {
-        const strings = timeLocs.filter((i) => i).map(
-          (i) => `${i.location ? `${i.location}: ` : ''}${i.days.join('')} ${i.startTime}-${i.endTime}`,
+        const strings = timeLocs.filter((i) => i).map((i) => JSON.parse(i)).map(
+          (i) => `${i.location ? `${i.location}: ` : ''}${i.days.join('')} ${i.start_time}-${i.end_time}`,
         );
         return strings.join('<br />');
       }

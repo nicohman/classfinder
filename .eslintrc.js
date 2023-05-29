@@ -18,6 +18,9 @@ module.exports = {
     'prefer-destructuring': 'off',
     'vue/no-unused-components': 'off',
     'vue/no-unused-vars': 'off',
-    'linebreak-style': 0
+    'linebreak-style': 0,
+    'vue/valid-v-slot':'off',
+    'vue/no-dupe-keys':'off',
+    'no-param-reassign':'off',
   }
 };

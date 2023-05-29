@@ -19,7 +19,7 @@ async function fetchClasses(queryString) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.capacity} / ${i.enrolled} / <span style="color:${color}">${i.available}</span>`;
+    i.course_count = `${i.capacity} / ${i.enrolled} / <span style="color:${color}">${i.available}</span>`;
     return i;
   });
   return data;
@@ -41,7 +41,7 @@ async function fetchClassesNLP(queryString) {
       color = 'red';
     }
     // eslint-disable-next-line no-param-reassign
-    i.CourseCount = `${i.capacity} / ${i.enrolled} / <span style="color:${color}">${i.available}</span>`;
+    i.course_count = `${i.capacity} / ${i.enrolled} / <span style="color:${color}">${i.available}</span>`;
     return i;
   });
   return data;
@@ -83,14 +83,16 @@ function dayNumToWord(num) {
   }
 }
 function parseScratchDates(item) {
-  return item.time_locations.filter((d) => d).map((d) => d.days.map((i) => {
+  return item.time_locations.filter((d) => d).map((d) => {
+    d = JSON.parse(d);
+    return d.days.map((i) => {
     const startDate = new Date();
     startDate.setDate(item.start_date.split('/')[1]);
     startDate.setMonth(item.start_date.split('/')[0] - 1);
     startDate.setDate(startDate.getDate() + (dayLetterToNum(i) - startDate.getDay()));
     const endDate = new Date(startDate.toString());
-    let startHours = parseInt(d.startTime.split(':')[0], 10);
-    let endHours = parseInt(d.endTime.split(':')[0], 10);
+    let startHours = parseInt(d.start_time.split(':')[0], 10);
+    let endHours = parseInt(d.end_time.split(':')[0], 10);
     if (startHours < config.calendarStartHour) {
       startHours += 12;
       endHours += 12;
@@ -98,12 +100,12 @@ function parseScratchDates(item) {
       endHours += 12;
     }
     startDate.setHours(startHours);
-    startDate.setMinutes(d.startTime.split(':')[1]);
+    startDate.setMinutes(d.start_time.split(':')[1]);
     endDate.setHours(endHours);
-    endDate.setMinutes(d.endTime.split(':')[1]);
+    endDate.setMinutes(d.end_time.split(':')[1]);
     return {
       CRN: item.crn,
-      description: item.Description,
+      description: item.description,
       name: item.name,
       title: item.title,
       start: convertToCalenderFormat(startDate),
@@ -111,7 +113,8 @@ function parseScratchDates(item) {
       startDate,
       endDate,
     };
-  }))
+  });
+  })
     .flat()
     .flat()
     .flat();

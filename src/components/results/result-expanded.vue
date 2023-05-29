@@ -5,10 +5,10 @@
     : {{item.Credits}}
     <br />
     <strong>Dates</strong>
-    {{item.StartDate}}-{{item.EndDate}}
+    {{item.start_date}}-{{item.end_date}}
     <br />
     <strong>Description</strong>
-    : {{item.Description}}
+    : {{item.Description.description}}
     <br />
     <span v-if="item.prerequisite_text">
       <strong>Prerequisites</strong>

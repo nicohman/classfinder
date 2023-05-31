@@ -120,7 +120,7 @@ async function startUp() {
     StemmedDescription.findAll({where: {wasstemmed: null}}).then((descs) => {
       console.log(`Stemming janitor found ${descs.length} unstemmed descriptions`);
       Promise.all(descs.map((desc) => {
-        const newDesc = desc.description.split(' ').map((x) => {
+        const newDesc = (desc.description + desc.name).split(' ').map((x) => {
           return lancasterStemmer.lancasterStemmer(x);
         }).join(" ");
         return StemmedDescription.update({
@@ -144,7 +144,7 @@ const keywordSearch = (req, res) => {
   StemmedDescription.findAll({
     where: {
       tsdoc: {
-        [Op.match]: fn('to_tsquery', req.query.keywords),
+        [Op.match]: fn('to_tsquery', req.query.keywords.join(" | ")),
       },
       term: 'Fall 2023',
     },

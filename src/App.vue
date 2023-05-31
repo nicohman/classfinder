@@ -28,7 +28,7 @@
       >
         <v-tab>Search Classes</v-tab>
         <v-tab>Scratch Sheet</v-tab>
-        <v-tab>Schedule Builder</v-tab>
+        <!-- <v-tab>Schedule Builder</v-tab> -->
       </v-tabs>
       <v-tooltip right>
         <span>Fun Statistics</span>

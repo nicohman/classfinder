@@ -4,6 +4,7 @@ const gurList = require('./selectOptions').gurs.map((i) => i.code);
 const config = require('../config.json');
 
 async function fetchClasses(queryString) {
+  console.log('fetch');
   const res = await axios.get(
     `https://classfinder.nicohman.com/searchClasses?${queryString}`,
   );
@@ -26,6 +27,7 @@ async function fetchClasses(queryString) {
 }
 
 async function fetchClassesNLP(queryString) {
+  console.log('fetchnlp');
   const res = await axios.get(
     `https://classfinder.nicohman.com/keywordSearch?keywords=${queryString}`,
   );

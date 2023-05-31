@@ -1,5 +1,5 @@
 module.exports = {
-  terms: [{ value: 'Fall 2022' }, { value: 'Winter 2023' }, { value: 'Spring 2023' }], // local version only has data for current academic year
+  terms: [{ value: 'Fall 2023' }, { value: 'Winter 2023' }, { value: 'Spring 2024' }], // local version only has data for current academic year
   remote: [{ value: 0, text: 'In-person' }, { value: 1, text: 'Remote' }, { value: 2, text: 'Hybrid' }],
   sync: [{ value: 0, text: 'Synchronous' }, { value: 1, text: 'Asynchronous' }, { value: 2, text: 'Blended' }],
   gurs: [

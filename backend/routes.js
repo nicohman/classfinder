@@ -16,10 +16,9 @@ const getClass = (req, res) => {
         queryObject.Gurs.$all.push(req.query.gur);
         return;*/
        if (!queryObject.gurs) {
-          queryObject.gurs = { [Op.contains]: [],[Op.cast]: 'text[]' };
+          queryObject.gurs = { [Op.contains]: []};
         }
       queryObject.gurs[Op.contains].push(req.query.gur);
-      queryObject.gurs = literal(`"${queryObject.gurs[Op.contains]}"::text[]`);
       return;
     case 'other':
       const attr = [];
@@ -96,7 +95,7 @@ const getClass = (req, res) => {
   });
   res.set('Cache-Control', 'no-cache');
   console.log(queryObject);
-
+  queryObject.gurs[Op.contains] = literal(`ARRAY${JSON.stringify(queryObject.gurs[Op.contains]).replaceAll('"', "'")}::text[]`);
   const query = Class.findAll({
     where: queryObject,
     include: [Description,StemmedDescription],

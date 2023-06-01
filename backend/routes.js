@@ -1,4 +1,4 @@
-const { Op, fn } = require('sequelize');
+const { Op, fn, col } = require('sequelize');
 const { Class, Description, StemmedDescription } = require('./schemas');
 const getClass = (req, res) => {
   const queryObject = {};
@@ -140,18 +140,31 @@ async function startUp() {
   setInterval(stemDescriptions, 20000);
 }
 const keywordSearch = (req, res) => {
-  const keywords = req.query.keywords;
+  const keywords = req.query.keywords.split(" ");
   StemmedDescription.findAll({
+    attributes: {
+      include: [
+        [fn('ts_rank_cd', col('tsdoc'), fn('to_tsquery', keywords.join(" | ")), 32), 'rank']
+      ],
+    },
     where: {
       tsdoc: {
-        [Op.match]: fn('to_tsquery', req.query.keywords.join(" | ")),
+        [Op.match]: fn('to_tsquery', keywords.join(" | ")),
       },
       term: 'Fall 2023',
     },
-    limit: 10,
+    order: [['rank', 'DESC']],
+    limit: 30,
   }).then((descs) => {
+    console.log(descs);
     Class.findAll({where: {name: {[Op.in]: descs.map((x) => {  return x.name; })}, term: 'Fall 2023'}, include: [Description]}).then((classes) => {
-      res.send(classes);  
+      const newClasses = [];
+      descs.forEach((d) => {
+        newClasses.push(classes.find((x) => {
+          return x.name === d.name;
+        }));
+      });
+      res.send(newClasses);  
     });
   });
 };

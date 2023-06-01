@@ -122,7 +122,7 @@ async function startUp() {
     StemmedDescription.findAll({where: {wasstemmed: null}, include: [Class]}).then((descs) => {
       console.log(`Stemming janitor found ${descs.length} unstemmed descriptions`);
       Promise.all(descs.map((desc) => {
-        const newDesc = (desc.description + desc.Class.title + desc.Class.attributes.join(" ") + desc.Class.gurs.join(" ")).split(' ').map((x) => {
+        const newDesc = (desc.description + " " desc.Class.title + " " + desc.Class.attributes.join(" ") + " " + desc.Class.gurs.join(" ")).split(' ').map((x) => {
           return lancasterStemmer.lancasterStemmer(x);
         }).join(" ");
         return StemmedDescription.update({

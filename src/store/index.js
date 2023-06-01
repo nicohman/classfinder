@@ -49,7 +49,10 @@ export default new Vuex.Store({
       state.results = toSet;
     },
     rmScratch(state, item) {
-      state.scratch = state.scratch.filter((i) => i.crn !== item.crn);
+      state.scratch = state.scratch.filter((i) => {
+        console.log(i);
+      return i.crn !== item.crn;
+    });
     },
     setRoute(state, r) {
       state.route = r;

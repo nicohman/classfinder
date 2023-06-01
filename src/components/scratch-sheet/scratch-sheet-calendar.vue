@@ -66,7 +66,7 @@ export default {
   props: { term: String, classEvents: Array, sheetEmptyForTerm: Boolean },
   data: () => ({
     config,
-    selectedClass: null,
+    selectedClass: {},
     selectedOpen: false,
     selectedElement: null,
     cardClass: undefined,
@@ -86,8 +86,9 @@ export default {
     rmClass() {
       this.selectedOpen = false;
       const gotClass = this.getScratch().filter(
-        (i) => i.crn === this.selectedClass.crn,
+        (i) => i.crn === this.selectedClass.CRN,
       )[0];
+      console.log(gotClass);
       this.rmScratch(gotClass);
     },
     ...mapGetters(['getScratch', 'getScratchClassByCRN']),

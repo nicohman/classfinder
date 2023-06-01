@@ -139,10 +139,11 @@ export default {
   },
   methods: {
     handleClickRow(item, _, event) {
+    console.log(event);
       if (
         event.target.type === 'BUTTON'
         // || event.target.className === 'v-btn__content'
-        || event.target.parentElement.type === 'button'
+        || (event.target.parentElement && event.target.parentElement.type === 'button')
       ) {
         return null;
       }

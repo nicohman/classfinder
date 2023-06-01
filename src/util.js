@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-const gurList = require('./selectOptions').gurs.map((i) => i.code);
 const config = require('../config.json');
 
 async function fetchClasses(queryString) {
@@ -10,7 +9,7 @@ async function fetchClasses(queryString) {
   );
   const data = res.data.map((i) => {
     // eslint-disable-next-line no-param-reassign
-    i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
+    // i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
     if (i.gurs.length > 0) {
       // eslint-disable-next-line no-param-reassign,prefer-destructuring
       i.attributes = i.attributes.filter((a) => a !== i.gurs[0]);
@@ -34,7 +33,7 @@ async function fetchClassesNLP(queryString) {
   const data = res.data.filter((i) => i).map((i) => {
     // eslint-disable-next-line no-param-reassign
     console.log(i);
-    i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
+    // i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
     if (i.gurs.length > 0) {
       // eslint-disable-next-line no-param-reassign,prefer-destructuring
       i.attributes = i.attributes.filter((a) => a !== i.gurs[0]);

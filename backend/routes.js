@@ -97,7 +97,8 @@ const getClass = (req, res) => {
   console.log(queryObject);
   const str = JSON.stringify(queryObject.gurs[Op.contains]);
   console.log(str);
-  queryObject.gurs[Op.contains] = literal(`ARRAY${str.replaceAll('"', "'")}::text[]`);
+  const regex = /"/g;
+  queryObject.gurs[Op.contains] = literal(`ARRAY${str.replace(regex, "'")}::text[]`);
   const query = Class.findAll({
     where: queryObject,
     include: [Description,StemmedDescription],
@@ -123,7 +124,7 @@ async function startUp() {
     StemmedDescription.findAll({where: {wasstemmed: null}, include: [Class]}).then((descs) => {
       console.log(`Stemming janitor found ${descs.length} unstemmed descriptions`);
       Promise.all(descs.map((desc) => {
-        const newDesc = (desc.description + " " desc.Class.title + " " + desc.Class.attributes.join(" ") + " " + desc.Class.gurs.join(" ")).split(' ').map((x) => {
+        const newDesc = (desc.description + " " + desc.Class.title + " " + desc.Class.attributes.join(" ") + " " + desc.Class.gurs.join(" ")).split(' ').map((x) => {
           return lancasterStemmer.lancasterStemmer(x);
         }).join(" ");
         return StemmedDescription.update({

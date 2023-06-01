@@ -12,8 +12,8 @@
         <div v-else-if="sheetEmptyForTerm" justify="center" >
           Your scratch sheet for {{term}} has no classes with times
         </div>
-        <div v-else v-for="item in classesSet" :key="item.CRN">
-          <strong>{{ item.CRN }}</strong>{{ ` - ${item.Name} (${item.Title})` }}
+        <div v-else v-for="item in classesSet" :key="item.crn">
+          <strong>{{ item.crn }}</strong>{{ ` - ${item.name} (${item.title})` }}
           <br />
         </div>
       </v-card-text>

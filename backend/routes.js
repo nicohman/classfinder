@@ -96,6 +96,7 @@ const getClass = (req, res) => {
   res.set('Cache-Control', 'no-cache');
   console.log(queryObject);
   const str = JSON.stringify(queryObject.gurs[Op.contains]);
+  console.log(str);
   queryObject.gurs[Op.contains] = literal(`ARRAY${str.replaceAll('"', "'")}::text[]`);
   const query = Class.findAll({
     where: queryObject,

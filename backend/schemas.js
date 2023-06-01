@@ -158,6 +158,7 @@ const StemmedDescription = sequelize.define('StemmedDescription', {
 });
 Class.hasOne(Description, {sourceKey: 'name', foreignKey: 'name'});
 Class.hasOne(StemmedDescription, {sourceKey: 'name', foreignKey: 'name'});
+StemmedDescription.belongsTo(Class, {targetKey: 'name', foreignKey: 'name'})
 module.exports = {
   Class,Description,StemmedDescription
 };

@@ -118,10 +118,10 @@ const getInstructors = (req, res) => {
 async function startUp() {
   const lancasterStemmer = await import('lancaster-stemmer');
   const stemDescriptions = () => {
-    StemmedDescription.findAll({where: {wasstemmed: null}}).then((descs) => {
+    StemmedDescription.findAll({where: {wasstemmed: null}, include: [Class]}).then((descs) => {
       console.log(`Stemming janitor found ${descs.length} unstemmed descriptions`);
       Promise.all(descs.map((desc) => {
-        const newDesc = (desc.description + desc.name).split(' ').map((x) => {
+        const newDesc = (desc.description + desc.Class.name + desc.Class.attributes.join(" ")).split(' ').map((x) => {
           return lancasterStemmer.lancasterStemmer(x);
         }).join(" ");
         return StemmedDescription.update({
@@ -141,7 +141,7 @@ async function startUp() {
   setInterval(stemDescriptions, 20000);
 }
 const keywordSearch = (req, res) => {
-  const keywords = req.query.keywords.split(" ");
+  const keywords = req.query.keywords.split(",");
   StemmedDescription.findAll({
     attributes: {
       include: [

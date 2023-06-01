@@ -2,7 +2,7 @@
   <td :colspan="headers.length">
     <br />
     <strong>Credits</strong>
-    : {{item.Credits}}
+    : {{item.credits}}
     <br />
     <strong>Dates</strong>
     {{item.start_date}}-{{item.end_date}}

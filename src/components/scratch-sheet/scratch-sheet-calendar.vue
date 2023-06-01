@@ -86,7 +86,7 @@ export default {
     rmClass() {
       this.selectedOpen = false;
       const gotClass = this.getScratch().filter(
-        (i) => i.CRN === this.selectedClass.CRN,
+        (i) => i.crn === this.selectedClass.crn,
       )[0];
       this.rmScratch(gotClass);
     },

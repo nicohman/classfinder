@@ -22,5 +22,7 @@ module.exports = {
     'vue/valid-v-slot':'off',
     'vue/no-dupe-keys':'off',
     'no-param-reassign':'off',
+    'vue/no-mutating-props':'off',
+    'vue/no-v-text-v-html-on-component': 'off',
   }
 };

@@ -207,7 +207,7 @@ export default {
       window.history.back();
     },
     onScratch(item) {
-      return this.getScratch().some((i) => i.CRN === item.CRN);
+      return this.getScratch().some((i) => i.crn === item.crn);
     },
     checkScratchOverlap(item) {
       const allScratchDates = util.parseScratchDates(item);

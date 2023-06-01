@@ -1,4 +1,4 @@
-const { Op, fn, col } = require('sequelize');
+const { Op, fn, col, literal } = require('sequelize');
 const { Class, Description, StemmedDescription } = require('./schemas');
 const getClass = (req, res) => {
   const queryObject = {};
@@ -15,9 +15,11 @@ const getClass = (req, res) => {
         }
         queryObject.Gurs.$all.push(req.query.gur);
         return;*/
-      queryObject.gurs = {
-        [Op.contains]: req.query.gur,
-      };
+       if (!queryObject.gurs) {
+          queryObject.gurs = { [Op.contains]: [],[Op.cast]: 'text[]' };
+        }
+      queryObject.gurs[Op.contains].push(req.query.gur);
+      queryObject.gurs = literal(`"${queryObject.gurs[Op.contains]}"::text[]`);
       return;
     case 'other':
       const attr = [];

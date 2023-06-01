@@ -1,5 +1,4 @@
-const natural = require('natural');
-
+import { lancasterStemmer } from 'lancaster-stemmer';
 /* const step2list = {
   ational: 'ate',
   tional: 'tion',
@@ -867,16 +866,15 @@ function containsStopword(userInput) {
   }
   return query;
 }
+
 function processQuery(userInput) {
   const keywords = containsStopword(userInput);
   const keywordArray = keywords.split(' ');
   for (let i = 0; i < keywordArray.length; i += 1) {
-    keywordArray[i] = natural.LancasterStemmer.stem(keywordArray[i]);
+    keywordArray[i] = lancasterStemmer(keywordArray[i]);
   }
   console.log(keywordArray);
   return keywordArray;
 }
 
-module.exports = {
-  processQuery,
-};
+export default { processQuery };

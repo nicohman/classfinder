@@ -21,7 +21,7 @@ export default new Vuex.Store({
     getRoute(state) {
       return state.route;
     },
-    getScratchClassByCRN: (state) => (crn) => state.scratch.filter((i) => i.CRN === crn)[0],
+    getScratchClassByCRN: (state) => (crn) => state.scratch.filter((i) => i.crn === crn)[0],
     getRouteTitle(state) {
       switch (state.route) {
         case '/scratchsheet':
@@ -49,7 +49,7 @@ export default new Vuex.Store({
       state.results = toSet;
     },
     rmScratch(state, item) {
-      state.scratch = state.scratch.filter((i) => i.CRN !== item.CRN);
+      state.scratch = state.scratch.filter((i) => i.crn !== item.crn);
     },
     setRoute(state, r) {
       state.route = r;

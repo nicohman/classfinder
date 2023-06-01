@@ -151,7 +151,7 @@ import { mapMutations } from 'vuex';
 const selectOptions = require('../../selectOptions');
 const { instructors } = require('../../fetched.json');
 const util = require('../../util');
-const nlp = require('./nlp');
+const nlp = require('./nlp').default;
 
 selectOptions.instructors = instructors
   .sort()

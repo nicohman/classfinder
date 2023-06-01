@@ -95,7 +95,7 @@ export default {
       return this.getScratch().length === 0;
     },
     classEvents() {
-      const events = this.getScratch().filter((i) => i.Term === this.selectedTerm)
+      const events = this.getScratch().filter((i) => i.term === this.selectedTerm)
         .map((i) => i.scratchDates)
         .flat()
         .sort((a, b) => a.startDate - b.startDate); // for scratch-sheet-list
@@ -107,7 +107,7 @@ export default {
       return this.classEvents.length === 0;
     },
     classesSet() {
-      const classes = this.getScratch().filter((i) => i.Term === this.selectedTerm);
+      const classes = this.getScratch().filter((i) => i.term === this.selectedTerm);
       // console.log(`set of classes in ${this.selectedTerm}: ${JSON.stringify(classes, null, 2)}`);
       return classes;
     },

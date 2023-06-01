@@ -3,7 +3,7 @@
   <v-app style="background-color: rgb(250, 253, 255)">
     <MobileAppBar v-if="$vuetify.breakpoint.xsOnly"></MobileAppBar>
     <v-app-bar v-else app dark color="primary">
-      <img v-if="$vuetify.breakpoint.smAndUp" :src="require('./assets/classFinderLogo.jpeg')" height="40px" fluid />
+      <!--<img v-if="$vuetify.breakpoint.smAndUp" :src="require('./assets/classFinderLogo.jpeg')" height="40px" fluid />-->
       <!-- <v-img v-if="$vuetify.breakpoint.mdAndUp" :src="require('./assets/classFinderLogo.jpeg')" contain class="fill-height" style align-self="left" justify-self="left" fluid></v-img> -->
       <!-- <v-app-bar-nav-icon>
         <template v-slot:placeholder>
@@ -19,8 +19,8 @@
           </v-row>
         </template>
       </v-app-bar-nav-icon> -->
-      <!-- <v-spacer width="20vw"></v-spacer> -->
-      <!-- <v-toolbar-title class="grow">WWU ClassFinder</v-toolbar-title> -->
+      <v-spacer width="20vw"></v-spacer>
+     <v-toolbar-title class="grow">WWU ClassFinder</v-toolbar-title>
       <v-tabs
         :value="getRouteNumber()"
         @change="onTabChange($event)"
@@ -139,3 +139,9 @@ export default {
   },
 };
 </script>
+<style>
+#app {
+  background: url("./assets/classFinderLogo.jpeg") no-repeat center 35% fixed !important;
+    background-size: cover;
+}
+</style>

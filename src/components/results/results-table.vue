@@ -89,7 +89,7 @@
     </template>
 
     <template v-slot:footer v-if="results.length > 0">
-      <span class="text--secondary ml-10">These were last updated {{ timeFrom(results[0].FetchedAt) }}</span>
+      <span class="text--secondary ml-10"></span>
     </template>
   </v-data-table>
     <v-btn v-if="$vuetify.breakpoint.xsOnly">

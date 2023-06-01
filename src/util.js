@@ -31,8 +31,9 @@ async function fetchClassesNLP(queryString) {
   const res = await axios.get(
     `https://classfinder.nicohman.com/keywordSearch?keywords=${queryString}`,
   );
-  const data = res.data.map((i) => {
+  const data = res.data.filter((i) => i).map((i) => {
     // eslint-disable-next-line no-param-reassign
+    console.log(i);
     i.gurs = i.attributes.filter((a) => gurList.indexOf(a) !== -1);
     if (i.gurs.length > 0) {
       // eslint-disable-next-line no-param-reassign,prefer-destructuring
